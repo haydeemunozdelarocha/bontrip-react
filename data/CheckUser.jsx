@@ -1,12 +1,13 @@
 var axios = require('axios');
 
-const CHECK_LOGIN = 'http://localhost:8000/api/login/user';
-const LOGIN = 'http://localhost:8000/api/login';
-const SIGNUP = 'http://localhost:8000/api/login/signup';
+const PATH = 'http://localhost:8080/';
+const CHECK_LOGIN = 'api/login/user';
+const LOGIN = 'api/login';
+const SIGNUP = 'api/login/signup';
 
 module.exports = {
   checkUser:function(){
-    var requestUrl = `${CHECK_LOGIN}`;
+    var requestUrl = `${PATH}`+`${CHECK_LOGIN}`;
 
     return axios.request({
       method:'get',
@@ -26,7 +27,7 @@ module.exports = {
     })
   },
     loginUser:function(username,password){
-    var requestUrl = `${LOGIN}`;
+    var requestUrl = `${PATH}`+`${LOGIN}`;
 
     return axios.request({
       method:'post',
@@ -49,7 +50,7 @@ module.exports = {
     })
   },
   signupUser:function(username,password){
-    var requestUrl = `${SIGNUP}`;
+    var requestUrl = `${PATH}`+`${SIGNUP}`;
 
     return axios.request({
       method:'get',

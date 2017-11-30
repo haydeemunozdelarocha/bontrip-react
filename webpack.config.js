@@ -37,8 +37,11 @@ module.exports = {
       Filters:'app/components/Filters.jsx',
       SideExplore:'app/components/SideExplore.jsx',
       Planner:'app/components/Planner.jsx',
-      Mapa:'app/components/Mapa.jsx'
-    },
+      MapaContainer:'app/components/MapaContainer.jsx',
+      Mapa:'app/components/Mapa.jsx',
+      SidePlanner:'app/components/SidePlanner.jsx',
+      Item:'app/components/Item.jsx'
+          },
     extensions: ['','.js','.jsx']
   },
   module:{
@@ -46,11 +49,12 @@ module.exports = {
     {
       loader: 'babel-loader',
       query:{
+        plugins: ['transform-decorators-legacy' ],
         presets: ['react', 'es2015', 'stage-0']
       },
       test:/\.jsx?$/,
       exclude: /(node_modules|bower_components)/
-    }
+    }, { test: /\.css$/, loader: "style-loader!css-loader" }
     ]
   }
 };

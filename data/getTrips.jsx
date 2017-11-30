@@ -1,11 +1,12 @@
 var axios = require('axios');
 
-const GET_TRIPS = 'http://localhost:8000/api/trips';
-const SELECT_TRIP = 'http://localhost:8000/api/trips/select/';
+const PATH = 'http://localhost:8080/';
+const GET_TRIPS = 'api/trips';
+const SELECT_TRIP = 'api/trips/select/';
 
 module.exports = {
   getTrips:function(user_id){
-    var requestUrl = `${GET_TRIPS}`;
+    var requestUrl = `${PATH}`+`${GET_TRIPS}`;
 
     return axios.request({
       method:'get',
@@ -28,7 +29,7 @@ module.exports = {
   },
     selectTrip:function(tripId){
 
-    var requestUrl = `${SELECT_TRIP}`+tripId;
+    var requestUrl = `${PATH}`+`${SELECT_TRIP}`+tripId;
 
     return axios.request({
       method:'get',
@@ -38,6 +39,7 @@ module.exports = {
       }
     }).then(function(res,err){
       if(res){
+        console.log(res);
         return res;
       } else {
         return err;

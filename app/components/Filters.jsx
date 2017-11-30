@@ -13,26 +13,33 @@ var Filters = React.createClass({
     };
   },
   render: function () {
-
+var count = 1;
+var searchStyle  = {};
+var cityStyle  = {};
+if(this.props.tripSelected){
+  searchStyle.visibility = 'hidden';
+  searchStyle.display = 'none';
+} else {
+  cityStyle.visibility = 'hidden';
+  searchStyle.display = 'none';
+}
       return (
       <div className="row">
       <form>
       <div className="large-4 columns">
-       <input type="text" placeholder="Search"/>
+       <input type="text" placeholder="Search" style={searchStyle}/>
        </div>
        <div className="large-4 columns">
-         <select>
-            <option value="">Cities</option>
-            <option value="starbuck">Starbuck</option>
-            <option value="hotdog">Hot Dog</option>
-            <option value="apollo">Apollo</option>
+         <select id="city" style={cityStyle}>
+         <option>Select City</option>
+          {this.props.cities.map((x) => { count++; return <option id ='city{count}'>{x}</option>;})}
           </select>
           </div>
           <div className="large-4 columns">
-            <select>
+            <select id="searchby">
               <option value="">Search By</option>
-              <option value="redwing">All</option>
-              <option value="narcho">Recommended</option>
+              <option value="all">All</option>
+              <option value="recommended">Recommended</option>
             </select>
             </div>
        </form>

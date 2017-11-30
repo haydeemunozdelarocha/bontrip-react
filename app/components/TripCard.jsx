@@ -16,7 +16,7 @@ var TripCard = React.createClass({
       console.log(res.data);
       that.setState({
         tripId:trip_id,
-        city: res.data
+        cities: res.data
       })
       console.log(that.state);
         // browserHistory.push('/explore');
