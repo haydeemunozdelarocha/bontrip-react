@@ -3,10 +3,8 @@ var React= require('react');
 var Mapa= require('Mapa');
 import SidePlanner from 'SidePlanner';
 
-var key = process.env.GOOGLE_KEY;
-console.log(key);
-
-
+// var key = process.env.GOOGLE_KEY;
+var key="AIzaSyBFbdU04K-I7AsMCnUvfbDFLITWlZZIbfI";
 
 var MapaContainer = React.createClass({
   render() {
@@ -15,7 +13,7 @@ var MapaContainer = React.createClass({
     }
     return (
           <div>
-        <Mapa google={this.props.google}/>
+        <Mapa schedulePlace={this.props.schedulePlace} date={this.props.date} google={this.props.google}/>
       </div>
     )
   }

@@ -2,6 +2,10 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var Navigation = require('Navigation');
 var GetPlaces = require('GetPlaces');
+var WindowContent = require('./WindowContent');
+
+var $= require('jquery');
+
 import {Map, InfoWindow,Listing, Marker, GoogleApiWrapper} from 'google-maps-react';
 
 const style = {
@@ -11,9 +15,15 @@ const style = {
 
 const containerStyle = {
   width: '69%',
-  height: '100%'
+  height: '100%',
+  zIndex:-30
 }
-var key = process.env.GOOGLE_KEY;
+
+const stylewindow = {
+  zIndex:90
+}
+
+
 Map.propTypes = {
   google: React.PropTypes.object,
   zoom: React.PropTypes.number,
@@ -21,8 +31,9 @@ Map.propTypes = {
 }
 
 var Mapa = React.createClass({
-      getInitialState: function (){
-      console.log('getting initial state');
+    getInitialState: function (){
+    // this.handleClick = this.handleClick.bind(this);
+
     return {loaded:false,
       places:[],
       showingInfoWindow: false,
@@ -34,6 +45,11 @@ var Mapa = React.createClass({
       }
     };
   },
+  componentDidMount:function(){
+    console.log('yes',this.refs);
+
+     // ReactDOM.findDOMNode(this.refs.yes).addEventListener('nv-focus', this.handleSchedule);
+  },
     onMarkerClick: function(props, marker, e) {
     this.setState({
       selectedPlace: props,
@@ -42,7 +58,7 @@ var Mapa = React.createClass({
     });
   },
   fetchPlaces: function(mapProps,map) {
-    console.log('fetching places');
+
     var that = this;
     // const {google} = mapProps;
     // const service = new google.maps.places.PlacesService(map);
@@ -58,32 +74,32 @@ var Mapa = React.createClass({
 
       };
 
-    GetPlaces.getLikedPlaces(user._id.$oid,user.tripId).then(function(res){
-       that.setState({
-        loaded:true,
-        places:res.data,
-        location:{lat:res.data[0].coordinates.lat,
-          lng:res.data[0].coordinates.lon}
-      });
-    // that.loadMap(res.data[0].coordinates.lat,res.data[0].coordinates.lon);
-  },function(errorMessage){
-      this.setState({
-        loaded:true,
-        places:[]
-      })
-      return   alert(errorMessage);
-    })
+        GetPlaces.getLikedPlaces(user._id.$oid,user.tripId).then(function(res){
+           that.setState({
+            loaded:true,
+            places:res.data,
+            location:{lat:res.data[0].coordinates.lat,
+              lng:res.data[0].coordinates.lon}
+          });
+        // that.loadMap(res.data[0].coordinates.lat,res.data[0].coordinates.lon);
+      },function(errorMessage){
+          this.setState({
+            loaded:true,
+            places:[]
+          })
+          return   alert(errorMessage);
+        })
   },
    handleSchedule: function (e){
+    console.log('clicking');
     var id = this.props.place_id;
-    // console.log('handleMore',this.props);
-    this.props.viewPlace(id);
+    console.log(id);
+    // this.props.schedulePlace(id);
   },
   render: function() {
-    console.log('rendering');
-    console.log(this.state.location);
+
     return (
-      <Map google={this.props.google}
+      <Map ref="map" google={this.props.google}
         onReady={this.fetchPlaces}
         visible={this.state.loaded}
         center={this.state.location} zoom={11} containerStyle={containerStyle} style={style}>
@@ -93,11 +109,9 @@ var Mapa = React.createClass({
               <Marker onClick={this.onMarkerClick} key={place._id} name={place.name} photo={place.image} position={coordinates}></Marker>
               )
             })}
-          <InfoWindow marker={this.state.activeMarker}
-          visible={this.state.showingInfoWindow}><div>
-              <h4>{this.state.selectedPlace.name}</h4>
-              <img height="140px" width="140px" src={this.state.selectedPlace.photo} />
-            </div>
+          <InfoWindow  marker={this.state.activeMarker}
+          visible={this.state.showingInfoWindow} >
+          <WindowContent image={this.state.selectedPlace.id} image={this.state.selectedPlace.photo} name={this.state.selectedPlace.name}/>
         </InfoWindow>
       </Map>
     )

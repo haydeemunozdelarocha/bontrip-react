@@ -4,7 +4,6 @@ var ExploreCard = require('ExploreCard');
 var GetPlaces = require('GetPlaces');
 var Filters = require('Filters');
 var SideExplore = require('SideExplore');
-var $ = require('jquery');
 
 var exploreStyle = {
   height:'100%',
@@ -15,7 +14,6 @@ var exploreStyle = {
 var Explore = React.createClass({
 
     getInitialState: function (){
-      console.log('getting initial state');
       console.log(this.props.location.state);
 
       if(this.props.location.state){
@@ -24,7 +22,7 @@ var Explore = React.createClass({
         var referralState = null;
       }
 
-      return referralState || {places:[],venue:{name:''}};
+      return referralState || {places:[],venue:{name:''},cities:[]};
   },
   componentDidMount: function() {
       console.log(this.state);

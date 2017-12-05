@@ -25,7 +25,7 @@ var Navigation = React.createClass({
         <form onSubmit={this.onSearch}>
         <ul className="menu">
           <li><input type="search" placeholder="Search"/></li>
-          <li><button type="button" className="button">Search</button></li>
+          <li><button type="button" id="search" onClick={()=>{console.log('searching')}} className="button">Search</button></li>
         </ul>
         </form>
         </div>

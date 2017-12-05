@@ -2,7 +2,9 @@ import React, { Component } from 'react'
 import update from 'immutability-helper'
 import { DragDropContext } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
-import DayCard from './DayCard'
+import DayCard from './DayCard';
+var moment = require('moment');
+var GetPlaces = require('GetPlaces');
 
 const style = {
   width: '31%',
@@ -13,50 +15,25 @@ const style = {
   position:'absolute'
 }
 
+var SidePlanner = React.createClass({
 
-class SidePlanner extends Component {
-  constructor(props) {
-    super(props)
-    this.moveCard = this.moveCard.bind(this)
-    this.state = {
-      cards: [
-        {
-          id: 1,
-          text: 'Write a cool JS library',
-        },
-        {
-          id: 2,
-          text: 'Make it generic enough',
-        },
-        {
-          id: 3,
-          text: 'Write README',
-        },
-        {
-          id: 4,
-          text: 'Create some examples',
-        },
-        {
-          id: 5,
-          text:
-            'Spam in Twitter and IRC to promote it (note that this element is taller than the others)',
-        },
-        {
-          id: 6,
-          text: '???',
-        },
-        {
-          id: 7,
-          text: 'PROFIT',
-        },
-      ],
-    }
-  }
+  getInitialState: function(){
+    this.moveCard = this.moveCard.bind(this);
+    return {
+            tripId:"57bf7be55f67aef8082e7d91",
+            userId:"57aa78b2caf5ca16154f457c"
+        }
+  },
+  moveCard:function(dragIndex, hoverIndex) {
+    const { cards } = this.props.cards;
+    const dragCard = cards[dragIndex];
+    var that = this;
 
-  moveCard(dragIndex, hoverIndex) {
-    const { cards } = this.state
-    const dragCard = cards[dragIndex]
+    GetPlaces.changeOrder(cards[hoverIndex]._id,dragIndex,dragCard._id,hoverIndex).then(function(res){
+    }, function(errorMessage){
 
+      return   console.log(errorMessage);
+    })
     this.setState(
       update(this.state, {
         cards: {
@@ -64,27 +41,39 @@ class SidePlanner extends Component {
         },
       }),
     )
-  }
+  },
+    buildOptions:function() {
+    var dates =[];
+    var start = moment(new Date(this.props.start));
+    var end = moment(new Date(this.props.end));
 
-  render() {
-    const { cards } = this.state
-
+    for (var m = moment(start); m.diff(end, 'days') <= 0; m.add(1, 'days')) {
+      dates.push(m.format('MM-DD-YYYY'));
+    }
+        return dates;
+    },
+  render:function() {
+    const { cards } = this.props;
+    const dates = this.buildOptions();
+    var count = 0;
     return (
       <div style={style}>
-      <select>
-      <option value="">Select Day</option>
+      <select onChange={this.props.select} value={this.state.date}>
+      {dates.map((date,j)=>(
+        <option key={date} value={moment(date).format("MM-DD-YYYY")}>{moment(date).format("ddd DD/MM/YY")}</option>
+        ))}
       </select>
         {cards.map((card, i) => (
           <DayCard
-            key={card.id}
+            key={card._id}
             index={i}
-            id={card.id}
-            text={card.text}
+            id={card._id}
+            text={card.name}
             moveCard={this.moveCard}
           />
         ))}
       </div>
     )
   }
-}
+})
 export default DragDropContext(HTML5Backend)(SidePlanner);

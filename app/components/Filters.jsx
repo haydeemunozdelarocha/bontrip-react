@@ -7,7 +7,6 @@ var GetPlaces = require('GetPlaces');
 var Filters = React.createClass({
 
     getInitialState: function (){
-      console.log('getting initial state');
     return {
       searchText:''
     };
