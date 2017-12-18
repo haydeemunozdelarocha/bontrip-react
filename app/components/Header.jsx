@@ -34,7 +34,7 @@ const logo ={
 export var Header = React.createClass({
 
     loginButton:function(){
-      if(this.props.state.login.user){
+      if(this.props.state.login.user.length>0){
                 return <Navigation/>
       }
       else {
