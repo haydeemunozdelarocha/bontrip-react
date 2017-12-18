@@ -20,14 +20,11 @@ if(this.props.tripSelected){
   searchStyle.display = 'none';
 } else {
   cityStyle.visibility = 'hidden';
-  searchStyle.display = 'none';
+  cityStyle.display = 'none';
 }
       return (
       <div className="row" style={{marginTop:'2%'}}>
       <form>
-      <div className="large-4 columns">
-       <input type="text" placeholder="Search" style={searchStyle}/>
-       </div>
        <div className="large-4 columns">
          <select id="city" style={cityStyle}>
          <option>Select City</option>

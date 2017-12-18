@@ -15,9 +15,11 @@ var exploreStyle = {
 
 export var Explore = React.createClass({
   getInitialState: function(){
+    var cities =this.props.state.trip.selectedTrip.cities || this.props.location.state.cities;
     return {
     venue:{},
-    places:[]
+    places:[],
+    cities:cities
   }
   },
   componentDidMount: function() {
@@ -27,7 +29,7 @@ export var Explore = React.createClass({
   retrievePlaces: function (){
     console.log('getting places')
     var that = this;
-    var cities = that.props.state.trip.selectedTrip.cities;
+    var cities = that.state.cities;
     var city = cities[0];
     GetPlaces.getRecommended(city).then(function(res){
       that.setState({
@@ -66,7 +68,7 @@ export var Explore = React.createClass({
     })
   },
   render: function () {
-        console.log('rendering explore');
+  console.log('rendering explore');
   if(this.props.state.trip.selectedTrip.id){
     var trip = true;
   } else {
@@ -76,7 +78,7 @@ export var Explore = React.createClass({
       <div style={exploreStyle}>
       <Header />
       <div className="filters">
-      <Filters cities={this.props.state.trip.selectedTrip.cities} tripSelected={trip}/>
+      <Filters cities={this.state.cities} tripSelected={trip}/>
       </div>
       <SideExplore display="none" name={this.state.venue.name} description={this.state.venue.description} rating={this.state.venue.rating} photos={this.state.venue.photos}/>
       <div className="row" id="explore-container">

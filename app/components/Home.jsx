@@ -56,8 +56,11 @@ export var Home = React.createClass({
     this.checkUser();
   },
     checkUser: function (){
-    if(this.props.state.login.user){
+    if(this.props.state.login.user.length >0){
+      console.log(this.props.state.login.user)
       browserHistory.push({pathname: '/trips'});
+    } else {
+      return;
     }
   },
   switchImage:function(){
@@ -83,7 +86,7 @@ export var Home = React.createClass({
   handleNewRequest:function(text){
     var cities =[];
     cities.push(text.text);
-    this.setState({citiesData:[],cities:cities});
+    this.setState({cities:cities});
     browserHistory.push({pathname: '/explore', state: this.state});
 
   },

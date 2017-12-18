@@ -89,11 +89,11 @@
 
 	var _Home2 = _interopRequireDefault(_Home);
 
-	var _Explore = __webpack_require__(758);
+	var _Explore = __webpack_require__(757);
 
 	var _Explore2 = _interopRequireDefault(_Explore);
 
-	var _Login = __webpack_require__(762);
+	var _Login = __webpack_require__(761);
 
 	var _Login2 = _interopRequireDefault(_Login);
 
@@ -73079,7 +73079,7 @@
 	var _require2 = __webpack_require__(319),
 	    browserHistory = _require2.browserHistory;
 
-	var GetPlaces = __webpack_require__(757);
+	var GetPlaces = __webpack_require__(756);
 
 	var background = {
 	  width: '100%',
@@ -73129,8 +73129,11 @@
 	    this.checkUser();
 	  },
 	  checkUser: function checkUser() {
-	    if (this.props.state.login.user) {
+	    if (this.props.state.login.user.length > 0) {
+	      console.log(this.props.state.login.user);
 	      browserHistory.push({ pathname: '/trips' });
+	    } else {
+	      return;
 	    }
 	  },
 	  switchImage: function switchImage() {
@@ -73158,7 +73161,7 @@
 	  handleNewRequest: function handleNewRequest(text) {
 	    var cities = [];
 	    cities.push(text.text);
-	    this.setState({ citiesData: [], cities: cities });
+	    this.setState({ cities: cities });
 	    browserHistory.push({ pathname: '/explore', state: this.state });
 	  },
 	  render: function render() {
@@ -73203,88 +73206,6 @@
 
 /***/ },
 /* 756 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var axios = __webpack_require__(728);
-
-	var PATH = 'http://localhost:8080/';
-	var CHECK_LOGIN = 'api/login/user';
-	var LOGIN = 'api/login';
-	var SIGNUP = 'api/login/signup';
-
-	module.exports = {
-	  checkUser: function checkUser() {
-	    var requestUrl = '' + PATH + ('' + CHECK_LOGIN);
-
-	    return axios.request({
-	      method: 'get',
-	      url: requestUrl,
-	      headers: {
-	        'Content-Type': 'application/x-www-form-urlencoded'
-	      }
-	    }).then(function (res, err) {
-
-	      if (res) {
-	        return res;
-	      } else {
-	        return err;
-	      }
-	    }, function (res) {
-	      throw new Error('error');
-	    });
-	  },
-	  loginUser: function loginUser(username, password) {
-	    var requestUrl = '' + PATH + ('' + LOGIN);
-
-	    return axios.request({
-	      method: 'post',
-	      url: requestUrl,
-	      headers: {
-	        'Content-Type': 'application/json'
-	      },
-	      data: {
-	        username: username,
-	        password: password
-	      }
-	    }).then(function (res, err) {
-	      if (res) {
-	        return res;
-	      } else {
-	        return err;
-	      }
-	    }, function (res) {
-	      throw new Error('error');
-	    });
-	  },
-	  signupUser: function signupUser(username, password) {
-	    var requestUrl = '' + PATH + ('' + SIGNUP);
-
-	    return axios.request({
-	      method: 'get',
-	      url: requestUrl,
-	      headers: {
-	        'Content-Type': 'application/x-www-form-urlencoded'
-	      },
-	      data: {
-	        username: username,
-	        password: password
-	      }
-	    }).then(function (res, err) {
-	      if (res) {
-	        return res;
-	      } else {
-	        return err;
-	      }
-	    }, function (res) {
-	      throw new Error('error');
-	    });
-	  }
-	};
-
-/***/ },
-/* 757 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -73487,7 +73408,7 @@
 	};
 
 /***/ },
-/* 758 */
+/* 757 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -73505,10 +73426,10 @@
 
 	var React = __webpack_require__(153);
 
-	var ExploreCard = __webpack_require__(759);
-	var GetPlaces = __webpack_require__(757);
-	var Filters = __webpack_require__(760);
-	var SideExplore = __webpack_require__(761);
+	var ExploreCard = __webpack_require__(758);
+	var GetPlaces = __webpack_require__(756);
+	var Filters = __webpack_require__(759);
+	var SideExplore = __webpack_require__(760);
 
 	var _require = __webpack_require__(690),
 	    connect = _require.connect;
@@ -73525,9 +73446,11 @@
 	  displayName: 'Explore',
 
 	  getInitialState: function getInitialState() {
+	    var cities = this.props.state.trip.selectedTrip.cities || this.props.location.state.cities;
 	    return {
 	      venue: {},
-	      places: []
+	      places: [],
+	      cities: cities
 	    };
 	  },
 	  componentDidMount: function componentDidMount() {
@@ -73536,7 +73459,7 @@
 	  retrievePlaces: function retrievePlaces() {
 	    console.log('getting places');
 	    var that = this;
-	    var cities = that.props.state.trip.selectedTrip.cities;
+	    var cities = that.state.cities;
 	    var city = cities[0];
 	    GetPlaces.getRecommended(city).then(function (res) {
 	      that.setState({
@@ -73586,7 +73509,7 @@
 	      React.createElement(
 	        'div',
 	        { className: 'filters' },
-	        React.createElement(Filters, { cities: this.props.state.trip.selectedTrip.cities, tripSelected: trip })
+	        React.createElement(Filters, { cities: this.state.cities, tripSelected: trip })
 	      ),
 	      React.createElement(SideExplore, { display: 'none', name: this.state.venue.name, description: this.state.venue.description, rating: this.state.venue.rating, photos: this.state.venue.photos }),
 	      React.createElement(
@@ -73611,7 +73534,7 @@
 	exports.default = connect(mapStateToProps)(Explore);
 
 /***/ },
-/* 759 */
+/* 758 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -73627,7 +73550,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var React = __webpack_require__(153);
-	var GetPlaces = __webpack_require__(757);
+	var GetPlaces = __webpack_require__(756);
 
 	var _require = __webpack_require__(381),
 	    RaisedButton = _require.RaisedButton;
@@ -73718,15 +73641,15 @@
 	module.exports = ExploreCard;
 
 /***/ },
-/* 760 */
+/* 759 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(153);
 	var Navigation = __webpack_require__(318);
-	var ExploreCard = __webpack_require__(759);
-	var GetPlaces = __webpack_require__(757);
+	var ExploreCard = __webpack_require__(758);
+	var GetPlaces = __webpack_require__(756);
 
 	var Filters = React.createClass({
 	  displayName: 'Filters',
@@ -73746,7 +73669,7 @@
 	      searchStyle.display = 'none';
 	    } else {
 	      cityStyle.visibility = 'hidden';
-	      searchStyle.display = 'none';
+	      cityStyle.display = 'none';
 	    }
 	    return React.createElement(
 	      'div',
@@ -73754,11 +73677,6 @@
 	      React.createElement(
 	        'form',
 	        null,
-	        React.createElement(
-	          'div',
-	          { className: 'large-4 columns' },
-	          React.createElement('input', { type: 'text', placeholder: 'Search', style: searchStyle })
-	        ),
 	        React.createElement(
 	          'div',
 	          { className: 'large-4 columns' },
@@ -73810,7 +73728,7 @@
 	module.exports = Filters;
 
 /***/ },
-/* 761 */
+/* 760 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -73908,7 +73826,7 @@
 	module.exports = SideExplore;
 
 /***/ },
-/* 762 */
+/* 761 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -73938,7 +73856,7 @@
 	    browserHistory = _require.browserHistory;
 
 	var Navigation = __webpack_require__(318);
-	var CheckUser = __webpack_require__(756);
+	var CheckUser = __webpack_require__(762);
 
 	var _require2 = __webpack_require__(381),
 	    RaisedButton = _require2.RaisedButton;
@@ -74043,6 +73961,88 @@
 	exports.default = connect(null)(Login);
 
 /***/ },
+/* 762 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var axios = __webpack_require__(728);
+
+	var PATH = 'http://localhost:8080/';
+	var CHECK_LOGIN = 'api/login/user';
+	var LOGIN = 'api/login';
+	var SIGNUP = 'api/login/signup';
+
+	module.exports = {
+	  checkUser: function checkUser() {
+	    var requestUrl = '' + PATH + ('' + CHECK_LOGIN);
+
+	    return axios.request({
+	      method: 'get',
+	      url: requestUrl,
+	      headers: {
+	        'Content-Type': 'application/x-www-form-urlencoded'
+	      }
+	    }).then(function (res, err) {
+
+	      if (res) {
+	        return res;
+	      } else {
+	        return err;
+	      }
+	    }, function (res) {
+	      throw new Error('error');
+	    });
+	  },
+	  loginUser: function loginUser(username, password) {
+	    var requestUrl = '' + PATH + ('' + LOGIN);
+
+	    return axios.request({
+	      method: 'post',
+	      url: requestUrl,
+	      headers: {
+	        'Content-Type': 'application/json'
+	      },
+	      data: {
+	        username: username,
+	        password: password
+	      }
+	    }).then(function (res, err) {
+	      if (res) {
+	        return res;
+	      } else {
+	        return err;
+	      }
+	    }, function (res) {
+	      throw new Error('error');
+	    });
+	  },
+	  signupUser: function signupUser(username, password) {
+	    var requestUrl = '' + PATH + ('' + SIGNUP);
+
+	    return axios.request({
+	      method: 'get',
+	      url: requestUrl,
+	      headers: {
+	        'Content-Type': 'application/x-www-form-urlencoded'
+	      },
+	      data: {
+	        username: username,
+	        password: password
+	      }
+	    }).then(function (res, err) {
+	      if (res) {
+	        return res;
+	      } else {
+	        return err;
+	      }
+	    }, function (res) {
+	      throw new Error('error');
+	    });
+	  }
+	};
+
+/***/ },
 /* 763 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -74074,7 +74074,7 @@
 	var React = __webpack_require__(153);
 
 	var $ = __webpack_require__(1045);
-	var GetPlaces = __webpack_require__(757);
+	var GetPlaces = __webpack_require__(756);
 
 	var _require = __webpack_require__(690),
 	    connect = _require.connect;
@@ -74180,7 +74180,7 @@
 
 	var React = __webpack_require__(153);
 	var ReactDOM = __webpack_require__(399);
-	var GetPlaces = __webpack_require__(757);
+	var GetPlaces = __webpack_require__(756);
 
 	var styles = __webpack_require__(686);
 
@@ -74672,7 +74672,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var moment = __webpack_require__(924);
-	var GetPlaces = __webpack_require__(757);
+	var GetPlaces = __webpack_require__(756);
 
 	var style = {
 	  width: '31%',
@@ -99611,7 +99611,7 @@
 	    browserHistory = _require.browserHistory;
 
 	var Navigation = __webpack_require__(318);
-	var CheckUser = __webpack_require__(756);
+	var CheckUser = __webpack_require__(762);
 	var Header = __webpack_require__(6);
 
 	var _require2 = __webpack_require__(381),
@@ -99742,7 +99742,7 @@
 	    DatePicker = _require2.DatePicker,
 	    Chip = _require2.Chip;
 
-	var GetPlaces = __webpack_require__(757);
+	var GetPlaces = __webpack_require__(756);
 
 	var inputStyle = {
 	  borderRadius: '25px'
@@ -99917,7 +99917,7 @@
 	    DatePicker = _require2.DatePicker,
 	    Chip = _require2.Chip;
 
-	var GetPlaces = __webpack_require__(757);
+	var GetPlaces = __webpack_require__(756);
 
 	var inputStyle = {
 	  borderRadius: '25px'
