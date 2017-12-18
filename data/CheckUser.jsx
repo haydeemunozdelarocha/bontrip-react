@@ -1,6 +1,7 @@
 var axios = require('axios');
 
-const PATH = 'http://localhost:8080/';
+// const PATH = 'http://localhost:8080/';
+const PATH = 'https://mighty-beach-23452.herokuapp.com/';
 const CHECK_LOGIN = 'api/login/user';
 const LOGIN = 'api/login';
 const SIGNUP = 'api/login/signup';

@@ -4,7 +4,7 @@ var GetPlaces= require('GetPlaces');
 import scriptLoader from 'react-async-script-loader';
 var styles=require('Styles');
 
-var key="API_KEY";
+var key="AIzaSyBFbdU04K-I7AsMCnUvfbDFLITWlZZIbfI";
 
 
 const containerStyle = {
