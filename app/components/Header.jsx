@@ -37,7 +37,7 @@ export var Header = React.createClass({
       if(this.props.state.login.user){
                 return <Navigation/>
       }
-      else if(!this.props.buttonOff){
+      else {
       return <MuiThemeProvider muiTheme={getMuiTheme()}>
            <RaisedButton
       label="Login"
