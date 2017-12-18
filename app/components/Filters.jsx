@@ -13,8 +13,8 @@ var Filters = React.createClass({
   },
   render: function () {
 var count = 1;
-var searchStyle  = {};
-var cityStyle  = {};
+var searchStyle  = {borderRadius:'25px'};
+var cityStyle  = {borderRadius:'25px'};
 if(this.props.tripSelected){
   searchStyle.visibility = 'hidden';
   searchStyle.display = 'none';
@@ -23,7 +23,7 @@ if(this.props.tripSelected){
   searchStyle.display = 'none';
 }
       return (
-      <div className="row">
+      <div className="row" style={{marginTop:'2%'}}>
       <form>
       <div className="large-4 columns">
        <input type="text" placeholder="Search" style={searchStyle}/>
@@ -35,7 +35,7 @@ if(this.props.tripSelected){
           </select>
           </div>
           <div className="large-4 columns">
-            <select id="searchby">
+            <select id="searchby" style={{borderRadius:'25px'}}>
               <option value="">Search By</option>
               <option value="all">All</option>
               <option value="recommended">Recommended</option>

@@ -1,57 +1,76 @@
 var React = require('react');
-var Navigation = require('Navigation');
+import Header from 'Header';
 import MapaContainer from 'MapaContainer';
 import SidePlanner from 'SidePlanner';
 var $= require('jquery');
 var GetPlaces = require('GetPlaces');
+import update from 'immutability-helper'
+var {connect} = require('react-redux');
+var actions = require('Actions');
+var moment = require('moment');
 
-
-var Planner = React.createClass({
+export var Planner = React.createClass({
     getInitialState: function (){
     return {
       loaded:false,
-      date:'08-11-2016',
-      end: '08-31-2016',
-      start: '08-11-2016',
-      date:'08-11-2016',
-      tripId:"57bf7be55f67aef8082e7d91",
-      userId:"57aa78b2caf5ca16154f457c",
+      date: this.props.state.trip.selectedTrip.start,
       cards:[]
     }
 },componentDidMount:function(){
   this.scheduledPlaces();
 },
   select:function(event){
-     var date=event.target.value;
-this.setState({date: date}, function () {
-this.scheduledPlaces();});
+  var date = event.target.value;
+  this.setState({date: date}, function () {
+      this.scheduledPlaces();
+    });
   },
   scheduledPlaces: function (){
     var that = this;
-    GetPlaces.getDay(that.state.date,that.state.tripId,that.state.userId).then(function(res){
+    GetPlaces.getDay(that.state.date,that.props.state.trip.selectedTrip.id,that.props.state.login.user).then(function(res){
           that.setState({
         cards:res.data
       });
+          console.log(that.state.cards)
     }, function(errorMessage){
 
       return   console.log(errorMessage);
     })
   },
-  schedulingPlace: function(id){
-    console.log("scheduling",id);
+  schedulingPlace: function(marker){
+  console.log(marker);
+  var that =this;
+    var id= marker._id;
     GetPlaces.schedulePlace(id,this.state.date).then(function(res){
-      console.log(res);
+     that.scheduledPlaces();
   },function(errorMessage){
 
       return   alert(errorMessage);
+    })
+  },
+  updateOrder:function(dragIndex, hoverIndex){
+    const { cards } = this.state;
+    const dragCard = cards[dragIndex];
+    var that = this;
+   GetPlaces.changeOrder(cards[hoverIndex]._id,dragIndex,dragCard._id,hoverIndex).then(function(res){
+        that.setState(
+      update(that.state, {
+        cards: {
+          $splice: [[dragIndex, 1], [hoverIndex, 0, dragCard]],
+        },
+      }),
+    )
+    }, function(errorMessage){
+
+      return   console.log(errorMessage);
     })
   },
   render: function () {
       return (
       <div>
       <div className="row">
-      <Navigation/>
-      <SidePlanner cards={this.state.cards} date={this.state.date} select={this.select} end={this.state.end} start={this.state.start}/>
+      <Header/>
+      <SidePlanner changeOrder={this.updateOrder} cards={this.state.cards} date={this.state.date} select={this.select} end={this.props.state.trip.selectedTrip.end} start={this.props.state.trip.selectedTrip.start}/>
       <MapaContainer schedulePlace={this.schedulingPlace} date={this.state.date}/>
       </div>
       </div>
@@ -60,4 +79,9 @@ this.scheduledPlaces();});
   }
 });
 
-module.exports = Planner;
+const mapStateToProps = (state) => ({
+  state: state
+});
+
+export default connect(mapStateToProps)(Planner);
+

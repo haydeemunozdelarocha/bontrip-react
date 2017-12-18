@@ -40,7 +40,15 @@ module.exports = {
       MapaContainer:'app/components/MapaContainer.jsx',
       Mapa:'app/components/Mapa.jsx',
       SidePlanner:'app/components/SidePlanner.jsx',
-      Item:'app/components/Item.jsx'
+      Item:'app/components/Item.jsx',
+      Header:'app/components/Header.jsx',
+      Signup:'app/components/Signup.jsx',
+      NewTrip:'app/components/NewTrip.jsx',
+      NewPlace:'app/components/NewPlace.jsx',
+      Actions: 'app/actions/actions.jsx',
+      Styles:'public/styles/styles.css',
+      configureStore:'app/store/configureStore.jsx',
+      reducers: 'app/reducers/reducers.jsx'
           },
     extensions: ['','.js','.jsx']
   },

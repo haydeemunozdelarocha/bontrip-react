@@ -4,7 +4,7 @@
   "description": "Simple react app",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "karma start"
   },
   "author": "Haydee Munoz",
   "license": "ISC",
@@ -14,14 +14,27 @@
     "express": "^4.15.2",
     "google-maps-react": "^1.1.2",
     "immutability-helper": "^2.5.0",
+    "material-ui": "^0.20.0",
     "moment": "^2.19.3",
     "prop-types": "^15.6.0",
     "react": "^0.14.9",
+    "react-async-script-loader": "^0.3.0",
     "react-dnd": "^2.5.4",
     "react-dnd-card": "^0.3.7",
     "react-dnd-html5-backend": "^2.5.4",
     "react-dom": "^0.14.9",
-    "react-router": "^2.0.0"
+    "react-redux": "^5.0.6",
+    "react-router": "^2.0.0",
+    "whatwg-fetch": "^2.0.3",
+        "expect": "^1.14.0",
+
+        "karma": "^0.13.22",
+    "karma-chrome-launcher": "^0.2.2",
+    "karma-mocha": "^0.2.2",
+    "karma-mocha-reporter": "^2.0.0",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-webpack": "^1.7.0",
+    "mocha": "^2.4.5"
   },
   "devDependencies": {
     "babel-core": "^6.5.1",

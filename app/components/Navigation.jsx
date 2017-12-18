@@ -1,35 +1,25 @@
 var React = require('react');
 var {Link, IndexLink} = require('react-router');
 
+const navStyle = {
+  backgroundColor:'#5694f7',
+  color:'white'
+};
+
 var Navigation = React.createClass({
   render: function () {
     return (
-      <div className="top-bar">
-        <div className="top-bar-left">
-          <ul className="menu">
-          <li className="menu-text">
-            BonTrip
-          </li>
+          <ul className="menu" style={navStyle}>
             <li>
-              <IndexLink to="/" activeClassName="active" activeStyle={{fontWeight:'bold'}}>Home</IndexLink>
+              <IndexLink to="/" activeClassName="active" style={{color:'white'}} activeStyle={{fontWeight:'bold',color:'white'}}>Home</IndexLink>
             </li>
             <li>
-              <Link to="/explore" activeClassName="active" activeStyle={{fontWeight:'bold'}}>Explore</Link>
+              <Link to="/explore" activeClassName="active" style={{color:'white'}} activeStyle={{fontWeight:'bold',color:'white'}}>Explore</Link>
             </li>
             <li>
-              <Link to="/planner" activeClassName="active" activeStyle={{fontWeight:'bold'}}>Planner</Link>
+              <Link to="/planner" activeClassName="active" style={{color:'white'}} activeStyle={{fontWeight:'bold',color:'white'}}>Planner</Link>
             </li>
           </ul>
-        </div>
-        <div className="top-bar-right">
-        <form onSubmit={this.onSearch}>
-        <ul className="menu">
-          <li><input type="search" placeholder="Search"/></li>
-          <li><button type="button" id="search" onClick={()=>{console.log('searching')}} className="button">Search</button></li>
-        </ul>
-        </form>
-        </div>
-      </div>
     );
   }
 });

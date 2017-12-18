@@ -8,7 +8,10 @@ var divStyle = {
   position:'absolute',
   right:'0',
   zIndex:'1',
-  display:'none'
+  display:'none',
+  zIndex:20,
+  overflowX:'auto',
+  padding:'1% 2%'
 };
 
 
@@ -16,6 +19,9 @@ var SideExplore = React.createClass({
 componentDidUpdate: function(){
   console.log('updating');
   divStyle.display = 'block';
+},
+handleClose:function(){
+  this.refs.side.style ={...divStyle,display:'none'};
 },
   render: function () {
   var {name,photos,rating,description} = this.props;
@@ -25,12 +31,13 @@ componentDidUpdate: function(){
   console.log(photoCount);
 }
     return (
-    <div style={divStyle}>
-    <div><h1>X</h1></div>
-    <h2>{name}</h2>
+    <div style={divStyle} ref="side">
+    <div><h4 onclick={()=>{this.handleClose()}}style={{float:'right',right:'8px',top:'8px',cursor:'pointer'}}>X</h4></div>
+    <h4 style={{marginTop:'4%'}}>{name}</h4>
     <img src={photoInit}/>
-    <p>Rating: {rating}</p>
-    <p>Description: {description}</p>
+    <p><strong>Rating:</strong>{rating}</p>
+    <p><strong>Description:</strong></p>
+    <p>{description}</p>
     </div>
     )
   }

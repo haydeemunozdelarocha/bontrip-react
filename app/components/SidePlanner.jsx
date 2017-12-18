@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import update from 'immutability-helper'
 import { DragDropContext } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
 import DayCard from './DayCard';
@@ -12,7 +11,8 @@ const style = {
   right:0,
   backgroundColor:"#eaf9f9",
   padding:'10px',
-  position:'absolute'
+  position:'absolute',
+  zIndex:20
 }
 
 var SidePlanner = React.createClass({
@@ -25,22 +25,9 @@ var SidePlanner = React.createClass({
         }
   },
   moveCard:function(dragIndex, hoverIndex) {
-    const { cards } = this.props.cards;
-    const dragCard = cards[dragIndex];
-    var that = this;
-
-    GetPlaces.changeOrder(cards[hoverIndex]._id,dragIndex,dragCard._id,hoverIndex).then(function(res){
-    }, function(errorMessage){
-
-      return   console.log(errorMessage);
-    })
-    this.setState(
-      update(this.state, {
-        cards: {
-          $splice: [[dragIndex, 1], [hoverIndex, 0, dragCard]],
-        },
-      }),
-    )
+    console.log(dragIndex);
+    console.log(hoverIndex);
+    this.props.changeOrder(dragIndex, hoverIndex);
   },
     buildOptions:function() {
     var dates =[];

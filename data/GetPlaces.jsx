@@ -9,6 +9,8 @@ const ADD_PLACE ='api/places/add';
 const GET_DAY ='api/places/day/';
 const UPDATE_PLACES ='api/places/schedule/';
 const UPDATE_ORDER ='api/places/order';
+const GET_GOOGLE_CITIES='api/places/google'
+
 
 module.exports = {
   getRecommended:function(city){
@@ -90,7 +92,10 @@ module.exports = {
       },
       data:{venueId:place.venueId,
             source:place.source,
-            user_id:place.user_id}
+            user_id:place.user_id,
+            category:place.category
+
+          }
     }).then(function(res,err){
       if(res){
         return res;
@@ -156,6 +161,31 @@ module.exports = {
       url:requestUrl,
       headers:{
         'Content-Type':'application/x-www-form-urlencoded'
+      }
+    }).then(function(res,err){
+      if(res){
+        return res;
+      } else {
+        console.log(err);
+        return err;
+      }
+    },function(res){
+      throw new Error('error');
+    })
+  },
+  getGoogleCities:function(input){
+
+    var requestUrl = `${PATH}`+`${GET_GOOGLE_CITIES}`;
+
+
+    return axios.request({
+      method:'post',
+      url:requestUrl,
+      headers:{
+        'Content-Type':'application/json'
+      },
+         data:{
+        input:input
       }
     }).then(function(res,err){
       if(res){
