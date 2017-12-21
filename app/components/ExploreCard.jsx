@@ -3,14 +3,19 @@ var GetPlaces = require('GetPlaces');
 var {RaisedButton} = require('material-ui');
 import getMuiTheme        from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider   from 'material-ui/styles/MuiThemeProvider';
+var {connect} = require('react-redux');
 const heartStyle={
   zIndex:9,
   position:'absolute',
   top:'8%',
   right:'8%'
 }
+const nameStyle = {
+  whiteSpace:'nowrap',
+  overflow:'hidden'
+}
 
-var ExploreCard = React.createClass({
+export var ExploreCard = React.createClass({
   getInitialState: function () {
       return {liked: false};
     },
@@ -22,8 +27,12 @@ var ExploreCard = React.createClass({
   handleLike: function (e){
     var place = {venueId:this.props.place_id,
                   source:'fs',
-                  user_id:this.state._id,
-                  category:this.props.category};
+                  user_id:this.props.state.login.user,
+                  tripId:this.props.state.trip.selectedTrip.id,
+                  category:this.props.category,
+                  lat:this.props.lat,
+                  lng:this.props.lng,
+                  name:this.props.name};
     this.addPlace(place);
 
   },
@@ -47,25 +56,21 @@ var ExploreCard = React.createClass({
 
   var imageSource = this.state.liked ? '/images/heart2.png' : '/images/heart.png';
     return (
+
     <div className="large-4 columns">
-    <div className="panel callout">
+    <div className="panel callout" style={{minHeight:'430px'}}>
     <img style={heartStyle} onClick={()=>{this.handleLike()}} key="heart{place_id}" className="heart" height="30px" width="30px" src={imageSource} />
         <img src={this.props.photo} />
-        <p>{name}</p>
-           <MuiThemeProvider muiTheme={getMuiTheme()}>
-           <RaisedButton
-      label="More"
-      buttonStyle={{ borderRadius: 25 }}
-      style={{ borderRadius: 25 }}
-      labelColor={'#FFFFFF'}
-      backgroundColor={'#e5500b'}
-      onClick={()=>{this.handleMore()}}
-    />
-   </MuiThemeProvider>
+        <p style={nameStyle}>{name}</p>
+            <button style={{marginTop:'5px',marginBottom:'10px',float:'right',backgroundColor:'#e5500b',color:'#fff'}} className="button" type="button" onClick={()=>{this.handleMore()}}>More</button>
       </div>
     </div>
     )
   }
 });
 
-module.exports = ExploreCard;
+const mapStateToProps = (state) => ({
+  state: state
+});
+
+export default connect(mapStateToProps)(ExploreCard);

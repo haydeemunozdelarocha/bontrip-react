@@ -42,6 +42,9 @@ var SidePlanner = React.createClass({
   render:function() {
     const { cards } = this.props;
     const dates = this.buildOptions();
+    var checkCards = ()=>{if(cards.length == 0){
+        return <p>You have no places scheduled yet, click on the map markers and add to this day.</p>
+      }};
     var count = 0;
     return (
       <div style={style}>
@@ -50,9 +53,9 @@ var SidePlanner = React.createClass({
         <option key={date} value={moment(date).format("MM-DD-YYYY")}>{moment(date).format("ddd DD/MM/YY")}</option>
         ))}
       </select>
+        {checkCards()}
         {cards.map((card, i) => (
           <DayCard
-            key={card._id}
             index={i}
             id={card._id}
             text={card.name}

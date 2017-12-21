@@ -1,6 +1,6 @@
 var React = require('react');
 import Header from 'Header';
-var ExploreCard = require('ExploreCard');
+import ExploreCard from 'ExploreCard';
 var GetPlaces = require('GetPlaces');
 var Filters = require('Filters');
 var SideExplore = require('SideExplore');
@@ -19,7 +19,8 @@ export var Explore = React.createClass({
     return {
     venue:{},
     places:[],
-    cities:cities
+    cities:cities,
+    showSide:'none'
   }
   },
   componentDidMount: function() {
@@ -32,6 +33,7 @@ export var Explore = React.createClass({
     var cities = that.state.cities;
     var city = cities[0];
     GetPlaces.getRecommended(city).then(function(res){
+      console.log(res.data)
       that.setState({
         places:res.data,
         loading:'hidden'
@@ -49,9 +51,11 @@ export var Explore = React.createClass({
     GetPlaces.viewPlace(place_id).then(function(res){
 
         that.setState({
-        venue:res.data
+        venue:res.data,
       })
-
+        that.setState({
+        showSide:'block',
+      })
     }, function(errorMessage){
          return console.log(errorMessage);
     })
@@ -67,6 +71,11 @@ export var Explore = React.createClass({
          console.log(errorMessage);
     })
   },
+  handleSideClose:function(){
+  console.log('closing');
+  console.log(this);
+  this.state.showSide = "none";
+  },
   render: function () {
   console.log('rendering explore');
   if(this.props.state.trip.selectedTrip.id){
@@ -74,18 +83,25 @@ export var Explore = React.createClass({
   } else {
     var trip = false;
   }
+
+  if(this.state.loading === 'hidden'){
+    var displayLoading = 'none';
+  }else {
+    var displayLoading ='flex';
+  }
       return (
       <div style={exploreStyle}>
       <Header />
       <div className="filters">
       <Filters cities={this.state.cities} tripSelected={trip}/>
       </div>
-      <SideExplore display="none" name={this.state.venue.name} description={this.state.venue.description} rating={this.state.venue.rating} photos={this.state.venue.photos}/>
+      <SideExplore handleClose={this.handleSideClose} display={this.state.showSide} name={this.state.venue.name} description={this.state.venue.description} rating={this.state.venue.rating} photos={this.state.venue.photos}/>
+      <div style={{height:'74vh',width:'100%',justifyContent:'center',alignItems:'center',visibility:this.state.loading,display:displayLoading}} >
+            <i style={{fontSize:'100px',color:'#e9e9e9'}} className="fa fa-spinner fa-spin" ref="spinner" aria-hidden="true"></i>
+      </div>
       <div className="row" id="explore-container">
-            <i style={{fontSize:'72px',color:'#e9e9e9',visibility:this.state.loading}} className="fa fa-spinner fa-spin" ref="spinner" aria-hidden="true"></i>
             {this.state.places && Object.keys(this.state.places).map(function(k, name) {
-              console.log(this.state.places[k].venue.categories[0].name);
-            return <ExploreCard  viewPlace={this.viewPlace}  name={this.state.places[k].venue.name} category={this.state.places[k].venue.categories[0].name} rating={this.state.places[k].venue.rating} photo ={this.state.places[k].photo} place_id={this.state.places[k].venue.id} key={this.state.places[k].venue.id}/>
+            return <ExploreCard  viewPlace={this.viewPlace}  name={this.state.places[k].venue.name} lat={this.state.places[k].venue.location.lat} lng={this.state.places[k].venue.location.lng} category={this.state.places[k].venue.categories[0].name} rating={this.state.places[k].venue.rating} photo ={this.state.places[k].photo} place_id={this.state.places[k].venue.id} key={this.state.places[k].venue.id}/>
         }.bind(this))}
       </div>
       </div>

@@ -19,6 +19,9 @@ var Navigation = React.createClass({
             <li>
               <Link to="/planner" activeClassName="active" style={{color:'white'}} activeStyle={{fontWeight:'bold',color:'white'}}>Planner</Link>
             </li>
+            <li>
+              <Link to="/logout" activeClassName="active" style={{color:'white'}} activeStyle={{fontWeight:'bold',color:'white'}}>Logout</Link>
+            </li>
           </ul>
     );
   }

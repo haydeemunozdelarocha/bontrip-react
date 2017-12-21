@@ -8,7 +8,7 @@ import Login from 'Login';
 var Signup = require('Signup');
 var Navigation = require('Navigation');
 import Planner from 'Planner';
-var NewTrip = require('NewTrip');
+import NewTrip from 'NewTrip';
 var NewPlace = require('NewPlace');
 var {Provider} = require('react-redux');
 var actions = require('Actions');

@@ -51,6 +51,9 @@ export var Trips = React.createClass({
       return (
       <div>
       <Header loggedIn={this.state.user}/>
+      <div style={{height:'10vh',width:'100%',paddingRight:'32px'}}>
+        <a style={{marginTop:'10px',float:'right',backgroundColor:'#e5500b',color:'#fff'}} className="button" href="/newtrip" >New Trip</a>
+      </div>
       <div className="row" style={{marginTop:'2%'}}>
             {this.state.trips && Object.keys(this.state.trips).map(function(k, name) {
             return <TripCard selectTrip={this.selectTrip} name={this.state.trips[k].name} tripId={this.state.trips[k]._id} key={this.state.trips[k]._id}/>

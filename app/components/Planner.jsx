@@ -11,12 +11,16 @@ var moment = require('moment');
 
 export var Planner = React.createClass({
     getInitialState: function (){
+
     return {
       loaded:false,
       date: this.props.state.trip.selectedTrip.start,
-      cards:[]
+      cards:[],
+      places:[],
+      location:{lat:37.7815,lng:-122.3939}
     }
 },componentDidMount:function(){
+  this.fetchPlaces();
   this.scheduledPlaces();
 },
   select:function(event){
@@ -28,7 +32,7 @@ export var Planner = React.createClass({
   scheduledPlaces: function (){
     var that = this;
     GetPlaces.getDay(that.state.date,that.props.state.trip.selectedTrip.id,that.props.state.login.user).then(function(res){
-          that.setState({
+      that.setState({
         cards:res.data
       });
           console.log(that.state.cards)
@@ -47,6 +51,27 @@ export var Planner = React.createClass({
 
       return   alert(errorMessage);
     })
+  },
+    fetchPlaces: function(mapProps,map) {
+    console.log('fecthing places');
+    var that = this;
+
+  GetPlaces.getLikedPlaces(that.props.state.login.user,that.props.state.trip.selectedTrip.id).then(function(res){
+      if(res.data.length > 0){
+      that.setState({
+        loaded:true,
+        places:res.data,
+        location:{lat:res.data[0].coordinates.lat,
+        lng:res.data[0].coordinates.lon}
+      });
+      }
+      },function(errorMessage){
+          this.setState({
+            loaded:true,
+            places:[]
+          })
+          return   alert(errorMessage);
+      })
   },
   updateOrder:function(dragIndex, hoverIndex){
     const { cards } = this.state;
@@ -71,7 +96,7 @@ export var Planner = React.createClass({
       <div className="row">
       <Header/>
       <SidePlanner changeOrder={this.updateOrder} cards={this.state.cards} date={this.state.date} select={this.select} end={this.props.state.trip.selectedTrip.end} start={this.props.state.trip.selectedTrip.start}/>
-      <MapaContainer schedulePlace={this.schedulingPlace} date={this.state.date}/>
+      <MapaContainer loaded={this.state.loaded} location={this.state.location} places={this.state.places} schedulePlace={this.schedulingPlace} date={this.state.date} places={this.state.places}/>
       </div>
       </div>
     );

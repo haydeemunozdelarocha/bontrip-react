@@ -1,7 +1,7 @@
 var axios = require('axios');
 
-// const PATH = 'http://localhost:8080/';
-const PATH = 'https://mighty-beach-23452.herokuapp.com/';
+const PATH = 'http://localhost:8080/';
+// const PATH = 'https://mighty-beach-23452.herokuapp.com/';
 const GET_RECOMMENDED = 'api/venues/recommended';
 const GET_PLACES ='api/venues/';
 const GET_LIKED_PLACES ='api/places/';
@@ -88,13 +88,14 @@ module.exports = {
     return axios.request({
       method:'post',
       url:requestUrl,
-      headers:{
-        'Content-Type':'application/x-www-form-urlencoded'
-      },
       data:{venueId:place.venueId,
             source:place.source,
-            user_id:place.user_id,
-            category:place.category
+            _id:place.user_id,
+            category:place.category,
+            tripId: place.tripId,
+            lat:place.lat,
+            lon:place.lng,
+            name:place.name
 
           }
     }).then(function(res,err){
