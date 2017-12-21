@@ -71469,8 +71469,8 @@
 
 	var axios = __webpack_require__(728);
 
-	var PATH = 'http://localhost:8080/';
-	// const PATH = 'https://mighty-beach-23452.herokuapp.com/';
+	// const PATH = 'http://localhost:8080/';
+	var PATH = 'https://mighty-beach-23452.herokuapp.com/';
 	var GET_TRIPS = 'api/trips';
 	var SELECT_TRIP = 'api/trips/select/';
 
@@ -73243,8 +73243,8 @@
 
 	var axios = __webpack_require__(728);
 
-	var PATH = 'http://localhost:8080/';
-	// const PATH = 'https://mighty-beach-23452.herokuapp.com/';
+	// const PATH = 'http://localhost:8080/';
+	var PATH = 'https://mighty-beach-23452.herokuapp.com/';
 	var GET_RECOMMENDED = 'api/venues/recommended';
 	var GET_PLACES = 'api/venues/';
 	var GET_LIKED_PLACES = 'api/places/';
@@ -74034,8 +74034,8 @@
 
 	var axios = __webpack_require__(728);
 
-	var PATH = 'http://localhost:8080/';
-	// const PATH = 'https://mighty-beach-23452.herokuapp.com/';
+	// const PATH = 'http://localhost:8080/';
+	var PATH = 'https://mighty-beach-23452.herokuapp.com/';
 	var CHECK_LOGIN = 'api/login/user';
 	var LOGIN = 'api/login';
 	var SIGNUP = 'api/login/signup';
