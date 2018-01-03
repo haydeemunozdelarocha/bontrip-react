@@ -13,7 +13,7 @@ import 'foundation-sites';
 
 
 const headerStyle={
-  backgroundColor:'#5694f7',
+  backgroundColor:'#eaf9f9',
   color:'white',
   paddingRight:'2%',
   paddingLeft:'2%'
@@ -55,13 +55,18 @@ export var Header = React.createClass({
       }
     },
   render: function () {
+    if(this.props.home){
+      var image = '/images/bontrip-logo-white.png';
+    } else {
+      var image = '/images/bontrip-logo-blue.png';
+    }
     return (
       <div>
 
 
 <div className="top-bar" style={headerStyle}>
  <div className="top-bar-left">
-    <a style={logo} href="/"><img src={'/images/bontrip-logo-white.png'}/></a>
+    <a style={logo} href="/"><img src={image}/></a>
   </div>
   <div className="top-bar-right">
     {this.loginButton()}
