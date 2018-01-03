@@ -1,7 +1,7 @@
 var axios = require('axios');
 
-const PATH = 'http://localhost:8080/';
-// const PATH = 'https://mighty-beach-23452.herokuapp.com/';
+// const PATH = 'http://localhost:8080/';
+const PATH = 'https://mighty-beach-23452.herokuapp.com/';
 const GET_RECOMMENDED = 'api/venues/recommended';
 const GET_PLACES ='api/venues/';
 const GET_LIKED_PLACES ='api/places/';
