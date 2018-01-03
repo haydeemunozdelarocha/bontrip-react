@@ -1,6 +1,6 @@
 var axios = require('axios');
 
-// const PATH = 'http://localhost:8080/';
+
 const PATH = 'https://mighty-beach-23452.herokuapp.com/';
 const GET_TRIPS = 'api/trips/';
 const SAVE_TRIP = 'api/trips';
