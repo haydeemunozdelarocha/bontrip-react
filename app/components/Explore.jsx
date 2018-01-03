@@ -48,7 +48,26 @@ export var Explore = React.createClass({
       })
       return   console.log(errorMessage);
     })
-
+//     that.setState({places:[{
+//   venue:{
+//     name:'Zocalo',
+//     location:{lat:19.4326,lng:99.1332},
+//     categories:[{name:'Arte'}],
+//     rating:9,
+//     id:1
+//   },
+//     photo:'https://images.bestday.com/_lib/vimages/Mexico/Hotels/Hotel-Zocalo-Central/Fachada_xl.jpg',
+// },
+//   {
+//   venue:{
+//     name:'Palacio Bellas Artes',
+//     location:{lat:19.4352,lng:99.1412},
+//     categories:[{name:'Arte'}],
+//     rating:9,
+//     id:2
+//   },
+//     photo:'https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Bellas_Artes_01.jpg/1200px-Bellas_Artes_01.jpg',
+// }],loading:'hidden'})
   },
   viewPlace: function(place_id){
     var that = this;

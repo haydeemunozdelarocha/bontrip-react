@@ -94,7 +94,7 @@ export var Planner = React.createClass({
       return (
       <div>
       <div className="row">
-      <Header/>
+      <Header home={false}/>
       <SidePlanner changeOrder={this.updateOrder} cards={this.state.cards} date={this.state.date} select={this.select} end={this.props.state.trip.selectedTrip.end} start={this.props.state.trip.selectedTrip.start}/>
       <MapaContainer loaded={this.state.loaded} location={this.state.location} places={this.state.places} schedulePlace={this.schedulingPlace} date={this.state.date} places={this.state.places}/>
       </div>

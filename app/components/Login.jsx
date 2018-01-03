@@ -58,7 +58,7 @@ export var Login = React.createClass({
   render: function () {
       return (
       <div style={{backgroundColor:"#eaf9f9",height:'100vh',width:'100%',overflow:'hidden'}}>
-      <Header loggedIn = {true} />
+      <Header home={false} loggedIn = {true} />
         <div style={{width:'100%',height:'100%',alignItems:'center',display:'flex',justifyContent:'center'}}>
         <form onSubmit={this.login} style={{width:'30%',display:'flex',flexDirection:'column',alignItems:'center'}}>
           <input placeholder="username" style={inputStyle} type="text" ref="username"/>

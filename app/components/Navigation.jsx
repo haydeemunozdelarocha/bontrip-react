@@ -2,8 +2,8 @@ var React = require('react');
 var {Link, IndexLink} = require('react-router');
 
 const navStyle = {
-  backgroundColor:'#5694f7',
-  color:'white'
+  backgroundColor:'rgba(0,0,0,0)',
+  color:'#18214f'
 };
 
 var Navigation = React.createClass({
@@ -11,16 +11,16 @@ var Navigation = React.createClass({
     return (
           <ul className={this.props.type} style={navStyle}>
             <li>
-              <IndexLink to="/" activeClassName="active" style={{color:'white'}} activeStyle={{fontWeight:'bold',color:'white'}}>Home</IndexLink>
+              <IndexLink to="/" activeClassName="active" style={{color:'#0d1228'}} activeStyle={{color:'#0d1228',textDecoration:'underline'}}>Home</IndexLink>
             </li>
             <li>
-              <Link to="/explore" activeClassName="active" style={{color:'white'}} activeStyle={{fontWeight:'bold',color:'white'}}>Explore</Link>
+              <Link to="/explore" activeClassName="active" style={{color:'#0d1228'}} activeStyle={{color:'#0d1228',textDecoration:'underline'}}>Explore</Link>
             </li>
             <li>
-              <Link to="/planner" activeClassName="active" style={{color:'white'}} activeStyle={{fontWeight:'bold',color:'white'}}>Planner</Link>
+              <Link to="/planner" activeClassName="active" style={{color:'#0d1228'}} activeStyle={{color:'#0d1228',textDecoration:'underline'}}>Planner</Link>
             </li>
             <li>
-              <Link to="/logout" activeClassName="active" style={{color:'white'}} activeStyle={{fontWeight:'bold',color:'white'}}>Logout</Link>
+              <Link to="/logout" activeClassName="active" style={{color:'#0d1228'}} activeStyle={{color:'#0d1228',textDecoration:'underline'}}>Logout</Link>
             </li>
           </ul>
     );

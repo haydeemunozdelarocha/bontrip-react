@@ -9,7 +9,8 @@ const style = {
   width: '31%',
   height:'90%',
   right:0,
-  backgroundColor:"#eaf9f9",
+  backgroundColor:'#8a9ba8',
+  color:'white',
   padding:'10px',
   position:'absolute',
   zIndex:20

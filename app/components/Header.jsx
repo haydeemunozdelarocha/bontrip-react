@@ -12,13 +12,6 @@ import $ from 'jquery';
 import 'foundation-sites';
 
 
-const headerStyle={
-  backgroundColor:'#eaf9f9',
-  color:'white',
-  paddingRight:'2%',
-  paddingLeft:'2%'
-}
-
 const redButton ={
   backgroundColor:'#e5500b',
   color:'white',
@@ -47,19 +40,27 @@ export var Header = React.createClass({
         return;
       }
       else if(!this.props.loggedIn){
-        if(this.props.home){
-        headerStyle.backgroundColor = 'rgba(0,0,0,0)';
-        }
       return <button style={{marginTop:'10px',minWidth:'90px',fontSize:'16px',fontFamily: 'Dosis',float:'right',border:'solid 2px #ffffff',borderRadius:'5px',backgroundColor:'rgba(0,0,0,0)',color:'#fff',textTransform:'uppercase',fontWeight:'700'}} className="button" type="button" onClick={()=>{ browserHistory.push({pathname: '/login'});}}>Login</button>;
 
       }
     },
   render: function () {
+
     if(this.props.home){
       var image = '/images/bontrip-logo-white.png';
+      var color = 'rgba(0,0,0,0)'
     } else {
       var image = '/images/bontrip-logo-blue.png';
+      var color = '#e1f4f7';
     }
+
+    const headerStyle={
+      backgroundColor:color,
+      color:'white',
+      paddingRight:'2%',
+      paddingLeft:'2%'
+    }
+
     return (
       <div>
 
