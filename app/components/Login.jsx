@@ -3,9 +3,6 @@ var {browserHistory} = require('react-router');
 var Navigation = require('Navigation');
 var CheckUser = require('CheckUser');
 import Header from 'Header';
-var {RaisedButton} = require('material-ui');
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 var {connect} = require('react-redux');
 var actions = require('Actions');
 
@@ -37,7 +34,7 @@ export var Login = React.createClass({
       browserHistory.push({pathname: '/trips'});
       }
     }, function(errorMessage){
-      return  alert(errorMessage);
+      return  console.log(errorMessage);
     })
   },
     login: function (){
@@ -55,27 +52,19 @@ export var Login = React.createClass({
     }, function(errorMessage){
       that.refs.password.value = '';
       that.refs.username.value = '';
-         return alert(errorMessage);
+         return console.log(errorMessage);
     })
   },
   render: function () {
       return (
-      <div style={{backgroundColor:"#eaf9f9",height:'100vh',width:'100%'}}>
-      <Header buttonOff = {this.state.buttonOff} />
+      <div style={{backgroundColor:"#eaf9f9",height:'100vh',width:'100%',overflow:'hidden'}}>
+      <Header loggedIn = {true} />
         <div style={{width:'100%',height:'100%',alignItems:'center',display:'flex',justifyContent:'center'}}>
         <form onSubmit={this.login} style={{width:'30%',display:'flex',flexDirection:'column',alignItems:'center'}}>
           <input placeholder="username" style={inputStyle} type="text" ref="username"/>
           <input placeholder="password" style={inputStyle} type="text" ref="password"/>
-          <MuiThemeProvider muiTheme={getMuiTheme()}>
-           <RaisedButton
-            label="Login"
-            buttonStyle={{ borderRadius: 25}}
-            style={{ borderRadius: 25,backgroundColor:'none' }}
-            labelColor={'#FFFFFF'}
-            backgroundColor={'#e5500b'}
-            onClick={()=>{this.login()}}
-          />
-          </MuiThemeProvider>
+          <button style={{marginTop:'10px',borderRadius:'5px',fontFamily:'Dosis',fontWeight:'700',fontSize:'16px',textTransform:'uppercase',float:'right',backgroundColor:'#e5500b',color:'#fff'}} className="button" type="button" onClick={()=>{this.login()}}>Login</button>
+
           <a href="/signup" style={{marginTop:'10%'}}>Start planning your trip! Click to register</a>
         </form>
         </div>

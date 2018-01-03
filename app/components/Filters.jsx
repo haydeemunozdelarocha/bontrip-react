@@ -26,16 +26,22 @@ if(this.props.tripSelected){
       <div className="row" style={{marginTop:'2%'}}>
       <form>
        <div className="large-4 columns">
-         <select id="city" style={cityStyle}>
+         <select onChange={this.props.changeCity} value={this.props.selectedCity} id="city" style={cityStyle}>
          <option>Select City</option>
-          {this.props.cities.map((x) => { count++; return <option id ='city{count}'>{x}</option>;})}
+          {this.props.cities.map((x) => {
+            count++;
+              return <option key={x}  id ='city{count}'>{x}</option>
+            })}
           </select>
           </div>
           <div className="large-4 columns">
-            <select id="searchby" style={{borderRadius:'25px'}}>
-              <option value="">Search By</option>
-              <option value="all">All</option>
-              <option value="recommended">Recommended</option>
+            <select id="searchby" style={{borderRadius:'25px'}} onChange={this.handleSelect}>
+              <option value="">Select Category</option>
+              <option value="4d4b7104d754a06370d81259">Arts & Entertainment</option>
+              <option value="4d4b7105d754a06374d81259">Food</option>
+              <option value="4d4b7105d754a06376d81259">Nightlife</option>
+              <option value="4d4b7105d754a06377d81259">Outdoors</option>
+              <option value="4d4b7105d754a06378d81259">Shopping</option>
             </select>
             </div>
        </form>

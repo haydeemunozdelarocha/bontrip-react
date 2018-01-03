@@ -1,11 +1,13 @@
 var React = require('react');
 var {browserHistory} = require('react-router');
 var Navigation = require('Navigation');
-var Header = require('Header');
+import Header from 'Header';
 var {AutoComplete,RaisedButton,DatePicker,Chip} = require('material-ui');
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 var GetPlaces = require('GetPlaces');
+var {connect} = require('react-redux');
+
 
 const inputStyle ={
   borderRadius:'25px'
@@ -33,7 +35,7 @@ const chipStyle={
     margin: 4
   };
 
-var NewPlace = React.createClass({
+export var NewPlace = React.createClass({
 
     getInitialState: function (){
     return {
@@ -90,16 +92,8 @@ var NewPlace = React.createClass({
           <option value='museum'>Museum & Cultural</option>
           <option value='restaurant'>Restaurant</option>
           </select>
-           <MuiThemeProvider muiTheme={getMuiTheme()}>
-           <RaisedButton
-            label="Save"
-            buttonStyle={{ borderRadius: 25}}
-            style={{ borderRadius: 25,backgroundColor:'none',marginTop:'4%' }}
-            labelColor={'#FFFFFF'}
-            backgroundColor={'#e5500b'}
-            onClick={()=>{this.saveTrip()}}
-          />
-          </MuiThemeProvider>
+        <button style={{marginTop:'10px',float:'right',backgroundColor:'#e5500b',color:'#fff'}} className="button" type="button" onClick={()=>{this.saveTrip}}>Select</button>
+
         </div>
         </div>
       </div>
@@ -109,5 +103,8 @@ var NewPlace = React.createClass({
 });
 
 
+const mapStateToProps = (state) => ({
+  state: state
+});
 
-module.exports = NewPlace;
+export default connect(mapStateToProps)(NewPlace);

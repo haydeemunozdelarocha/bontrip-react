@@ -4,7 +4,7 @@ var GetPlaces= require('GetPlaces');
 import scriptLoader from 'react-async-script-loader';
 var styles=require('Styles');
 
-var key="AIzaSyBFbdU04K-I7AsMCnUvfbDFLITWlZZIbfI";
+var key=process.env.GOOGLE_KEY;
 
 
 const containerStyle = {
@@ -15,7 +15,8 @@ const containerStyle = {
 export var MapaContainer = React.createClass({
     getInitialState: function (){
       console.log('get inital state');
-    return {loaded:false,
+    return {
+      loaded:false,
       showingInfoWindow: false,
       activeMarker: {},
       selectedPlace: {}

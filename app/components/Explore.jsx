@@ -20,19 +20,22 @@ export var Explore = React.createClass({
     venue:{},
     places:[],
     cities:cities,
+    city:cities[0],
     showSide:'none'
   }
   },
-  componentDidMount: function() {
+  componentWillMount: function() {
     this.retrievePlaces();
-
   },
-  retrievePlaces: function (){
+    componentDidUpdate: function() {
+    this.retrievePlaces();
+  },
+  retrievePlaces: function (query){
     console.log('getting places')
     var that = this;
     var cities = that.state.cities;
-    var city = cities[0];
-    GetPlaces.getRecommended(city).then(function(res){
+    var city = that.state.city;
+    GetPlaces.getRecommended(city,query).then(function(res){
       console.log(res.data)
       that.setState({
         places:res.data,
@@ -45,6 +48,7 @@ export var Explore = React.createClass({
       })
       return   console.log(errorMessage);
     })
+
   },
   viewPlace: function(place_id){
     var that = this;
@@ -61,7 +65,7 @@ export var Explore = React.createClass({
     })
   },
     addPlace: function(place){
-    console.log('adding place explore');
+
     GetPlaces.addPlace(place).then(function(res){
       if(res.data._id){
         place.el.props.selected = true;
@@ -76,6 +80,15 @@ export var Explore = React.createClass({
   console.log(this);
   this.state.showSide = "none";
   },
+  changeCity:function(event){
+
+    this.setState({
+      city:event.target.value,
+      places:[]
+    });
+
+  },
+
   render: function () {
   console.log('rendering explore');
   if(this.props.state.trip.selectedTrip.id){
@@ -93,7 +106,7 @@ export var Explore = React.createClass({
       <div style={exploreStyle}>
       <Header />
       <div className="filters">
-      <Filters cities={this.state.cities} tripSelected={trip}/>
+      <Filters cities={this.state.cities} selectedCity={this.state.city} changeCity={this.changeCity} tripSelected={trip}/>
       </div>
       <SideExplore handleClose={this.handleSideClose} display={this.state.showSide} name={this.state.venue.name} description={this.state.venue.description} rating={this.state.venue.rating} photos={this.state.venue.photos}/>
       <div style={{height:'74vh',width:'100%',justifyContent:'center',alignItems:'center',visibility:this.state.loading,display:displayLoading}} >

@@ -12,6 +12,13 @@ module.exports = {
     new webpack.ProvidePlugin({
       '$': 'jquery',
       'jQuery':'jquery'
+    }),
+        new webpack.DefinePlugin({
+      'process.env':{
+        'ACCESSKEY': JSON.stringify(process.env.AWS_ACCESS_KEY_ID),
+        'SECRETACCESSKEY': JSON.stringify(process.env.AWS_SECRET_ACCESS_KEY),
+        'GOOGLE_KEY':JSON.stringify(process.env.GOOGLE_KEY)
+      }
     })
   ],
   output: {
@@ -45,6 +52,7 @@ module.exports = {
       Signup:'app/components/Signup.jsx',
       NewTrip:'app/components/NewTrip.jsx',
       NewPlace:'app/components/NewPlace.jsx',
+      Logout:'app/components/Logout.jsx',
       Actions: 'app/actions/actions.jsx',
       Styles:'public/styles/styles.css',
       configureStore:'app/store/configureStore.jsx',
@@ -63,6 +71,9 @@ module.exports = {
       test:/\.jsx?$/,
       exclude: /(node_modules|bower_components)/
     }, { test: /\.css$/, loader: "style-loader!css-loader" }
+    ],
+      noParse: [
+      /aws\-sdk/,
     ]
   }
 };

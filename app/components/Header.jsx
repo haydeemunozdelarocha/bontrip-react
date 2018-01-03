@@ -7,6 +7,9 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 var styles=require('Styles');
 var {browserHistory} = require('react-router');
 var {connect} = require('react-redux');
+import $ from 'jquery';
+
+import 'foundation-sites';
 
 
 const headerStyle={
@@ -32,35 +35,39 @@ const logo ={
 
 
 export var Header = React.createClass({
-
+    componentDidMount:function(){
+      $(document).foundation();
+    },
     loginButton:function(){
+
       if(this.props.state.login.user.length>0){
-                return <Navigation/>
+                return <Navigation type="menu"/>
       }
-      else {
-      return <MuiThemeProvider muiTheme={getMuiTheme()}>
-           <RaisedButton
-      label="Login"
-      buttonStyle={{ borderRadius: 25}}
-      style={{ borderRadius: 25,backgroundColor:'none' }}
-      labelColor={'#FFFFFF'}
-      backgroundColor={'#e5500b'}
-      onClick={()=>{ browserHistory.push({pathname: '/login'});
-}}
-    />
-    </MuiThemeProvider>;
+      else if(this.props.loggedIn){
+        return;
+      }
+      else if(!this.props.loggedIn){
+        if(this.props.home){
+        headerStyle.backgroundColor = 'rgba(0,0,0,0)';
+        }
+      return <button style={{marginTop:'10px',minWidth:'90px',fontSize:'16px',fontFamily: 'Dosis',float:'right',border:'solid 2px #ffffff',borderRadius:'5px',backgroundColor:'rgba(0,0,0,0)',color:'#fff',textTransform:'uppercase',fontWeight:'700'}} className="button" type="button" onClick={()=>{ browserHistory.push({pathname: '/login'});}}>Login</button>;
+
       }
     },
   render: function () {
     return (
-      <div className="top-bar" style={headerStyle}>
-        <div className="top-bar-left">
-        <a style={logo} href="/"><h3>bontrip</h3></a>
-        </div>
-        <div className="top-bar-right">
-            {this.loginButton()}
-        </div>
-      </div>
+      <div>
+
+
+<div className="top-bar" style={headerStyle}>
+ <div className="top-bar-left">
+    <a style={logo} href="/"><img src={'/images/bontrip-logo-white.png'}/></a>
+  </div>
+  <div className="top-bar-right">
+    {this.loginButton()}
+  </div>
+</div>
+</div>
     );
   }
 });

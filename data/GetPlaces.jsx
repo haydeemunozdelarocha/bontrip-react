@@ -1,7 +1,7 @@
 var axios = require('axios');
 
-// const PATH = 'http://localhost:8080/';
-const PATH = 'https://mighty-beach-23452.herokuapp.com/';
+const PATH = 'http://localhost:8080/';
+// const PATH = 'https://mighty-beach-23452.herokuapp.com/';
 const GET_RECOMMENDED = 'api/venues/recommended';
 const GET_PLACES ='api/venues/';
 const GET_LIKED_PLACES ='api/places/';
@@ -14,16 +14,16 @@ const GET_GOOGLE_CITIES='api/places/google'
 
 
 module.exports = {
-  getRecommended:function(city){
+  getRecommended:function(city,query){
     city = encodeURI(city);
-
-    var requestUrl = `${PATH}`+`${GET_RECOMMENDED}`+'?search='+city;
+    var requestUrl = `${PATH}`+`${GET_RECOMMENDED}`;
 
     return axios.request({
-      method:'get',
+      method:'post',
       url:requestUrl,
-      headers:{
-        'Content-Type':'application/x-www-form-urlencoded'
+      data:{
+        city:city,
+        query:query
       }
     }).then(function(res,err){
       if(res){

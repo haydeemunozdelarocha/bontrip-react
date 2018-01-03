@@ -5,6 +5,13 @@ export var login = (user) => {
   };
 };
 
+export var logout = () => {
+  return {
+    type:'LOGOUT',
+    trip:{selectedTrip:{}}
+  };
+};
+
 export var trip = (id,cities,start,end) => {
   return {
     type:'SELECT_TRIP',

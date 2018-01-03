@@ -5,11 +5,12 @@ import Trips from 'Trips';
 import Home from 'Home';
 import Explore from 'Explore';
 import Login from 'Login';
-var Signup = require('Signup');
+import Logout from 'Logout';
+import Signup from 'Signup';
 var Navigation = require('Navigation');
 import Planner from 'Planner';
 import NewTrip from 'NewTrip';
-var NewPlace = require('NewPlace');
+import NewPlace from 'NewPlace';
 var {Provider} = require('react-redux');
 var actions = require('Actions');
 var configureStore = require('configureStore');
@@ -33,6 +34,7 @@ store.subscribe(() => {
         <Route path='/planner' component={Planner}/>
         <Route path='/newtrip' component={NewTrip}/>
         <Route path='/newplace' component={NewPlace}/>
+        <Route path='/logout' component={Logout}/>
         </Router></Provider>,
       document.getElementById('app')
     );

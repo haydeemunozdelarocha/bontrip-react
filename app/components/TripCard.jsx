@@ -1,6 +1,7 @@
 var React = require('react');
 var GetTrips = require('GetTrips');
 
+
 var TripCard = React.createClass({
   handleSelect: function (e){
     console.log('handling click');
@@ -9,16 +10,17 @@ var TripCard = React.createClass({
     this.props.selectTrip(id);
   },
   render: function () {
-    var {name,tripId} = this.props;
-
+    var {name,tripId,photo} = this.props;
     return (
     <div className="large-4 columns">
     <div className="panel callout">
-      <h2>{name}</h2>
-        <img src={'https://s-media-cache-ak0.pinimg.com/originals/72/4c/86/724c862124ddd36ff5d089e5f2828a7c.jpg'} />
+      <h4>{name}</h4>
+        <div style={{width:'95%',minHeight:'55vh',height:'auto',overflow:'hidden',margin:'10px',position:'relative'}}>
+    <img style={{position:'absolute',left:'-100%',right:'-100%',top:'-100%',bottom:'-100%',margin:'auto',minHeight:'55vh',height:'auto',width:'auto'}} src={photo}/>
+</div>
         <div style={{height:'10vh',width:'100%'}}>
         <button style={{marginTop:'10px',float:'right',backgroundColor:'#e5500b',color:'#fff'}} className="button" type="button" onClick={()=>{this.handleSelect()}}>Select</button>
-        <a style={{marginTop:'10px',float:'left'}} href="/edittrip/{tripId}">Edit</a>
+        <a style={{marginTop:'10px',float:'left'}} onClick={()=>{this.props.deleteTrip({tripId})}}>Delete</a>
         </div>
       </div>
     </div>

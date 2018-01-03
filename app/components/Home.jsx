@@ -15,7 +15,8 @@ const background = {
   backgroundSize: 'cover',
   zIndex:'-9',
   position:'absolute',
-  height:'100%'
+  height:'100%',
+  top:'0'
 };
 
 const searchContainer ={
@@ -94,7 +95,7 @@ export var Home = React.createClass({
       return (
       <MuiThemeProvider muiTheme={getMuiTheme()}>
       <div style={{width:'100%',height:'100vh',overflow:'hidden'}}>
-      <Header buttonOff = {this.state.buttonOff} />
+      <Header home={true} loggedIn={false} buttonOff = {this.state.buttonOff} />
       <img style={background} ref="background" src={images[0]} />
       <div style={searchContainer}>
       <AutoComplete ref="city"

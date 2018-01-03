@@ -9,7 +9,7 @@ const navStyle = {
 var Navigation = React.createClass({
   render: function () {
     return (
-          <ul className="menu" style={navStyle}>
+          <ul className={this.props.type} style={navStyle}>
             <li>
               <IndexLink to="/" activeClassName="active" style={{color:'white'}} activeStyle={{fontWeight:'bold',color:'white'}}>Home</IndexLink>
             </li>
