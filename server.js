@@ -18,7 +18,7 @@ app.use('/s3', require('react-s3-uploader/s3router')({
     uniquePrefix: true // (4.0.2 and above) default is true, setting the attribute to false preserves the original filename in S3
 }));
 
-var port = process.env.PORT ||3000;
+var port = process.env.PORT || 3000;
 app.listen(port, function (){
   console.log('Express server is up on port '+port);
 })

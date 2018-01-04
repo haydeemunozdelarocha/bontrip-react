@@ -42,7 +42,6 @@ export var Planner = React.createClass({
     })
   },
   schedulingPlace: function(marker){
-  console.log(marker);
   var that =this;
     var id= marker._id;
     GetPlaces.schedulePlace(id,this.state.date).then(function(res){
@@ -95,7 +94,7 @@ export var Planner = React.createClass({
       <div>
       <div className="row">
       <Header home={false}/>
-      <SidePlanner changeOrder={this.updateOrder} cards={this.state.cards} date={this.state.date} select={this.select} end={this.props.state.trip.selectedTrip.end} start={this.props.state.trip.selectedTrip.start}/>
+      <SidePlanner tripId={this.props.state.trip.selectedTrip.id} userId={this.props.state.login.user} changeOrder={this.updateOrder} cards={this.state.cards} date={this.state.date} select={this.select} end={this.props.state.trip.selectedTrip.end} start={this.props.state.trip.selectedTrip.start}/>
       <MapaContainer loaded={this.state.loaded} location={this.state.location} places={this.state.places} schedulePlace={this.schedulingPlace} date={this.state.date} places={this.state.places}/>
       </div>
       </div>

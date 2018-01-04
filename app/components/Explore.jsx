@@ -36,11 +36,15 @@ export var Explore = React.createClass({
     var cities = that.state.cities;
     var city = that.state.city;
     GetPlaces.getRecommended(city,query).then(function(res){
-      console.log(res.data)
+      console.log(res.data);
+      if(res.data.error){
+        alert(res.data.error);
+      } else{
       that.setState({
         places:res.data,
         loading:'hidden'
       })
+      }
       that.refs.spinner.style.display='none';
     }, function(errorMessage){
       that.setState({

@@ -41,9 +41,6 @@ module.exports = {
     return axios.request({
       method:'get',
       url:requestUrl,
-      headers:{
-        'Content-Type':'application/x-www-form-urlencoded'
-      },
       data:{
         _id:user_id,
         tripId:tripId

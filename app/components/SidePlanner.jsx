@@ -21,8 +21,8 @@ var SidePlanner = React.createClass({
   getInitialState: function(){
     this.moveCard = this.moveCard.bind(this);
     return {
-            tripId:"57bf7be55f67aef8082e7d91",
-            userId:"57aa78b2caf5ca16154f457c"
+            tripId:this.props.tripId,
+            userId:this.props.userId
         }
   },
   moveCard:function(dragIndex, hoverIndex) {

@@ -58,7 +58,7 @@ export var ExploreCard = React.createClass({
     return (
 
     <div className="large-4 columns">
-    <div className="panel callout" style={{minHeight:'430px',borderRadius:'5px',boxShadow: '5px 8px rgba(138, 155, 168,.4)'}}>
+    <div className="panel callout" style={{minHeight:'438px',borderRadius:'5px',boxShadow: '5px 8px rgba(138, 155, 168,.4)'}}>
     <img style={heartStyle} onClick={()=>{this.handleLike()}} key="heart{place_id}" className="heart" height="30px" width="30px" src={imageSource} />
         <img src={this.props.photo} />
         <p style={nameStyle}>{name}</p>
