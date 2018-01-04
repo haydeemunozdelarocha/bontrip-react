@@ -62,7 +62,7 @@ export var Login = React.createClass({
         <div style={{width:'100%',height:'100%',alignItems:'center',display:'flex',justifyContent:'center'}}>
         <form onSubmit={this.login} style={{width:'30%',display:'flex',flexDirection:'column',alignItems:'center'}}>
           <input placeholder="username" style={inputStyle} type="text" ref="username"/>
-          <input placeholder="password" style={inputStyle} type="text" ref="password"/>
+          <input placeholder="password" style={inputStyle} type="password" ref="password"/>
           <button style={{marginTop:'10px',borderRadius:'5px',fontFamily:'Dosis',fontWeight:'700',fontSize:'16px',textTransform:'uppercase',float:'right',backgroundColor:'#e5500b',color:'#fff'}} className="button" type="button" onClick={()=>{this.login()}}>Login</button>
 
           <a href="/signup" style={{marginTop:'10%'}}>Start planning your trip! Click to register</a>
