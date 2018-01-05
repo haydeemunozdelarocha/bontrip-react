@@ -2,16 +2,12 @@ var React= require('react');
 var ReactDOM= require('react-dom');
 var GetPlaces= require('GetPlaces');
 import scriptLoader from 'react-async-script-loader';
-var styles=require('Styles');
+import 'Sass';
+
 
 var key=process.env.GOOGLE_KEY;
 
 
-const containerStyle = {
-  width: '69%',
-  height: '100%',
-  zIndex:-30
-}
 export var MapaContainer = React.createClass({
     getInitialState: function (){
       console.log('get inital state');
@@ -76,24 +72,20 @@ export var MapaContainer = React.createClass({
 renderInfoWindow: function(place) {
   var that = this;
   return(
-    <div style={{display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'center'}}>
-      <h4>{place.name}</h4>
+    <div className="info-window">
+      <p>{place.name}</p>
       <img height="140px" width="140px" style={{marginLeft:'10px'}} src={place.image} />
-      <button style={{marginTop:'5%',backgroundColor:'#e5500b'}} className="button" onClick={that.props.schedulePlace.bind(that, place)}>Add to Day </button>
+      <button style={{marginTop:'5%'}} className="red-button button" onClick={that.props.schedulePlace.bind(that, place)}>Add to Day </button>
     </div>
   )
 },
   render:function() {
-       const mapStyle = {
-      width: '100%',
-      height: '90vh'
-    };
-    return (
 
-  <div style={containerStyle}>
-    <div ref="map" style={mapStyle}>Loading..</div>
-  </div>
-  )
+    return (
+      <div id="map-container">
+        <div ref="map" id="map">Loading..</div>
+      </div>
+    )
   }
 })
 

@@ -1,11 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-
-const style = {
-  color: 'gray',
-  border: '1px dashed gray',
-  padding: '.5em 1em',
-  cursor: 'move'
-};
+import 'Sass';
 
 const propTypes = {
   isDragging: PropTypes.bool.isRequired,
@@ -17,7 +11,7 @@ export function Item(props) {
   const opacity = isDragging ? 0 : 1;
 
   return (
-    <div style={{ ...style, opacity }}>
+    <div className={item-types} style={{opacity }}>
       {text}
     </div>
   );

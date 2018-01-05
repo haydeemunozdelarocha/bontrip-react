@@ -1,0 +1,220 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans|Righteous|Dosis:400,600,700');
+
+$lightblue: #eaf9f9;
+$red: #e5500b;
+$mediumgray:#d9f8f9;
+$titlefont: Dosis;
+$secondaryfont:Open Sans, sans-serif;
+$tertiaryfont: Righteous, cursive;
+
+//general
+body{
+  height:100%;
+  width:100%;
+  font-family: $secondaryfont;
+}
+h3{
+  font-family: $tertiaryfont;
+}
+h4{
+  font-family: $secondaryfont;
+}
+p{
+  font-family: $secondaryfont;
+}
+#menu{
+  background-color:rgba(0,0,0,0);
+  color:#18214f;
+}
+#app{
+  height:100%;
+  width:100%;
+}
+.round-input {
+  border-radius:25px;
+  opacity:.9;
+  border:none;
+  background-color: white!important;
+  &:-webkit-autofill
+   {
+    -webkit-box-shadow: 0 0 0 30px white inset!important;
+    -webkit-text-fill-color:none;
+  }
+}
+.red-button{
+  margin-top:10px;
+  border-radius:5px;
+  font-family:$titlefont;
+  font-weight:700;
+  font-size:16px;
+  text-transform:uppercase;
+  float:right;
+  background-color:$red;
+  color:#fff;
+    &:hover {
+      opacity:.8;
+      background-color:$red;
+    }
+}
+.white-button{
+  margin-top:10px;
+  border-radius:5px;
+  font-family:$titlefont;
+  font-weight:700;
+  font-size:16px;
+  text-transform:uppercase;
+  float:right;
+  background-color:rgba(0,0,0,0);
+  border:solid 2px #fff;
+  color:#fff;
+     &:hover {
+      border:solid 2px $red;
+      background-color:$red;
+    }
+}
+
+//header
+#header {
+  color:white;
+  padding-right:2%;
+  padding-left:2%;
+}
+
+// login & signup
+.login-container{
+  background-color:$lightblue;
+  height:100vh;
+  width:100%;
+  overflow:hidden;
+}
+.login-form-container {
+  width:100%;
+  height:100%;
+  align-items:center;
+  display:flex;
+  justify-content:center;
+
+  form {
+    width:30%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+
+      a {
+        margin-top:10%;
+      }
+  }
+}
+//trips
+#new-trip-button-container{
+  height:10vh;
+  width:100%;
+  padding-right:32px;
+}
+#trips-container{
+  margin-top:2%;
+  display:flex;
+}
+//explore
+
+#explore-main-container{
+  height:100vh;
+  width:100%;
+  overflow-x:hidden;
+}
+#explore-container{
+  width:100%;
+  height:60%;
+}
+#explore-loading-container{
+  height:74vh;
+  width:100%;
+  justify-content:center;
+  align-items:center;
+  i{
+    font-size:100px;
+    color:#e9e9e9;
+  }
+}
+#side-explore-container{
+  background-color: $mediumgray;
+  width:33%;
+  height:100%;
+  top:0;
+  position:absolute;
+  right:0;
+  z-index:20;
+  overflow-x:auto;
+  padding:1% 2%;
+}
+#explore-close-button{
+  float:right;
+  right:8px;
+  top:8px;
+  cursor:pointer;
+}
+.heart{
+  z-index:9;
+  position:absolute;
+  top:8%;
+  right:8%;
+}
+.venue-name{
+  white-space:nowrap;
+  overflow:hidden;
+}
+.explore-card{
+  min-height:438px;
+  border-radius:5px;
+  box-shadow: 5px 8px rgba(138, 155, 168,.4);
+}
+//map
+.gm-style-iw{
+  left:21px!important;
+}
+#map{
+  width:100%;
+  height:90vh;
+}
+#map-container{
+  width:69%;
+  height:100%;
+  z-index:-30;
+}
+.info-window{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  p {
+    font-size:16px;
+    white-space:pre-wrap;
+    overflow:hidden;
+    width:147px;
+  }
+}
+//planner
+#side-planner-container{
+  width:31%;
+  height:90%;
+  right:0;
+  background-color:#8a9ba8;
+  color:white;
+  padding:10px;
+  position:absolute;
+  z-index:20;
+}
+.day-card{
+  border:1px dashed white;
+  padding:0.5rem 1rem;
+  margin-bottom:.5rem;
+  background-color:rgba(0,0,0,0);
+  cursor:move;
+  color:white;
+}
+.item-types{
+  color:gray;
+  border:1px dashed gray;
+  padding:.5em 1em;
+  cursor:move;
+}

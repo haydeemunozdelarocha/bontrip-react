@@ -1,18 +1,12 @@
 var React = require('react');
-import Header from 'Header';
-import ExploreCard from 'ExploreCard';
 var GetPlaces = require('GetPlaces');
 var Filters = require('Filters');
 var SideExplore = require('SideExplore');
 var {connect} = require('react-redux');
 var actions = require('Actions');
-
-var exploreStyle = {
-  height:'100vh',
-  width:'100%',
-  overflowX:'hidden'
-};
-
+import Header from 'Header';
+import ExploreCard from 'ExploreCard';
+import 'Sass';
 
 export var Explore = React.createClass({
   getInitialState: function(){
@@ -37,7 +31,6 @@ export var Explore = React.createClass({
       }
   },
   retrievePlaces: function (){
-    console.log('getting places')
     var that = this;
     var cities = that.state.cities;
     var city = that.state.city;
@@ -86,8 +79,6 @@ export var Explore = React.createClass({
     })
   },
   handleSideClose:function(){
-  console.log('closing');
-  console.log(this);
   this.setState({showSide:"none"});
   },
   changeCity:function(event){
@@ -106,7 +97,6 @@ export var Explore = React.createClass({
 
   },
   render: function () {
-  console.log('rendering explore');
   if(this.props.state.trip.selectedTrip.id){
     var trip = true;
   } else {
@@ -119,14 +109,14 @@ export var Explore = React.createClass({
     var displayLoading ='flex';
   }
       return (
-      <div style={exploreStyle}>
+      <div id="explore-main-container">
       <Header />
       <div className="filters">
       <Filters cities={this.state.cities} selectedCity={this.state.city} selectedCategory={this.state.category} changeCity={this.changeCity} changeCategory={this.changeCategory} tripSelected={trip}/>
       </div>
       <SideExplore handleClose={this.handleSideClose} display={this.state.showSide} name={this.state.venue.name} description={this.state.venue.description} rating={this.state.venue.rating} photos={this.state.venue.photos}/>
-      <div style={{height:'74vh',width:'100%',justifyContent:'center',alignItems:'center',visibility:this.state.loading,display:displayLoading}} >
-            <i style={{fontSize:'100px',color:'#e9e9e9'}} className="fa fa-spinner fa-spin" ref="spinner" aria-hidden="true"></i>
+      <div id="explore-loading-container" style={{visibility:this.state.loading,display:displayLoading}} >
+            <i className="fa fa-spinner fa-spin" ref="spinner" aria-hidden="true"></i>
       </div>
       <div className="row" id="explore-container">
             {this.state.places && Object.keys(this.state.places).map(function(k, name) {

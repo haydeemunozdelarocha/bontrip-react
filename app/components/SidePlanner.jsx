@@ -2,19 +2,11 @@ import React, { Component } from 'react'
 import { DragDropContext } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
 import DayCard from './DayCard';
+import 'Sass';
+
 var moment = require('moment');
 var GetPlaces = require('GetPlaces');
 
-const style = {
-  width: '31%',
-  height:'90%',
-  right:0,
-  backgroundColor:'#8a9ba8',
-  color:'white',
-  padding:'10px',
-  position:'absolute',
-  zIndex:20
-}
 
 var SidePlanner = React.createClass({
 
@@ -26,8 +18,6 @@ var SidePlanner = React.createClass({
         }
   },
   moveCard:function(dragIndex, hoverIndex) {
-    console.log(dragIndex);
-    console.log(hoverIndex);
     this.props.changeOrder(dragIndex, hoverIndex);
   },
     buildOptions:function() {
@@ -48,7 +38,7 @@ var SidePlanner = React.createClass({
       }};
     var count = 0;
     return (
-      <div style={style}>
+      <div id="side-planner-container">
       <select onChange={this.props.select} value={this.state.date}>
       {dates.map((date,j)=>(
         <option key={date} value={moment(date).format("MM-DD-YYYY")}>{moment(date).format("ddd DD/MM/YY")}</option>

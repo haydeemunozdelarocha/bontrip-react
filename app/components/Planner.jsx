@@ -1,33 +1,32 @@
 var React = require('react');
-import Header from 'Header';
-import MapaContainer from 'MapaContainer';
-import SidePlanner from 'SidePlanner';
 var $= require('jquery');
 var GetPlaces = require('GetPlaces');
-import update from 'immutability-helper'
 var {connect} = require('react-redux');
 var actions = require('Actions');
 var moment = require('moment');
+import update from 'immutability-helper';
+import Header from 'Header';
+import MapaContainer from 'MapaContainer';
+import SidePlanner from 'SidePlanner';
 
 export var Planner = React.createClass({
-    getInitialState: function (){
-
+  getInitialState: function (){
     return {
-      loaded:false,
-      date: this.props.state.trip.selectedTrip.start,
-      cards:[],
-      places:[],
-      location:{lat:37.7815,lng:-122.3939}
+        loaded:false,
+        date: this.props.state.trip.selectedTrip.start,
+        cards:[],
+        places:[],
+        location:{lat:37.7815,lng:-122.3939}
     }
-},componentDidMount:function(){
-  this.fetchPlaces();
-  this.scheduledPlaces();
-},
+  },componentDidMount:function(){
+    this.fetchPlaces();
+    this.scheduledPlaces();
+  },
   select:function(event){
-  var date = event.target.value;
-  this.setState({date: date}, function () {
-      this.scheduledPlaces();
-    });
+    var date = event.target.value;
+    this.setState({date: date}, function () {
+        this.scheduledPlaces();
+      });
   },
   scheduledPlaces: function (){
     var that = this;
@@ -51,8 +50,7 @@ export var Planner = React.createClass({
       return   alert(errorMessage);
     })
   },
-    fetchPlaces: function(mapProps,map) {
-    console.log('fecthing places');
+  fetchPlaces: function(mapProps,map) {
     var that = this;
 
   GetPlaces.getLikedPlaces(that.props.state.login.user,that.props.state.trip.selectedTrip.id).then(function(res){
@@ -69,7 +67,7 @@ export var Planner = React.createClass({
             loaded:true,
             places:[]
           })
-          return   alert(errorMessage);
+          return  alert(errorMessage);
       })
   },
   updateOrder:function(dragIndex, hoverIndex){
@@ -86,7 +84,7 @@ export var Planner = React.createClass({
     )
     }, function(errorMessage){
 
-      return   console.log(errorMessage);
+      return  console.log(errorMessage);
     })
   },
   render: function () {

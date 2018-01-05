@@ -54,9 +54,9 @@ module.exports = {
       NewPlace:'app/components/NewPlace.jsx',
       Logout:'app/components/Logout.jsx',
       Actions: 'app/actions/actions.jsx',
-      Styles:'public/styles/styles.css',
+      Sass:'app/style.scss',
       configureStore:'app/store/configureStore.jsx',
-      reducers: 'app/reducers/reducers.jsx'
+      reducers: 'app/reducers/reducers.jsx',
           },
     extensions: ['','.js','.jsx']
   },
@@ -70,7 +70,11 @@ module.exports = {
       },
       test:/\.jsx?$/,
       exclude: /(node_modules|bower_components)/
-    }, { test: /\.css$/, loader: "style-loader!css-loader" }
+      },
+      {
+       test: /\.scss$/,
+       loaders: ["style", "css", "sass"]
+      }
     ],
       noParse: [
       /aws\-sdk/,

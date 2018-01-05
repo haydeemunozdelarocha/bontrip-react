@@ -7,6 +7,8 @@ import Explore from 'Explore';
 import Login from 'Login';
 import Logout from 'Logout';
 import Signup from 'Signup';
+import 'Sass';
+
 var Navigation = require('Navigation');
 import Planner from 'Planner';
 import NewTrip from 'NewTrip';

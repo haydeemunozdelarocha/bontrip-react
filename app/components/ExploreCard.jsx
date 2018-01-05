@@ -1,19 +1,8 @@
 var React = require('react');
 var GetPlaces = require('GetPlaces');
-var {RaisedButton} = require('material-ui');
-import getMuiTheme        from 'material-ui/styles/getMuiTheme';
-import MuiThemeProvider   from 'material-ui/styles/MuiThemeProvider';
 var {connect} = require('react-redux');
-const heartStyle={
-  zIndex:9,
-  position:'absolute',
-  top:'8%',
-  right:'8%'
-}
-const nameStyle = {
-  whiteSpace:'nowrap',
-  overflow:'hidden'
-}
+import 'Sass';
+
 
 export var ExploreCard = React.createClass({
   getInitialState: function () {
@@ -21,7 +10,6 @@ export var ExploreCard = React.createClass({
     },
  handleMore: function (e){
     var id = this.props.place_id;
-    // console.log('handleMore',this.props);
     this.props.viewPlace(id);
   },
   handleLike: function (e){
@@ -37,10 +25,8 @@ export var ExploreCard = React.createClass({
 
   },
   addPlace: function(place){
-    console.log('adding place explore');
     var that = this;
     GetPlaces.addPlace(place).then(function(res){
-      console.log(res);
       if(res.data._id){
         that.setState({liked: !that.state.liked});
       }
@@ -51,18 +37,17 @@ export var ExploreCard = React.createClass({
   },
   render: function () {
 
-    var {name,place_id,photo,category,selected} = this.props;
-
+  var {name,place_id,photo,category,selected} = this.props;
 
   var imageSource = this.state.liked ? '/images/heart2.png' : '/images/heart.png';
     return (
 
     <div className="large-4 columns">
-    <div className="panel callout" style={{minHeight:'438px',borderRadius:'5px',boxShadow: '5px 8px rgba(138, 155, 168,.4)'}}>
-    <img style={heartStyle} onClick={()=>{this.handleLike()}} key="heart{place_id}" className="heart" height="30px" width="30px" src={imageSource} />
+    <div className="panel callout explore-card" >
+    <img onClick={()=>{this.handleLike()}} key="heart{place_id}" className="heart" height="30px" width="30px" src={imageSource} />
         <img src={this.props.photo} />
-        <p style={nameStyle}>{name}</p>
-            <button style={{marginTop:'10px',float:'right',backgroundColor:'#e5500b',color:'#fff',fontFamily:'Dosis',textTransform:'uppercase',borderRadius:'5px',fontWeight:'700',minWidth:'80px'}} className="button" type="button" onClick={()=>{this.handleMore()}}>More</button>
+        <p className="venue-name">{name}</p>
+        <button className="red-button button" type="button" onClick={()=>{this.handleMore()}}>More</button>
       </div>
     </div>
     )

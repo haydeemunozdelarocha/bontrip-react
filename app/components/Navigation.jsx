@@ -1,15 +1,12 @@
 var React = require('react');
 var {Link, IndexLink} = require('react-router');
+import 'Sass';
 
-const navStyle = {
-  backgroundColor:'rgba(0,0,0,0)',
-  color:'#18214f'
-};
 
 var Navigation = React.createClass({
   render: function () {
     return (
-          <ul className={this.props.type} style={navStyle}>
+          <ul className={this.props.type} id="menu">
             <li>
               <IndexLink to="/" activeClassName="active" style={{color:'#0d1228'}} activeStyle={{color:'#0d1228',textDecoration:'underline'}}>Home</IndexLink>
             </li>

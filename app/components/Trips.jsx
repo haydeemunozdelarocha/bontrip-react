@@ -1,14 +1,15 @@
 var React = require('react');
-import Header from 'Header';
 var TripCard = require('TripCard');
 var GetTrips = require('GetTrips');
 var {connect} = require('react-redux');
 var actions = require('Actions');
 var {browserHistory} = require('react-router');
+import 'Sass';
+import Header from 'Header';
 
 export var Trips = React.createClass({
 
-    getInitialState: function (){
+  getInitialState: function (){
      return {loading:true,trips:[]};
   },
   componentWillMount: function() {
@@ -17,7 +18,6 @@ export var Trips = React.createClass({
     }
   },
   selectTrip: function(trip_id){
-    console.log('selecting trip');
     var that = this;
     var {dispatch} = that.props;
     GetTrips.selectTrip(trip_id).then(function(res){
@@ -31,11 +31,8 @@ export var Trips = React.createClass({
     })
   },
   deleteTrip: function(trip_id){
-    console.log('deleteing trip');
     var that = this;
-    console.log(trip_id)
     GetTrips.deleteTrip(trip_id.tripId).then(function(res){
-      console.log(res);
       browserHistory.push({pathname: '/trips'});
 
     }, function(errorMessage){
@@ -43,9 +40,7 @@ export var Trips = React.createClass({
     })
   },
   retrieveTrips: function (){
-    console.log('getting trips')
     var user= this.props.state.login.user;
-    console.log(this.props.state.login.user);
     var that = this;
     GetTrips.getTrips(user).then(function(res){
       that.setState({
@@ -60,26 +55,24 @@ export var Trips = React.createClass({
       return   console.log(errorMessage);
     })
   },
-
   render: function () {
-    var trips;
+  var trips;
   if(!this.state.loading){
-if (this.state.trips.length>0) {
-  trips = this.state.trips && Object.keys(this.state.trips).map(function(k, name) {
-      return <TripCard deleteTrip={this.deleteTrip} selectTrip={this.selectTrip} name={this.state.trips[k].name} tripId={this.state.trips[k]._id} photo={this.state.trips[k].photo} key={this.state.trips[k]._id}/>;
-      }.bind(this));
-} else {
-  trips = <span style={{marginLeft:'2%'}}>No trips created yet. <a href='/newtrip'>Create your first trip.</a></span>;
-}
-}
-    console.log('render');
+      if (this.state.trips.length>0) {
+        trips = this.state.trips && Object.keys(this.state.trips).map(function(k, name) {
+            return <TripCard deleteTrip={this.deleteTrip} selectTrip={this.selectTrip} name={this.state.trips[k].name} tripId={this.state.trips[k]._id} photo={this.state.trips[k].photo} key={this.state.trips[k]._id}/>;
+            }.bind(this));
+      } else {
+        trips = <span style={{marginLeft:'2%'}}>No trips created yet. <a href='/newtrip'>Create your first trip.</a></span>;
+      }
+  }
       return (
       <div>
       <Header loggedIn={this.state.user}/>
-      <div style={{height:'10vh',width:'100%',paddingRight:'32px'}}>
-        <a style={{marginTop:'10px',float:'right',borderRadius:'5px',textTransform:'uppercase',fontFamily:'Dosis',fontWeight:'700',minWidth:'80px',backgroundColor:'#e5500b',color:'#fff'}} className="button" href="/newtrip" >New Trip</a>
+      <div id="new-trip-button-container">
+        <a className="red-button button" href="/newtrip">New Trip</a>
       </div>
-      <div className="row" style={{marginTop:'2%',display:'flex'}}>
+      <div className="row" id="trips-container">
             {trips}
       </div>
       </div>
