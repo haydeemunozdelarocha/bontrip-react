@@ -13,30 +13,37 @@ var exploreStyle = {
   overflowX:'hidden'
 };
 
+
 export var Explore = React.createClass({
   getInitialState: function(){
     var cities =this.props.state.trip.selectedTrip.cities || this.props.location.state.cities;
+
     return {
     venue:{},
     places:[],
-    cities:cities,
     city:cities[0],
+    cities:cities,
+    category:'',
     showSide:'none'
   }
   },
-  componentWillMount: function() {
-    this.retrievePlaces();
+  componentDidMount: function() {
+   this.retrievePlaces();
   },
-    componentDidUpdate: function() {
-    this.retrievePlaces();
+  componentDidUpdate: function(prevProps, prevState) {
+      if(this.state.city != prevState.city || this.state.category != prevState.category){
+        this.setState({loading:'visible'})
+        this.retrievePlaces();
+      }
   },
-  retrievePlaces: function (query){
+  retrievePlaces: function (){
     console.log('getting places')
     var that = this;
     var cities = that.state.cities;
     var city = that.state.city;
-    GetPlaces.getRecommended(city,query).then(function(res){
-      console.log(res.data);
+    var category = that.state.category;
+
+    GetPlaces.getRecommended(city,category).then(function(res){
       if(res.data.error){
         alert(res.data.error);
       } else{
@@ -52,26 +59,6 @@ export var Explore = React.createClass({
       })
       return   console.log(errorMessage);
     })
-//     that.setState({places:[{
-//   venue:{
-//     name:'Zocalo',
-//     location:{lat:19.4326,lng:99.1332},
-//     categories:[{name:'Arte'}],
-//     rating:9,
-//     id:1
-//   },
-//     photo:'https://images.bestday.com/_lib/vimages/Mexico/Hotels/Hotel-Zocalo-Central/Fachada_xl.jpg',
-// },
-//   {
-//   venue:{
-//     name:'Palacio Bellas Artes',
-//     location:{lat:19.4352,lng:99.1412},
-//     categories:[{name:'Arte'}],
-//     rating:9,
-//     id:2
-//   },
-//     photo:'https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Bellas_Artes_01.jpg/1200px-Bellas_Artes_01.jpg',
-// }],loading:'hidden'})
   },
   viewPlace: function(place_id){
     var that = this;
@@ -101,7 +88,7 @@ export var Explore = React.createClass({
   handleSideClose:function(){
   console.log('closing');
   console.log(this);
-  this.state.showSide = "none";
+  this.setState({showSide:"none"});
   },
   changeCity:function(event){
 
@@ -111,7 +98,13 @@ export var Explore = React.createClass({
     });
 
   },
+  changeCategory:function(event){
+    this.setState({
+      category:event.target.value,
+      places:[]
+    });
 
+  },
   render: function () {
   console.log('rendering explore');
   if(this.props.state.trip.selectedTrip.id){
@@ -129,7 +122,7 @@ export var Explore = React.createClass({
       <div style={exploreStyle}>
       <Header />
       <div className="filters">
-      <Filters cities={this.state.cities} selectedCity={this.state.city} changeCity={this.changeCity} tripSelected={trip}/>
+      <Filters cities={this.state.cities} selectedCity={this.state.city} selectedCategory={this.state.category} changeCity={this.changeCity} changeCategory={this.changeCategory} tripSelected={trip}/>
       </div>
       <SideExplore handleClose={this.handleSideClose} display={this.state.showSide} name={this.state.venue.name} description={this.state.venue.description} rating={this.state.venue.rating} photos={this.state.venue.photos}/>
       <div style={{height:'74vh',width:'100%',justifyContent:'center',alignItems:'center',visibility:this.state.loading,display:displayLoading}} >

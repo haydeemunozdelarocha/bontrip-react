@@ -12,16 +12,16 @@ var Filters = React.createClass({
     };
   },
   render: function () {
-var count = 1;
-var searchStyle  = {borderRadius:'25px'};
-var cityStyle  = {borderRadius:'25px'};
-if(this.props.tripSelected){
-  searchStyle.visibility = 'hidden';
-  searchStyle.display = 'none';
-} else {
-  cityStyle.visibility = 'hidden';
-  cityStyle.display = 'none';
-}
+      var count = 1;
+      var searchStyle  = {borderRadius:'25px'};
+      var cityStyle  = {borderRadius:'25px'};
+      if(this.props.tripSelected){
+        searchStyle.visibility = 'hidden';
+        searchStyle.display = 'none';
+      } else {
+        cityStyle.visibility = 'hidden';
+        cityStyle.display = 'none';
+      }
       return (
       <div className="row" style={{marginTop:'2%'}}>
       <form>
@@ -35,7 +35,7 @@ if(this.props.tripSelected){
           </select>
           </div>
           <div className="large-4 columns">
-            <select id="searchby" style={{borderRadius:'25px'}} onChange={this.handleSelect}>
+            <select id="searchby" style={{borderRadius:'25px'}} value={this.props.selectedCategory} onChange={this.props.changeCategory}>
               <option value="">Select Category</option>
               <option value="4d4b7104d754a06370d81259">Arts & Entertainment</option>
               <option value="4d4b7105d754a06374d81259">Food</option>

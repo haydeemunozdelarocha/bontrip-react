@@ -26,11 +26,10 @@ componentDidUpdate: function(){
   if(photos){
   var photoInit = photos.groups[0].items[0].prefix+'300x300'+photos.groups[0].items[0].suffix;
   var photoCount = photos.groups[0].items[0].length;
-  console.log(photoCount);
 }
     return (
     <div style={divStyle} ref="side">
-    <div><h4 onclick={()=>{this.handleClose()}}style={{float:'right',right:'8px',top:'8px',cursor:'pointer'}}>X</h4></div>
+    <div><h4 onClick={()=>{this.props.handleClose()}} style={{float:'right',right:'8px',top:'8px',cursor:'pointer'}}>X</h4></div>
     <h4 style={{marginTop:'4%'}}>{name}</h4>
     <img src={photoInit} style={{marginBottom:'5px'}}/>
     <p><strong>Rating: </strong>{rating}</p>

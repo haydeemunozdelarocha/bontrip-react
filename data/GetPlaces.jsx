@@ -13,16 +13,19 @@ const GET_GOOGLE_CITIES='api/places/google'
 
 
 module.exports = {
-  getRecommended:function(city,query){
+  getRecommended:function(city,category){
     city = encodeURI(city);
     var requestUrl = `${PATH}`+`${GET_RECOMMENDED}`;
 
     return axios.request({
       method:'post',
       url:requestUrl,
+        headers: {
+    'Access-Control-Allow-Origin': '*',
+  },
       data:{
         city:city,
-        query:query
+        category:category
       }
     }).then(function(res,err){
       if(res){
