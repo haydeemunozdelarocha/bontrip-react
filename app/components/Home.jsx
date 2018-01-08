@@ -55,6 +55,7 @@ export var Home = React.createClass({
     componentDidMount:function(){
     this.switchImage();
     this.checkUser();
+
   },
     checkUser: function (){
     if(this.props.state.login.user.length >0){

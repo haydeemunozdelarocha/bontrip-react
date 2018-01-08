@@ -16,6 +16,7 @@ export var Login = React.createClass({
      }
   },
   componentDidMount: function() {
+
     this.checkUser();
   },
   checkUser: function(){

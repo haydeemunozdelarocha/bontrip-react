@@ -109,7 +109,6 @@ module.exports = {
     })
   },
   getDay:function(day,tripId,userId){
-
     var requestUrl = `${PATH}`+`${GET_DAY}`+encodeURI(day)+`/`+tripId+`/`+userId;
 
 
@@ -132,7 +131,6 @@ module.exports = {
   }
   ,
   schedulePlace:function(id,date){
-
     var requestUrl = `${PATH}`+`${UPDATE_PLACES}`+id+`/`+date;
 
 
@@ -154,7 +152,6 @@ module.exports = {
     })
   },
     changeOrder:function(id1,order1,id2,order2){
-
     var requestUrl = `${PATH}`+`${UPDATE_ORDER}`+`?id1=`+id1+`&id2=`+id2+`&order1=`+order1+`&order2=`+order2;
 
     return axios.request({

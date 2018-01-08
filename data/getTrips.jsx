@@ -39,7 +39,6 @@ module.exports = {
       }
     }).then(function(res,err){
       if(res){
-        console.log(res);
         return res;
       } else {
         return err;
@@ -50,7 +49,6 @@ module.exports = {
   },
   deleteTrip:function(tripId){
     var requestUrl = `${PATH}`+`${DELETE_TRIP}`+tripId;
-    console.log(requestUrl)
     return axios.request({
       method:'post',
       url:requestUrl
@@ -73,7 +71,6 @@ module.exports = {
       data:trip
     }).then(function(res,err){
       if(res){
-        console.log(res);
         return res;
       } else {
         return err;
