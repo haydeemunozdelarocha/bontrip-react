@@ -41,7 +41,6 @@ module.exports = {
       Trips:'app/components/Trips.jsx',
       Explore:'app/components/Explore.jsx',
       ExploreCard:'app/components/ExploreCard.jsx',
-      Filters:'app/components/Filters.jsx',
       SideExplore:'app/components/SideExplore.jsx',
       Planner:'app/components/Planner.jsx',
       MapaContainer:'app/components/MapaContainer.jsx',

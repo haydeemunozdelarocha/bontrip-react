@@ -36,11 +36,12 @@ export var Header = React.createClass({
       var color = 'rgba(0,0,0,0)'
     } else {
       var image = '/images/bontrip-logo-blue.png';
-      var color = '#eaf9f9';
+      var color = '#fff';
     }
 
     const headerStyle={
-      backgroundColor:color
+      backgroundColor:color,
+      zIndex:'130'
     }
 
     return (
@@ -52,7 +53,6 @@ export var Header = React.createClass({
     <a id="logo" href="/"><img src={image}/></a>
   </div>
   <div className="top-bar-right">
-    {this.loginButton()}
   </div>
 </div>
 </div>

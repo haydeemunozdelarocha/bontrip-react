@@ -10,7 +10,7 @@ var key=process.env.GOOGLE_KEY;
 
 export var MapaContainer = React.createClass({
     getInitialState: function (){
-      console.log('get inital state');
+
     return {
       loaded:false,
       showingInfoWindow: false,
@@ -18,26 +18,27 @@ export var MapaContainer = React.createClass({
       selectedPlace: {}
     };
   },
-  componentDidUpdate(prevProps, prevState) {
-    if(!prevProps.loaded && this.props.loaded){
+  componentDidUpdate:function(prevProps, prevState) {
+
+    if(prevProps.loaded !== this.props.loaded || prevProps.places.length !== this.props.places.length){
       this.loadMap();
     }
   },
+
   loadMap: function(){
-    console.log('loading map');
     var that = this;
     var latitude = that.props.location.lat;
     var longitude = that.props.location.lng ;
-    var map = new google.maps.Map(that.refs.map, {
+
+      var map = new google.maps.Map(that.refs.map, {
           zoom: 12,
           center: {lat: latitude, lng: longitude}
     });
-
-  var places = that.props.places;
     var div = document.createElement('div');
      var infowindow = new google.maps.InfoWindow({
     content: div
   });
+      var places = that.props.places;
 
    that.props.places.map((place, i) =>{
   var coordinates = {lat:place.coordinates.lat,lng:place.coordinates.lon};
@@ -83,7 +84,7 @@ renderInfoWindow: function(place) {
 
     return (
       <div id="map-container">
-        <div ref="map" id="map">Loading..</div>
+        <div ref="map" id="map"><i className="fa fa-spinner fa-spin" ref="spinner" aria-hidden="true"></i></div>
       </div>
     )
   }

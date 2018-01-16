@@ -1,57 +1,29 @@
 var React = require('react');
 var GetPlaces = require('GetPlaces');
-var Filters = require('Filters');
 var SideExplore = require('SideExplore');
 var {connect} = require('react-redux');
 var actions = require('Actions');
-import Header from 'Header';
 import ExploreCard from 'ExploreCard';
 import 'Sass';
 
 export var Explore = React.createClass({
+
   getInitialState: function(){
-    var cities =this.props.state.trip.selectedTrip.cities || this.props.location.state.cities;
 
     return {
     venue:{},
-    places:[],
-    city:cities[0],
-    cities:cities,
+    places:this.props.places,
+    city:this.props.city,
+    cities:this.props.cities,
     category:'',
-    showSide:'none'
-  }
-  },
-  componentDidMount: function() {
-   this.retrievePlaces();
+    showSide:'none',
+    explore:false  }
   },
   componentDidUpdate: function(prevProps, prevState) {
       if(this.state.city != prevState.city || this.state.category != prevState.category){
         this.setState({loading:'visible'})
-        this.retrievePlaces();
+        this.props.retrievePlaces(this.state.category);
       }
-  },
-  retrievePlaces: function (){
-    var that = this;
-    var cities = that.state.cities;
-    var city = that.state.city;
-    var category = that.state.category;
-
-    GetPlaces.getRecommended(city,category).then(function(res){
-      if(res.data.error){
-        alert(res.data.error);
-      } else{
-      that.setState({
-        places:res.data,
-        loading:'hidden'
-      })
-      }
-      that.refs.spinner.style.display='none';
-    }, function(errorMessage){
-      that.setState({
-        loading:'visible'
-      })
-      return   console.log(errorMessage);
-    })
   },
   viewPlace: function(place_id){
     var that = this;
@@ -67,27 +39,8 @@ export var Explore = React.createClass({
          return console.log(errorMessage);
     })
   },
-    addPlace: function(place){
-
-    GetPlaces.addPlace(place).then(function(res){
-      if(res.data._id){
-        place.el.props.selected = true;
-      }
-
-    }, function(errorMessage){
-         console.log(errorMessage);
-    })
-  },
   handleSideClose:function(){
   this.setState({showSide:"none"});
-  },
-  changeCity:function(event){
-
-    this.setState({
-      city:event.target.value,
-      places:[]
-    });
-
   },
   changeCategory:function(event){
     this.setState({
@@ -96,32 +49,68 @@ export var Explore = React.createClass({
     });
 
   },
+  showExplore:function(){
+    if(this.state.explore){
+    $( "#explore-tab-container" ).animate({
+        marginLeft: '-25%'
+    }, 300);
+    this.setState({
+      explore:false
+    })
+    } else {
+      $( "#explore-tab-container" ).animate({
+          marginLeft: '0'
+      }, 300);
+    this.setState({
+      explore:true
+    })
+    }
+  },
   render: function () {
+
   if(this.props.state.trip.selectedTrip.id){
     var trip = true;
   } else {
     var trip = false;
   }
-
-  if(this.state.loading === 'hidden'){
+  if(this.props.loading === 'hidden'){
     var displayLoading = 'none';
   }else {
     var displayLoading ='flex';
   }
+  if(this.props.open){
+      var show = 'visible';
+      var display = 'block';
+    } else {
+      var show = 'hidden';
+      var display ='none';
+    }
       return (
+      <div id="explore-tab-container" >
       <div id="explore-main-container">
-      <Header />
       <div className="filters">
-      <Filters cities={this.state.cities} selectedCity={this.state.city} selectedCategory={this.state.category} changeCity={this.changeCity} changeCategory={this.changeCategory} tripSelected={trip}/>
+        <select id="searchby" style={{width:'90%'}} value={this.state.category} onChange={this.changeCategory}>
+              <option value="">Select Category</option>
+              <option value="4d4b7104d754a06370d81259">Arts & Entertainment</option>
+              <option value="4d4b7105d754a06374d81259">Food</option>
+              <option value="4d4b7105d754a06376d81259">Nightlife</option>
+              <option value="4d4b7105d754a06377d81259">Outdoors</option>
+              <option value="4d4b7105d754a06378d81259">Shopping</option>
+        </select>
       </div>
-      <SideExplore handleClose={this.handleSideClose} display={this.state.showSide} name={this.state.venue.name} description={this.state.venue.description} rating={this.state.venue.rating} photos={this.state.venue.photos}/>
-      <div id="explore-loading-container" style={{visibility:this.state.loading,display:displayLoading}} >
+              <SideExplore handleClose={this.handleSideClose} display={this.state.showSide} name={this.state.venue.name} description={this.state.venue.description} rating={this.state.venue.rating} photos={this.state.venue.photos}/>
+
+      <div className="row" id="explore-container">
+       <div id="explore-loading-container" style={{visibility:this.props.loading,display:displayLoading}} >
             <i className="fa fa-spinner fa-spin" ref="spinner" aria-hidden="true"></i>
       </div>
-      <div className="row" id="explore-container">
-            {this.state.places && Object.keys(this.state.places).map(function(k, name) {
-            return <ExploreCard  viewPlace={this.viewPlace}  name={this.state.places[k].venue.name} lat={this.state.places[k].venue.location.lat} lng={this.state.places[k].venue.location.lng} category={this.state.places[k].venue.categories[0].name} rating={this.state.places[k].venue.rating} photo ={this.state.places[k].photo} place_id={this.state.places[k].venue.id} key={this.state.places[k].venue.id}/>
+            {this.props.places && Object.keys(this.props.places).map(function(k, name) {
+            return <ExploreCard  fetchPlaces={this.props.fetchPlaces} viewPlace={this.viewPlace}  name={this.props.places[k].venue.name} lat={this.props.places[k].venue.location.lat} lng={this.props.places[k].venue.location.lng} category={this.props.places[k].venue.categories[0].name} rating={this.props.places[k].venue.rating} photo ={this.props.places[k].photo} place_id={this.props.places[k].venue.id} key={this.props.places[k].venue.id}/>
         }.bind(this))}
+      </div>
+      </div>
+       <div id="explore-tab">
+      <img onClick={this.showExplore} id="explore-tab-icon" src="/images/explore.png" />
       </div>
       </div>
     );

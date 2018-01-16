@@ -6,7 +6,8 @@ import getMuiTheme        from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider   from 'material-ui/styles/MuiThemeProvider';
 var {browserHistory} = require('react-router');
 var GetPlaces = require('GetPlaces');
-
+var actions = require('Actions');
+var moment = require('moment');
 
 const background = {
   width: '100%',
@@ -28,13 +29,13 @@ const searchContainer ={
 };
 const searchBar = {
   width:'30%',
-  borderRadius:'30px',
-  border:'none',
-  opacity:'.9',
-  backgroundColor:'white',
+  borderBottom:'solid 3px white',
+  backgroundColor:'rgba(0,0,0,0)',
   overflow:'hidden',
   paddingLeft:'1%',
-  paddingRight:'1%'
+  paddingRight:'1%',
+  color:'white',
+  fontFamily:'Futura'
 };
 
 const images = [
@@ -45,7 +46,9 @@ var count = 0;
 
 export var Home = React.createClass({
 
-    getInitialState: function (){
+ getInitialState: function (){
+      var {dispatch} = this.props;
+     dispatch(actions.logout());
     return {
       loading: true,
       buttonOff:false,
@@ -59,7 +62,6 @@ export var Home = React.createClass({
   },
     checkUser: function (){
     if(this.props.state.login.user.length >0){
-      console.log(this.props.state.login.user)
       browserHistory.push({pathname: '/trips'});
     } else {
       return;
@@ -75,7 +77,6 @@ export var Home = React.createClass({
      setTimeout(function() { this.switchImage() }.bind(this), 5000);
   },
   handleChange:function(input){
-    console.log('handling');
     var that = this;
 
     GetPlaces.getGoogleCities(input).then(function(res){
@@ -89,8 +90,9 @@ export var Home = React.createClass({
     var cities =[];
     cities.push(text.text);
     this.setState({cities:cities});
-    browserHistory.push({pathname: '/explore', state: this.state});
-
+    var {dispatch} = this.props;
+    dispatch(actions.trip('',cities,moment(new Date()).format("YYYY-MM-DD"),''));
+    browserHistory.push({pathname: '/planner'});
   },
   render: function () {
       return (
@@ -98,7 +100,7 @@ export var Home = React.createClass({
       <div style={{width:'100%',height:'100vh',overflow:'hidden'}}>
       <Header home={true} loggedIn={false} buttonOff = {this.state.buttonOff} />
       <img style={background} ref="background" src={images[0]} />
-      <div style={searchContainer}>
+      <div id='home-search-container' style={searchContainer}>
       <AutoComplete ref="city"
       hintText="Where to?"
             id='1'
@@ -112,6 +114,9 @@ export var Home = React.createClass({
             dataSourceConfig={{ text: 'text', value: 'value'}}
             maxSearchResults={4}
             filter={AutoComplete.caseInsensitiveFilter}
+            textFieldStyle={{color:'white',fontFamily:'Futura'}}
+            menuStyle={{backgroundColor:'rgba(0,0,0,0)',fontFamily:'Futura'}}
+            listStyle={{backgroundColor:'rgba(0,0,0,0)',fontFamily:'Futura'}}
     />
       </div>
       </div>

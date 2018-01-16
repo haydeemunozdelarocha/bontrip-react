@@ -19,5 +19,20 @@ export var trip = (id,cities,start,end) => {
     cities:cities,
     start:start,
     end:end
+      };
+};
+
+export var likedPlaces = (likedPlaces) => {
+  return {
+    type:'ADD_PLACES',
+    likedPlaces:likedPlaces
+  };
+};
+
+export var schedulePlaces = (id,date) => {
+  return {
+    type:'SCHEDULE_PLACE',
+    id:id,
+    date:date
   };
 };

@@ -8,6 +8,9 @@ var SideExplore = React.createClass({
   },
   render: function () {
       var {name,photos,rating,description} = this.props;
+      if(!description){
+        description = 'No description available.';
+      }
       var divStyle = {
           display:this.props.display
       };
