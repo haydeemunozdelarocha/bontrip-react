@@ -4,6 +4,7 @@ import HTML5Backend from 'react-dnd-html5-backend'
 import DayCard from './DayCard';
 import 'Sass';
 var actions = require('Actions');
+var $= require('jquery');
 
 var moment = require('moment');
 var GetPlaces = require('GetPlaces');
@@ -41,22 +42,9 @@ var SidePlanner = React.createClass({
     }
     return dates;
     },
-      showPlanner:function(){
-    if(this.state.planner){
-    $( "#side-planner-main-container" ).animate({
-        marginRight: '-25%'
-    }, 300);
-    this.setState({
-      planner:false
-    })
-    } else {
-      $( "#side-planner-main-container" ).animate({
-          marginRight: '0'
-      }, 300);
-    this.setState({
-      planner:true
-    })
-    }
+    showPlanner:function(){
+    $( ".side-planner-main-container" ).toggleClass("open-planner", 300);
+
   },
   render:function() {
     const { cards } = this.props;
@@ -79,7 +67,10 @@ var SidePlanner = React.createClass({
 
     var count = 0;
     return (
-    <div id="side-planner-main-container">
+    <div className="side-planner-main-container">
+           <div id="side-planner-tab">
+      <img onClick={this.showPlanner} id="planner-tab-icon" src="/images/planner.png" />
+      </div>
       <div id="side-planner-container">
         {dateSelector()}
         {checkCards()}
@@ -91,9 +82,6 @@ var SidePlanner = React.createClass({
             moveCard={this.moveCard}
           />
         ))}
-      </div>
-       <div id="side-planner-tab">
-      <img onClick={this.showPlanner} id="planner-tab-icon" src="/images/planner.png" />
       </div>
       </div>
     )

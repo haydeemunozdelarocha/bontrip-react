@@ -3,6 +3,8 @@ var GetPlaces = require('GetPlaces');
 var SideExplore = require('SideExplore');
 var {connect} = require('react-redux');
 var actions = require('Actions');
+var $= require('jquery');
+
 import ExploreCard from 'ExploreCard';
 import 'Sass';
 
@@ -50,21 +52,9 @@ export var Explore = React.createClass({
 
   },
   showExplore:function(){
-    if(this.state.explore){
-    $( "#explore-tab-container" ).animate({
-        marginLeft: '-25%'
-    }, 300);
-    this.setState({
-      explore:false
-    })
-    } else {
-      $( "#explore-tab-container" ).animate({
-          marginLeft: '0'
-      }, 300);
-    this.setState({
-      explore:true
-    })
-    }
+    console.log('show explore')
+    $( ".explore-tab-container" ).toggleClass("open-explore", 300);
+
   },
   render: function () {
 
@@ -86,7 +76,7 @@ export var Explore = React.createClass({
       var display ='none';
     }
       return (
-      <div id="explore-tab-container" >
+      <div className="explore-tab-container" >
       <div id="explore-main-container">
       <div className="filters">
         <select id="searchby" style={{width:'90%'}} value={this.state.category} onChange={this.changeCategory}>

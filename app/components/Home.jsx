@@ -4,21 +4,14 @@ import {AutoComplete} from 'material-ui';
 import Header from 'Header';
 import getMuiTheme        from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider   from 'material-ui/styles/MuiThemeProvider';
+import 'Sass';
+
 var {browserHistory} = require('react-router');
 var GetPlaces = require('GetPlaces');
 var actions = require('Actions');
 var moment = require('moment');
+var $ = require('jquery');
 
-const background = {
-  width: '100%',
-  backgroundPosition: 'center',
-  backgroundRepeat: 'no-repeat',
-  backgroundSize: 'cover',
-  zIndex:'-9',
-  position:'absolute',
-  height:'100%',
-  top:'0'
-};
 
 const searchContainer ={
   width:'100%',
@@ -27,16 +20,7 @@ const searchContainer ={
   justifyContent:'center',
   alignItems:'center'
 };
-const searchBar = {
-  width:'30%',
-  borderBottom:'solid 3px white',
-  backgroundColor:'rgba(0,0,0,0)',
-  overflow:'hidden',
-  paddingLeft:'1%',
-  paddingRight:'1%',
-  color:'white',
-  fontFamily:'Futura'
-};
+
 
 const images = [
 "/images/paris.jpg","/images/sardinia.jpg","/images/iceland.jpg","/images/madrid.jpg","/images/tokyo.jpg","/images/patagonia.jpg"
@@ -49,13 +33,23 @@ export var Home = React.createClass({
  getInitialState: function (){
       var {dispatch} = this.props;
      dispatch(actions.logout());
+   var height = $(window).height();
+   var width = $(window).width();
     return {
       loading: true,
       buttonOff:false,
-      citiesData:[]
+      citiesData:[],
+      height:height,
+      width:width,
+      imageMargin:'auto',
+      searchBarWidth:'30%'
      }
   },
+    componentWillMount: function() {
+        this.updateDimensions();
+    },
     componentDidMount:function(){
+    window.addEventListener("resize", this.updateDimensions);
     this.switchImage();
     this.checkUser();
 
@@ -94,16 +88,67 @@ export var Home = React.createClass({
     dispatch(actions.trip('',cities,moment(new Date()).format("YYYY-MM-DD"),''));
     browserHistory.push({pathname: '/planner'});
   },
+    updateDimensions: function() {
+      if($(window).width() <500){
+        this.setState({
+          width: '1920px',
+          height: $(window).height(),
+          imageMargin: "-357px 0px 0px -777px",
+          searchBarWidth:"50%"
+        });
+      } else {
+       this.setState({
+          width: $(window).width(),
+          height: $(window).height(),
+          imageMargin:"auto"
+        });
+      }
+    },
   render: function () {
+      var screenHeight = this.state.height;
+      var screenWidth = this.state.width;
+      var searchBarWidth = this.state.searchBarWidth;
+
+
+    const background = {
+      width: screenWidth,
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat',
+      backgroundSize: 'cover',
+      zIndex:'-9',
+     position:'absolute',
+      height:screenHeight,
+      overflow:'hidden',
+      top:'0'
+    };
+
+const backgroundImage = {
+      maxWidth:'100%',
+      minHeight:screenHeight,
+      minWidth:screenWidth,
+      margin:this.state.imageMargin
+    };
+const searchBar = {
+  width:searchBarWidth,
+  borderBottom:'solid 3px white',
+  backgroundColor:'rgba(0,0,0,0)',
+  overflow:'hidden',
+  paddingLeft:'1%',
+  paddingRight:'1%',
+  color:'white',
+  fontFamily:'Futura'
+};
       return (
       <MuiThemeProvider muiTheme={getMuiTheme()}>
       <div style={{width:'100%',height:'100vh',overflow:'hidden'}}>
       <Header home={true} loggedIn={false} buttonOff = {this.state.buttonOff} />
-      <img style={background} ref="background" src={images[0]} />
+      <div style={background}>
+            <img style={backgroundImage} ref="background" id="background" src={images[0]} />
+      </div>
       <div id='home-search-container' style={searchContainer}>
-      <AutoComplete ref="city"
+      <AutoComplete id="search" ref="city"
       hintText="Where to?"
-            id='1'
+            id='search'
             underlineStyle={{display: 'none'}}
             searchText={this.state.city}
             dataSource    = {this.state.citiesData}

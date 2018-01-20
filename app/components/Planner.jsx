@@ -44,7 +44,7 @@ export var Planner = React.createClass({
     }
     return true;
   },
-componentDidMount:function(){
+  componentDidMount:function(){
     this.fetchPlaces();
     this.retrievePlaces();
     this.scheduledPlaces();
@@ -214,6 +214,7 @@ componentDidMount:function(){
     window.location.reload()
   }
   },
+
   render: function () {
       var count = 1;
       return (

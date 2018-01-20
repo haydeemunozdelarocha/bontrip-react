@@ -6,6 +6,9 @@ $mediumblue:#46607c;
 $titlefont: Futura;
 $secondaryfont:Futura, sans-serif;
 $tertiaryfont: Righteous, cursive;
+$break-small: 490px;
+$break-medium: 800px;
+$break-large: 1200px;
 
 //general
 body{
@@ -94,6 +97,9 @@ p{
   div {
     font-family:'Futura';
     font-size: 19px;
+    div{
+      width:100%;
+    }
     input{
      color:white!important;
              outline:none;
@@ -101,6 +107,14 @@ p{
         border: none;
         outline:none;
     }
+    }
+  }
+}
+#search{
+  input{
+          width:118%!important;
+    @media screen and (max-width: $break-medium) {
+      width:77%!important;
     }
   }
 }
@@ -135,12 +149,11 @@ p{
 //explore
 
 #explore-main-container{
-  height:90%;
-  width:25%;
+  height:100%;
+  width:100%;
   background-color: $lightblue;
   overflow-x:hidden;
-  position:absolute;
-  z-index:100;
+  z-index:201;
 }
 #explore-container{
   width:100%;
@@ -159,7 +172,9 @@ p{
 }
 #side-explore-container{
   background-color: $lightblue;
-  width:25%;
+  width: calc(30% - 60px);
+  width: -moz-calc(30% - 60px);
+  width: -webkit-calc(30% - 60px);
   height:100%;
   top:54px;
   position:fixed;
@@ -167,6 +182,14 @@ p{
   z-index:20;
   overflow-x:auto;
   padding:1% 3% 6% 3%;
+    @media screen and (max-width: $break-small) {
+      width:64%;
+      right:0;
+      left:inherit;
+        width: calc(64% - 60px);
+        width: -moz-calc(64% - 60px);
+       width: -webkit-calc(64% - 60px);
+    }
 }
 #explore-close-button{
   float:right;
@@ -176,12 +199,10 @@ p{
 }
 #explore-tab{
   background-color: $lightblue;
-  width:60px;
+  min-width:60px;
   height:60px;
-  position:absolute;
-  margin-left: 25%;
   margin-top: 60px;
-  z-index:99;
+  z-index:200;
   display:flex;
   justify-content:center;
   align-items:center;
@@ -189,14 +210,36 @@ p{
 -moz-box-shadow: 2px 3px 5px rgba(0,0,0,0.3);
 -webkit-box-shadow: 2px 3px 5px rgba(0,0,0,0.3);
 box-shadow: 2px 3px 5px rgba(0,0,0,0.3);
+  @media screen and (max-width: $break-small) {
+    margin-top:166px;
+    }
 }
 #explore-tab-icon{
   height:40px;
 }
-#explore-tab-container{
+.explore-tab-container{
   width:30%;
   height:100%;
-  margin-left: -25%;
+  margin-left: calc(-30% + 60px);
+  margin-left: -moz-calc(-30% + 60px);
+  margin-left: -webkit-calc(-30% + 60px);
+  position:absolute;
+  display:flex;
+  flex-direction:row;
+    @media screen and (max-width: $break-small) {
+      width:64%;
+        right:0;
+        flex-direction: row-reverse;
+        margin-right: calc(-64% + 60px);
+        margin-right: -moz-calc(-64% + 60px);
+        margin-right: -webkit-calc(-64% + 60px);
+     }
+}
+.open-explore{
+  margin-left: 0px;
+      @media screen and (max-width: $break-small) {
+        margin-right: 0px;
+      }
 }
 .heart{
   z-index:9;
@@ -279,21 +322,34 @@ box-shadow: 2px 3px 5px rgba(0,0,0,0.3);
 #side-planner-container{
   width:84%;
   height:91%;
-  right:0;
   background-color:$mediumblue;
   color:white;
   padding:10px;
-  position:absolute;
-  z-index:100;
+  z-index:128;
   overflow-y:auto;
 }
-#side-planner-main-container{
+.side-planner-main-container{
   width:30%;
   height:100%;
   position:absolute;
   right:0;
-  margin-right: -25%;
+  display: flex;
+  flex-direction:row;
+  margin-right: calc(-30% + 60px);
+  margin-right: -moz-calc(-30% + 60px);
+  margin-right: -webkit-calc(-30% + 60px);
+  z-index:140;
+      @media screen and (max-width: $break-small) {
+        width:64%;
+        margin-right: calc(-64% + 60px);
+        margin-right: -moz-calc(-64% + 60px);
+        margin-right: -webkit-calc(-64% + 60px);
+     }
 
+}
+.open-planner{
+  margin-right: 0px;
+  z-index:201;
 }
 #city-container{
   width:100%;
@@ -305,19 +361,21 @@ box-shadow: 2px 3px 5px rgba(0,0,0,0.3);
 }
 #side-planner-tab{
   background-color: $mediumblue;
-  width:60px;
+  min-width:60px;
   height:60px;
-  position:absolute;
-  margin-right: 25%;
   margin-top: 60px;
   z-index:99;
   display:flex;
   justify-content:center;
   align-items:center;
   cursor:pointer;
--moz-box-shadow: 2px 3px 5px rgba(0,0,0,0.3);
--webkit-box-shadow: 2px 3px 5px rgba(0,0,0,0.3);
-box-shadow: 2px 3px 5px rgba(0,0,0,0.3);
+  -moz-box-shadow: 2px 3px 5px rgba(0,0,0,0.3);
+  -webkit-box-shadow: 2px 3px 5px rgba(0,0,0,0.3);
+  box-shadow: 2px 3px 5px rgba(0,0,0,0.3);
+
+      @media screen and (max-width: $break-small) {
+        margin-top:100px;
+     }
 }
 #planner-tab-icon{
   height:40px;
