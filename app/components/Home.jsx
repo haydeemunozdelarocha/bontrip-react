@@ -13,14 +13,6 @@ var moment = require('moment');
 var $ = require('jquery');
 
 
-const searchContainer ={
-  width:'100%',
-  height:'87vh',
-  display:'flex',
-  justifyContent:'center',
-  alignItems:'center'
-};
-
 
 const images = [
 "/images/paris.jpg","/images/sardinia.jpg","/images/iceland.jpg","/images/madrid.jpg","/images/tokyo.jpg","/images/patagonia.jpg"
@@ -91,16 +83,23 @@ export var Home = React.createClass({
     updateDimensions: function() {
       if($(window).width() <500){
         this.setState({
-          width: '1920px',
+          width: 'auto',
           height: $(window).height(),
-          imageMargin: "-357px 0px 0px -777px",
-          searchBarWidth:"50%"
+          imageMargin: "-255px",
+          searchBarWidth:"100%",
+          maxWidth:'1920px'
+                  });
+      } else if($(window).width() < 800 && $(window).width() > 500){
+        this.setState({
+          searchBarWidth:"90%"
         });
       } else {
        this.setState({
           width: $(window).width(),
-          height: $(window).height(),
-          imageMargin:"auto"
+          height: 'auto',
+          imageMargin:"auto",
+          maxWidth:$(window).width(),
+          searchBarWidth:"60%",
         });
       }
     },
@@ -111,7 +110,7 @@ export var Home = React.createClass({
 
 
     const background = {
-      width: screenWidth,
+      width: $(window).width(),
       backgroundPosition: 'center',
       backgroundRepeat: 'no-repeat',
       backgroundSize: 'cover',
@@ -123,21 +122,33 @@ export var Home = React.createClass({
     };
 
 const backgroundImage = {
-      maxWidth:'100%',
-      minHeight:screenHeight,
-      minWidth:screenWidth,
-      margin:this.state.imageMargin
+      height:screenHeight,
+      width:screenWidth,
+      marginLeft:this.state.imageMargin,
+      maxWidth:this.state.maxWidth,
+      left:'50%',
+      minHeight:$(window).height()
     };
-const searchBar = {
-  width:searchBarWidth,
-  borderBottom:'solid 3px white',
-  backgroundColor:'rgba(0,0,0,0)',
-  overflow:'hidden',
-  paddingLeft:'1%',
-  paddingRight:'1%',
-  color:'white',
-  fontFamily:'Futura'
-};
+
+    const searchBar = {
+      width:"50%",
+      borderBottom:'solid 3px white',
+      backgroundColor:'rgba(0,0,0,0)',
+      overflow:'hidden',
+      paddingLeft:'1%',
+      paddingRight:'1%',
+      color:'white',
+      fontFamily:'Futura'
+    };
+
+    const searchContainer ={
+      width:searchBarWidth,
+      height:'87vh',
+      display:'flex',
+      justifyContent:'center',
+      alignItems:'center',
+      margin:'auto'
+    };
       return (
       <MuiThemeProvider muiTheme={getMuiTheme()}>
       <div style={{width:'100%',height:'100vh',overflow:'hidden'}}>
