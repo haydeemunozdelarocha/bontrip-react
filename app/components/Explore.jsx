@@ -76,8 +76,7 @@ export var Explore = React.createClass({
       var display ='none';
     }
       return (
-      <div className="explore-tab-container" >
-      <div id="explore-main-container">
+      <div id="explore-content">
       <div className="filters">
         <select id="searchby" style={{width:'90%'}} value={this.state.category} onChange={this.changeCategory}>
               <option value="">Select Category</option>
@@ -97,10 +96,6 @@ export var Explore = React.createClass({
             {this.props.places && Object.keys(this.props.places).map(function(k, name) {
             return <ExploreCard  fetchPlaces={this.props.fetchPlaces} viewPlace={this.viewPlace}  name={this.props.places[k].venue.name} lat={this.props.places[k].venue.location.lat} lng={this.props.places[k].venue.location.lng} category={this.props.places[k].venue.categories[0].name} rating={this.props.places[k].venue.rating} photo ={this.props.places[k].photo} place_id={this.props.places[k].venue.id} key={this.props.places[k].venue.id}/>
         }.bind(this))}
-      </div>
-      </div>
-       <div id="explore-tab">
-      <img onClick={this.showExplore} id="explore-tab-icon" src="/images/explore.png" />
       </div>
       </div>
     );

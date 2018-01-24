@@ -4,7 +4,15 @@ import 'Sass';
 
 
 var Navigation = React.createClass({
+
   render: function () {
+    if(!this.props.user.length>0){
+      var link = "/login";
+      var caption = "Login";
+    } else {
+      var link = "/logout";
+      var caption = "Logout";
+    }
     return (
           <ul className={this.props.type} id="menu">
             <li>
@@ -17,7 +25,7 @@ var Navigation = React.createClass({
               <Link to="/planner" activeClassName="active" style={{color:'#0d1228'}} activeStyle={{color:'#0d1228',textDecoration:'underline'}}>Planner</Link>
             </li>
             <li>
-              <Link to="/logout" activeClassName="active" style={{color:'#0d1228'}} activeStyle={{color:'#0d1228',textDecoration:'underline'}}>Logout</Link>
+              <Link to={link} activeClassName="active" style={{color:'#0d1228'}} activeStyle={{color:'#0d1228',textDecoration:'underline'}}>{caption}</Link>
             </li>
           </ul>
     );

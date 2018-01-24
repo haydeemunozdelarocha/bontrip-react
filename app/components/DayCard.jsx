@@ -90,7 +90,7 @@ export default class DayCard extends Component {
     const opacity = isDragging ? 0 : 1
 
     return connectDragSource(
-      connectDropTarget(<div className="day-card" style={{opacity}}>{text}</div>),
+      connectDropTarget(<div className={this.props.class} style={{opacity}}>{text}</div>),
     )
   }
 }

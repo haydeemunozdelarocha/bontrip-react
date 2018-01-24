@@ -29,6 +29,11 @@ p{
 #menu{
   background-color:rgba(0,0,0,0);
   color:#18214f;
+  display:flex;
+  list-style:none;
+  li{
+      padding-right: 20px;
+  }
 }
 #app{
   height:100%;
@@ -76,6 +81,13 @@ p{
       background-color:$red;
     }
 }
+.add-city-window{
+  display:flex;
+  flex-direction:column;
+  button{
+    padding:10px;
+  }
+}
 
 //header
 #header {
@@ -86,7 +98,9 @@ p{
   height:54px;
   font-family: Futura;
 }
-
+.top-bar-right{
+  width:30%;
+}
 // login & signup
 .login-container{
   background-color:$lightblue;
@@ -110,6 +124,42 @@ p{
     }
     }
   }
+}
+.pac-container {
+  background-color: rgba(0,0,0,0)!important;
+  font-family: $secondaryfont;
+  box-shadow: none;
+}
+.pac-item{
+  color:white!important;
+  border-top: none!important;
+  &:hover{
+    background-color:rgba(234, 249, 249,.6)!important;
+    color:black!important;
+    span {
+     color:black!important;
+    }
+  }
+}
+#pac-input{
+  background-color: rgba(0,0,0,0);
+  color:white!important;
+  border:none;
+  border-bottom: 3px solid white;
+  &:focus{
+  outline-color: transparent;
+  outline-style: none;
+  box-shadow: none;
+  }
+}
+.pac-icon{
+  display:none!important;
+}
+.pac-matched{
+  color:white;
+}
+.pac-item-query{
+  color:white;
 }
 #search{
   input{
@@ -147,9 +197,23 @@ p{
   margin-top:2%;
   display:flex;
 }
+.city-card{
+  border:1px dashed $mediumblue;
+  padding:0.5rem 1rem;
+  margin-bottom:.5rem;
+  background-color:rgba(0,0,0,0);
+  cursor:move;
+  color:$mediumblue;
+
+}
+#add-cities-container{
+  width:90%;
+  margin:auto;
+  padding-top: 10px;
+}
 //explore
 
-#explore-main-container{
+#left-panel-inside{
   height:100%;
   width:100%;
   background-color: $lightblue;
@@ -199,7 +263,7 @@ p{
   top:8px;
   cursor:pointer;
 }
-#explore-tab{
+#left-tab{
   background-color: $lightblue;
   min-width:60px;
   height:60px;
@@ -216,10 +280,10 @@ box-shadow: 2px 3px 5px rgba(0,0,0,0.3);
     margin-top:166px;
     }
 }
-#explore-tab-icon{
+#left-tab-icon{
   height:40px;
 }
-.explore-tab-container{
+.main-left-container{
   width:30%;
   height:100%;
   margin-left: calc(-30% + 60px);
@@ -333,7 +397,7 @@ box-shadow: 2px 3px 5px rgba(0,0,0,0.3);
   z-index:128;
   overflow-y:auto;
 }
-.side-planner-main-container{
+.right-main-container{
   width:30%;
   height:100%;
   position:absolute;
@@ -368,7 +432,7 @@ box-shadow: 2px 3px 5px rgba(0,0,0,0.3);
         margin-left: 5%;
      }
 }
-#side-planner-tab{
+#right-tab{
   background-color: $mediumblue;
   min-width:60px;
   height:60px;
@@ -386,7 +450,7 @@ box-shadow: 2px 3px 5px rgba(0,0,0,0.3);
         margin-top:100px;
      }
 }
-#planner-tab-icon{
+#right-tab-icon{
   height:40px;
 }
 #city{

@@ -1,9 +1,8 @@
 var React = require('react');
 var {connect} = require('react-redux');
-import {AutoComplete} from 'material-ui';
 import Header from 'Header';
-import getMuiTheme        from 'material-ui/styles/getMuiTheme';
-import MuiThemeProvider   from 'material-ui/styles/MuiThemeProvider';
+import CityAutocomplete from 'CityAutocomplete';
+
 import 'Sass';
 
 var {browserHistory} = require('react-router');
@@ -62,16 +61,6 @@ export var Home = React.createClass({
       this.refs.background.src = images[count];
      setTimeout(function() { this.switchImage() }.bind(this), 5000);
   },
-  handleChange:function(input){
-    var that = this;
-
-    GetPlaces.getGoogleCities(input).then(function(res){
-          that.setState({citiesData:res.data});
-    }, function(errorMessage){
-
-      return   console.log(errorMessage);
-    })
-  },
   handleNewRequest:function(text){
     var cities =[];
     cities.push(text.text);
@@ -103,6 +92,25 @@ export var Home = React.createClass({
         });
       }
     },
+  addPlace:function(place){
+    var {dispatch} = this.props;
+    var city = new Object();
+    place.address_components.forEach(function (i,address_component) {
+       if (i.types[0] == "locality" || i.types[0] == "administrative_area_level_3"){
+         city.name = i.long_name;
+       }
+      if (i.types[0] == "country"){
+        city.country = i.long_name;
+      }
+      if (i.types[0] == "administrative_area_level_1"){
+        city.state = i.short_name;
+     }
+    });
+
+    city.coordinates = place.geometry.location;
+    dispatch(actions.addCity(null,city));
+    browserHistory.push({pathname: '/newtrip', state:{name:city.name,coordinates:city.coordinates}});
+  },
   render: function () {
       var screenHeight = this.state.height;
       var screenWidth = this.state.width;
@@ -121,7 +129,7 @@ export var Home = React.createClass({
       top:'0'
     };
 
-const backgroundImage = {
+    const backgroundImage = {
       height:screenHeight,
       width:screenWidth,
       marginLeft:this.state.imageMargin,
@@ -130,53 +138,26 @@ const backgroundImage = {
       minHeight:$(window).height()
     };
 
-    const searchBar = {
-      width:"50%",
-      borderBottom:'solid 3px white',
-      backgroundColor:'rgba(0,0,0,0)',
-      overflow:'hidden',
-      paddingLeft:'1%',
-      paddingRight:'1%',
-      color:'white',
-      fontFamily:'Futura'
-    };
-
     const searchContainer ={
-      width:searchBarWidth,
+      width:'80%',
       height:'87vh',
       display:'flex',
       justifyContent:'center',
       alignItems:'center',
       margin:'auto'
     };
+
       return (
-      <MuiThemeProvider muiTheme={getMuiTheme()}>
       <div style={{width:'100%',height:'100vh',overflow:'hidden'}}>
       <Header home={true} loggedIn={false} buttonOff = {this.state.buttonOff} />
       <div style={background}>
             <img style={backgroundImage} ref="background" id="background" src={images[0]} />
       </div>
       <div id='home-search-container' style={searchContainer}>
-      <AutoComplete id="search" ref="city"
-      hintText="Where to?"
-            id='search'
-            underlineStyle={{display: 'none'}}
-            searchText={this.state.city}
-            dataSource    = {this.state.citiesData}
-            onUpdateInput = {this.handleChange}
-            style={searchBar}
-            open={true}
-            onNewRequest={this.handleNewRequest}
-            dataSourceConfig={{ text: 'text', value: 'value'}}
-            maxSearchResults={4}
-            filter={AutoComplete.caseInsensitiveFilter}
-            textFieldStyle={{color:'white',fontFamily:'Futura'}}
-            menuStyle={{backgroundColor:'rgba(0,0,0,0)',fontFamily:'Futura'}}
-            listStyle={{backgroundColor:'rgba(0,0,0,0)',fontFamily:'Futura'}}
-    />
+        <CityAutocomplete addPlace={this.addPlace}/>
       </div>
       </div>
-        </MuiThemeProvider>
+
     );
 
   }

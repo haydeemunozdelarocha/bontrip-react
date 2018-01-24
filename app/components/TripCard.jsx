@@ -6,7 +6,6 @@ var TripCard = React.createClass({
   handleSelect: function (e){
     console.log('handling click');
     var id = this.props.tripId;
-    console.log(id);
     this.props.selectTrip(id);
   },
   render: function () {

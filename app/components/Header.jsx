@@ -53,6 +53,11 @@ export var Header = React.createClass({
     <a id="logo" href="/"><img src={image}/></a>
   </div>
   <div className="top-bar-right">
+  {()=>{
+    if(this.props.navigation){
+    <Navigation user={this.props.state.login.user}/>
+  }
+  }}
   </div>
 </div>
 </div>

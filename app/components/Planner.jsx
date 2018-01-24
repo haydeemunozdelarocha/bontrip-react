@@ -9,29 +9,34 @@ import Header from 'Header';
 import Explore from 'Explore';
 import MapaContainer from 'MapaContainer';
 import SidePlanner from 'SidePlanner';
+import LeftPanel from 'LeftPanel';
+import RightPanel from 'RightPanel';
+
 
 export var Planner = React.createClass({
   getInitialState: function (){
     var cities =this.props.state.trip.selectedTrip.cities || this.props.location.state.cities;
     var likedPlaces = this.props.state.trip.likedPlaces || [];
     var dates = this.props.state.trip.selectedTrip.end ? true : false;
-
     return {
         loaded:false,
         user:this.props.state.login.user,
         trip:this.props.state.trip.selectedTrip.id,
-        date: this.props.state.trip.selectedTrip.start,
+        date: this.props.state.trip.selectedTrip.start || moment(new Date()).format('YYYY-MM-DD'),
         cards:[],
         places:[],
         likedPlaces:likedPlaces,
         location:{},
-        city:cities[0],
+        city:cities[0].name +","+cities[0].state+","+cities[0].country,
         cities:cities,
         view:'all',
         category:'',
         loadingExplore:'visible',
         selectedDates:dates
     }
+  },
+  componentWillMount:function(){
+    console.log(this.state)
   },
   shouldComponentUpdate:function(nextProps,nextState){
     if(JSON.stringify(this.props.state.trip.likedPlaces) !== JSON.stringify(nextProps.state.trip.likedPlaces)){
@@ -45,6 +50,7 @@ export var Planner = React.createClass({
     return true;
   },
   componentDidMount:function(){
+    console.log('component did mount')
     this.fetchPlaces();
     this.retrievePlaces();
     this.scheduledPlaces();
@@ -107,6 +113,7 @@ export var Planner = React.createClass({
     }
   },
   fetchPlaces: function(mapProps,map) {
+    console.log('fetching places')
     var that = this;
     var user = that.state.user;
     var trip = that.state.trip;
@@ -221,13 +228,20 @@ export var Planner = React.createClass({
       <div>
       <div className="row">
       <Header home={false}/>
+      <LeftPanel image={"/images/explore.png"}>
       <Explore loading={this.state.loadingExplore} retrievePlaces={this.retrievePlaces} city={this.state.city} cities={this.state.cities} places={this.state.places} fetchPlaces={this.fetchPlaces} />
+      </LeftPanel>
       <div id='city-container'>
-        <select onChange={this.changeCity} value={this.state.city} style={{marginRight:'10px'}} id="city">
+        <select onChange={this.changeCity} style={{marginRight:'10px'}} id="city">
              <option>Select City</option>
               {this.state.cities.map((x) => {
                 count++;
-                  return <option key={x}  id ='city{count}'>{x}</option>
+                if(this.state.city === x.name +","+x.state+","+x.country){
+                  return <option key={x}  selected value={x.name+", "+x.state} id ='city{count}'>{x.name+", "+x.state}</option>
+                } else {
+                  return <option key={x} value={x.name+", "+x.state} id ='city{count}'>{x.name+", "+x.state}</option>
+                }
+
                 })}
           </select>
          <select onChange={this.changeView} value={this.state.view} id="city">
@@ -235,7 +249,9 @@ export var Planner = React.createClass({
             <option value="day">View Day</option>
           </select>
       </div>
+      <RightPanel image={"/images/planner.png"}>
       <SidePlanner getEnd={this.getEnd} getStart={this.getStart} selectedDates = {this.state.selectedDates}  tripId={this.props.state.trip.selectedTrip.id} userId={this.props.state.login.user} changeOrder={this.updateOrder} cards={this.state.cards} date={this.state.date} select={this.select} end={this.props.state.trip.selectedTrip.end} start={this.props.state.trip.selectedTrip.start}/>
+      </RightPanel>
       <MapaContainer loaded={this.state.loaded} location={this.state.location} schedulePlace={this.schedulingPlace} date={this.state.date} places={this.state.likedPlaces}/>
       </div>
       </div>

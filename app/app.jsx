@@ -11,11 +11,12 @@ import 'Sass';
 
 var Navigation = require('Navigation');
 import Planner from 'Planner';
-import NewTrip from 'NewTrip';
+import AddTrip from 'AddTrip';
 import NewPlace from 'NewPlace';
 var {Provider} = require('react-redux');
 var actions = require('Actions');
 var configureStore = require('configureStore');
+var key=process.env.GOOGLE_KEY;
 
 
 var store = configureStore.loadState();
@@ -34,7 +35,7 @@ store.subscribe(() => {
         <Route path='/signup' component={Signup}/>
         <Route path='/explore' component={Explore}/>
         <Route path='/planner' component={Planner}/>
-        <Route path='/newtrip' component={NewTrip}/>
+        <Route path='/newtrip' component={AddTrip}/>
         <Route path='/newplace' component={NewPlace}/>
         <Route path='/logout' component={Logout}/>
         </Router></Provider>,

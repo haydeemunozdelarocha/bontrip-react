@@ -5,6 +5,7 @@ import DayCard from './DayCard';
 import 'Sass';
 var actions = require('Actions');
 var $= require('jquery');
+var {connect} = require('react-redux');
 
 var moment = require('moment');
 var GetPlaces = require('GetPlaces');
@@ -47,7 +48,7 @@ var SidePlanner = React.createClass({
 
   },
   render:function() {
-    const { cards } = this.props;
+    const cards = this.props.state.trip.likedPlaces;
     const dates = this.buildOptions();
     var dateSelector = ()=>{
       if(this.state.selectedDates){
@@ -67,10 +68,6 @@ var SidePlanner = React.createClass({
 
     var count = 0;
     return (
-    <div className="side-planner-main-container">
-           <div id="side-planner-tab">
-      <img onClick={this.showPlanner} id="planner-tab-icon" src="/images/planner.png" />
-      </div>
       <div id="side-planner-container">
         {dateSelector()}
         {checkCards()}
@@ -80,11 +77,18 @@ var SidePlanner = React.createClass({
             id={card._id}
             text={card.name}
             moveCard={this.moveCard}
+            class={"day-card"}
           />
         ))}
       </div>
-      </div>
+
     )
   }
 })
-export default DragDropContext(HTML5Backend)(SidePlanner);
+
+const mapStateToProps = (state) => {
+  return {
+  state: state
+}};
+var SidePlanner = DragDropContext(HTML5Backend)(SidePlanner);
+export default connect(mapStateToProps)(SidePlanner);

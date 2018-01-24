@@ -21,14 +21,42 @@ export var loginReducer = (state = {user:{}},action)=>{
 
 };
 
-export var tripReducer = (state = {selectedTrip:{},likedPlaces:[]},action)=>{
+export var tripReducer = (state = {selectedTrip:{cities:[],id:null},likedPlaces:[]},action)=>{
   // state = state || {name:'Anonymous'};
-
     switch(action.type){
-      case 'SELECT_TRIP':
+      case 'ADD_CITY':
+        var cities = state.selectedTrip.cities ? [...state.selectedTrip.cities,action.city] : [action.city];
       return {
         ...state,
-        selectedTrip:{id:action.id,cities:action.cities,start:action.start,end:action.end}
+        selectedTrip:{
+          id:action.id,
+          cities:cities
+        }
+      };
+      case 'REMOVE_CITY':
+        var cities = state.selectedTrip.cities.filter(city => city.name !== action.city.name)
+      return {
+        ...state,
+        selectedTrip:{
+          id:action.id,
+          cities:cities
+        }
+      };
+      case 'ADD_START':
+      return {
+        ...state,
+        selectedTrip:{
+          ...state.selectedTrip,
+          start:action.start
+        }
+      };
+      case 'ADD_END':
+      return {
+        ...state,
+        selectedTrip:{
+          ...state.selectedTrip,
+          end:action.end
+        }
       };
       case 'ADD_PLACES':
       return {

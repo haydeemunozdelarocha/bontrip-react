@@ -26,6 +26,7 @@ export var MapaContainer = React.createClass({
   },
 
   loadMap: function(){
+    console.log('loading')
     var that = this;
     var latitude = that.props.location.lat;
     var longitude = that.props.location.lng ;
