@@ -65,7 +65,7 @@ export var AddTrip = React.createClass({
       <div>
       <div className="row">
       <Header navigation={false} home={false}/>
-      <LeftPanel image={"/images/explore.png"}>
+      <LeftPanel image={"/images/cities-01.png"}>
       <AddCities cities={this.state.cities}/>
       </LeftPanel>
       <div id="save-trip-container" style={{width:'100%',display:'flex',justifyContent:'flex-end',paddingRight:'56px'}}>
