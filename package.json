@@ -4,7 +4,9 @@
   "description": "Simple react app",
   "main": "index.js",
   "scripts": {
-    "test": "karma start"
+    "test": "karma start",
+    "run": "webpack -w",
+    "start": "node server.js"
   },
   "author": "Haydee Munoz",
   "license": "ISC",
