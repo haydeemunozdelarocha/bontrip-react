@@ -4,7 +4,7 @@ var React = require('react');
 var {connect} = require('react-redux');
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
-var actions = require('../actions/actions');
+var actions = require('../redux/actions');
 import DraggableCard from './DraggableCard';
 var moment = require('moment');
 

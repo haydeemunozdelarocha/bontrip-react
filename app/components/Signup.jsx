@@ -3,7 +3,7 @@ var {browserHistory} = require('react-router');
 var CheckUser = require('../api/CheckUser');
 import Header from './Header';
 var { connect } = require('react-redux');
-var actions = require('../actions/actions');
+var actions = require('../redux/actions');
 
 
 export var Signup = React.createClass({

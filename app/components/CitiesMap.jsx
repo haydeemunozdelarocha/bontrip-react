@@ -3,7 +3,7 @@ import React from 'react';
 // import scriptLoader from 'react-async-script-loader';
 import { connect } from 'react-redux';
 import Map from './Map';
-import * as actions from '../actions/actions';
+import * as actions from '../redux/actions';
 
 // const key = process.env.GOOGLE_KEY;
 

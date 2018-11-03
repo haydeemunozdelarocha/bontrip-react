@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Route, Router, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
-import * as configureStore from './store/configureStore';
+import * as configureStore from './redux/configureStore';
 import Trips from './components/Trips';
 import Home from './components/Home';
 import Explore from './components/Explore';
