@@ -2,8 +2,6 @@ var React = require('react');
 var {connect} = require('react-redux');
 var $= require('jquery');
 
-import 'Sass';
-
 export var RightPanel = React.createClass({
 
   showRightPanel:function(){

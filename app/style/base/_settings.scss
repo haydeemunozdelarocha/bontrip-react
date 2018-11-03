@@ -1,0 +1,375 @@
+//  Site Settings for Foundation and Custom base styles
+//  -----------------------------
+//
+//  Table of Contents:
+//
+//   1. Global
+//   2. Breakpoints
+//   3. The Grid
+//   4. Base Typography
+//   5. Typography Helpers
+//  6. Card
+//  7. Close Button
+//  8. Dropdown
+//  9. Flexbox Utilities
+//  10. Forms
+//  11. Media Object
+//  12. Menu
+//  13. Pagination
+//  14. Reveal
+//  15. Table
+//  16. Xy Grid
+
+@import '../../../node_modules/foundation-sites/scss/util/util';
+@import url('https://fonts.googleapis.com/css?family=Righteous:400,600,700');
+
+// 1. Global
+// ---------
+
+$global-font-size: 100%;
+$global-width: rem-calc(1440);
+$global-lineheight: 1.5;
+$foundation-palette: (
+  primary: #000000,
+  secondary: #eaf9f9,
+  success: #3adb76,
+  warning: #F5BF79,
+  alert: #e5500b,
+);
+$titlefont: Futura;
+$secondaryfont:Futura, sans-serif;
+$tertiaryfont: Righteous, cursive;
+$light-blue: #cce1e8;
+$medium-blue: #6ca2d8;
+$dark-blue: #273444;
+$red: #e5500b;
+$black: #000000;
+$white: #ffffff;
+$body-background: $white;
+$body-font-color: $black;
+$body-font-family: 'Futura', sans-serif;
+$body-antialiased: true;
+$global-margin: 1rem;
+$global-padding: 1rem;
+$global-position: 1rem;
+$global-weight-normal: 400;
+$global-weight-medium: 500;
+$global-weight-bold: 700;
+$global-weight-black: 900;
+$global-radius: 3px;
+$global-border-width: 3px;
+$global-menu-padding: 0.7rem 1rem;
+$global-menu-nested-margin: 1rem;
+$global-text-direction: ltr;
+$global-flexbox: true;
+$global-prototype-breakpoints: false;
+$global-button-cursor: auto;
+$global-button-border: 3px;
+$global-color-pick-contrast-tolerance: 0;
+$global-header-height: 70px;
+$print-transparent-backgrounds: true;
+
+@include add-foundation-colors;
+
+// 2. Breakpoints
+// --------------
+
+$breakpoints: (
+  small: 0,
+  small-medium: 500px,
+  medium: 769px,
+  large: 1000px,
+  xlarge: 1200px,
+  xxlarge: 1440px,
+  xxxlarge: 1600px,
+);
+$print-breakpoint: large;
+$breakpoint-classes: (small medium large);
+
+// 3. The Grid
+// -----------
+
+$grid-row-width: $global-width;
+$grid-column-count: 12;
+$grid-column-gutter: (
+  small: 10px,
+  medium: 16px,
+);
+$grid-column-align-edge: true;
+$grid-column-alias: 'columns';
+$block-grid-max: 8;
+
+// 4. Base Typography
+// ------------------
+
+$header-font-family: $body-font-family;
+$header-font-weight: $global-weight-normal;
+$header-font-style: normal;
+$font-family-monospace: Consolas, 'Liberation Mono', Courier, monospace;
+$header-color: inherit;
+$header-lineheight: 1.4;
+$header-margin-bottom: 0.5rem;
+$header-styles: (
+  small: (
+    'h1': ('font-size': 24),
+    'h2': ('font-size': 20),
+    'h3': ('font-size': 19),
+    'h4': ('font-size': 18),
+    'h5': ('font-size': 17),
+    'h6': ('font-size': 16),
+  ),
+  medium: (
+    'h1': ('font-size': 48),
+    'h2': ('font-size': 40),
+    'h3': ('font-size': 31),
+    'h4': ('font-size': 25),
+    'h5': ('font-size': 20),
+    'h6': ('font-size': 16),
+  ),
+);
+$header-text-rendering: optimizeLegibility;
+$small-font-size: 80%;
+$header-small-font-color: $dark-blue;
+$paragraph-lineheight: 1.6;
+$paragraph-margin-bottom: 1rem;
+$paragraph-text-rendering: optimizeLegibility;
+$code-color: $black;
+$code-font-family: $font-family-monospace;
+$code-font-weight: $global-weight-normal;
+$code-background: get-color(secondary);
+$code-border: 1px solid $black;
+$code-padding: rem-calc(2 5 1);
+$anchor-color: get-color(primary);
+$anchor-color-hover: scale-color($anchor-color, $lightness: -14%);
+$anchor-text-decoration: underline;
+$anchor-text-decoration-hover: underline;
+$hr-width: $global-width;
+$hr-border: 1px solid $dark-blue;
+$hr-margin: rem-calc(20) auto;
+$list-lineheight: $paragraph-lineheight;
+$list-margin-bottom: $paragraph-margin-bottom;
+$list-style-type: disc;
+$list-style-position: outside;
+$list-side-margin: 1.25rem;
+$list-nested-side-margin: 1.25rem;
+$defnlist-margin-bottom: 1rem;
+$defnlist-term-weight: $global-weight-bold;
+$defnlist-term-margin-bottom: 0.3rem;
+$blockquote-color: $dark-blue;
+$blockquote-padding: rem-calc(9 20 0 19);
+$blockquote-border: 1px solid $dark-blue;
+$cite-font-size: rem-calc(13);
+$cite-color: $dark-blue;
+$cite-pseudo-content: '\2014 \0020';
+$keystroke-font: $font-family-monospace;
+$keystroke-color: $black;
+$keystroke-background: get-color(secondary);
+$keystroke-padding: rem-calc(2 4 0);
+$keystroke-radius: $global-radius;
+$abbr-underline: 1px dotted $black;
+
+// 5. Typography Helpers
+// ---------------------
+
+$lead-font-size: $global-font-size * 1.25;
+$lead-lineheight: 1.6;
+$subheader-lineheight: 1.4;
+$subheader-color: $dark-blue;
+$subheader-font-weight: $global-weight-normal;
+$subheader-margin-top: 0.2rem;
+$subheader-margin-bottom: 0.5rem;
+$stat-font-size: 2.5rem;
+
+// 8. Card
+// --------
+
+$card-background: $white;
+$card-font-color: $body-font-color;
+$card-divider-background: $dark-blue;
+$card-border: none;
+$card-shadow: none;
+$card-border-radius: none;
+$card-padding: $global-padding;
+$card-margin-bottom: $global-margin;
+
+// 9. Close Button
+// ----------------
+
+$closebutton-position: right top;
+$closebutton-offset-horizontal: (
+  small: 0.66rem,
+  medium: 1rem,
+);
+$closebutton-offset-vertical: (
+  small: 0.33em,
+  medium: 0.5rem,
+);
+$closebutton-size: (
+  small: 1.5em,
+  medium: 2em,
+);
+$closebutton-lineheight: 1;
+$closebutton-color: $dark-blue;
+$closebutton-color-hover: $black;
+
+// 10. Dropdown
+// ------------
+
+$dropdown-padding: 1rem;
+$dropdown-background: $body-background;
+$dropdown-border: none;
+$dropdown-font-size: 1rem;
+$dropdown-width: 300px;
+$dropdown-radius: $global-radius;
+$dropdown-sizes: (
+  tiny: 100px,
+  small: 200px,
+  large: 400px,
+);
+
+// 11. Flexbox Utilities
+// ---------------------
+
+$flex-source-ordering-count: 6;
+$flexbox-responsive-breakpoints: true;
+
+// 12. Forms
+// ---------
+
+$fieldset-border: 1px solid $dark-blue;
+$fieldset-padding: rem-calc(20);
+$fieldset-margin: rem-calc(18 0);
+$legend-padding: rem-calc(0 3);
+$form-spacing: rem-calc(16);
+$helptext-color: $black;
+$helptext-font-size: rem-calc(13);
+$helptext-font-style: italic;
+$input-prefix-color: $black;
+$input-prefix-background: get-color(secondary);
+$input-prefix-border: none;
+$input-prefix-padding: 1rem;
+$form-label-color: $black;
+$form-label-font-size: rem-calc(17);
+$form-label-font-weight: $global-weight-medium;
+$form-label-line-height: 1.8;
+$select-background: $white;
+$select-triangle-color: transparent;
+$select-radius: $global-radius;
+$input-color: $black;
+$input-placeholder-color: $dark-blue;
+$input-font-family: inherit;
+$input-font-size: rem-calc(17);
+$input-font-weight: $global-weight-medium;
+$input-line-height: $global-lineheight;
+$input-background: $white;
+$input-background-focus: $white;
+$input-background-disabled: $dark-blue;
+$input-border: $global-border-width solid $primary-color;
+$input-border-focus: $global-border-width solid $primary-color;
+$input-padding: $form-spacing / 2;
+$input-shadow: none;
+$input-shadow-focus: none;
+$input-cursor-disabled: not-allowed;
+$input-transition: box-shadow 0.5s, border-color 0.25s ease-in-out;
+$input-number-spinners: true;
+$input-radius: $global-radius;
+$form-button-radius: $global-radius;
+
+// 13. Media Object
+// ----------------
+
+$mediaobject-margin-bottom: $global-margin;
+$mediaobject-section-padding: $global-padding;
+$mediaobject-image-width-stacked: 100%;
+
+// 14. Menu
+// --------
+
+$menu-margin: 0;
+$menu-nested-margin: $global-menu-nested-margin;
+$menu-items-padding: $global-menu-padding;
+$menu-simple-margin: 1rem;
+$menu-item-color-active: get-color(primary);
+$menu-item-background-active: none;
+$menu-icon-spacing: 0.25rem;
+$menu-item-background-hover: none;
+$menu-state-back-compat: true;
+$menu-centered-back-compat: true;
+$menu-icons-back-compat: true;
+
+// 15. Pagination
+// --------------
+
+$pagination-font-size: rem-calc(14);
+$pagination-margin-bottom: $global-margin;
+$pagination-item-color: $black;
+$pagination-item-padding: rem-calc(3 10);
+$pagination-item-spacing: rem-calc(1);
+$pagination-radius: $global-radius;
+$pagination-item-background-hover: $dark-blue;
+$pagination-item-background-current: $primary-color;
+$pagination-item-color-current: $white;
+$pagination-item-color-disabled: $dark-blue;
+$pagination-ellipsis-color: $black;
+$pagination-mobile-items: false;
+$pagination-mobile-current-item: false;
+$pagination-arrows: true;
+
+// 16. Reveal
+// ----------
+
+$reveal-background: $white;
+$reveal-width: 600px;
+$reveal-max-width: $global-width;
+$reveal-padding: $global-padding;
+$reveal-border: none;
+$reveal-radius: $global-radius;
+$reveal-zindex: 1005;
+$reveal-overlay-background: rgba(get-color(secondary), 0.45);
+
+// 17. Table
+// ---------
+
+$table-background: $white;
+$table-color-scale: 0;
+$table-border: none;
+$table-padding: rem-calc(8 10 10);
+$table-hover-scale: 2%;
+$table-row-hover: darken($table-background, $table-hover-scale);
+$table-row-stripe-hover: darken($table-background, $table-color-scale + $table-hover-scale);
+$table-is-striped: false;
+$table-striped-background: smart-scale($table-background, $table-color-scale);
+$table-stripe: even;
+$table-head-background: smart-scale($table-background, $table-color-scale / 2);
+$table-head-row-hover: darken($table-head-background, $table-hover-scale);
+$table-foot-background: smart-scale($table-background, $table-color-scale);
+$table-foot-row-hover: darken($table-foot-background, $table-hover-scale);
+$table-head-font-color: $dark-blue;
+$table-foot-font-color: $body-font-color;
+$show-header-for-stacked: false;
+$table-stack-breakpoint: medium;
+
+// 20. Top Bar
+// -----------
+
+$topbar-padding: 0;
+$topbar-background: $body-background;
+$topbar-submenu-background: $body-background;
+$topbar-title-spacing: 0.5rem 1rem 0.5rem 0;
+$topbar-input-width: 200px;
+$topbar-unstack-breakpoint: medium;
+
+// 21. Xy Grid
+// -----------
+
+$xy-grid: true;
+$grid-container: $global-width;
+$grid-columns: 12;
+$grid-margin-gutters: (
+  small: 20px,
+  medium: 30px
+);
+$grid-padding-gutters: $grid-margin-gutters;
+$grid-container-padding: $grid-padding-gutters;
+$grid-container-max: $global-width;
+$xy-block-grid-max: 8;

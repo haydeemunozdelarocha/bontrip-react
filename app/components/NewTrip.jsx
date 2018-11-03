@@ -1,26 +1,16 @@
 var React = require('react');
 var {browserHistory} = require('react-router');
-import Header from 'Header';
-var {AutoComplete,RaisedButton,DatePicker,Chip} = require('material-ui');
+import Header from './Header';
+var {AutoComplete, Chip} = require('material-ui');
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-var GetTrips = require('GetTrips');
-var GetPlaces = require('GetPlaces');
+var GetTrips = require('./api/getTrips');
+var GetPlaces = require('./api/GetPlaces');
 var {connect} = require('react-redux');
-var actions = require('Actions');
 import 'aws-sdk/dist/aws-sdk';
 const AWS = window.AWS;
-var axios=require('axios');
+var axios = require('axios');
 
-
-
-const searchContainer ={
-  width:'100%',
-  height:'87vh',
-  display:'flex',
-  justifyContent:'center',
-  alignItems:'center'
-};
 const searchBar = {
   width:'100%',
   border:'none',

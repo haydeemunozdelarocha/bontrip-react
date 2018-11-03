@@ -1,0 +1,20 @@
+// Architecture based on Smacss: https://smacss.com
+
+// 1. Utils
+@import 'utils/.mixins';
+//@import 'utils/helpers/.helpers';
+
+// 2. Base Styles: https://smacss.com/book/type-base
+// - Foundation is used as the style base.
+// - Set variables in base/settings. These include foundation settings but any extra can be added here too to use throughout the project.
+// - If there are base styles that aren't covered by foundation then add more here.
+@import 'base/.base';
+
+// 3. Layout Styles: https://smacss.com/book/type-layout
+@import 'layout/.layout';
+
+// 4. Module Styles: https://smacss.com/book/type-module
+@import 'modules/.modules';
+
+// 5. State Styles: https://smacss.com/book/type-state
+//@import 'state/.state';

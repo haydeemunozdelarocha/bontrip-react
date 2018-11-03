@@ -1,12 +1,9 @@
-var React = require('react');
-var GetPlaces = require('GetPlaces');
-var SideExplore = require('SideExplore');
-var {connect} = require('react-redux');
-var actions = require('Actions');
-var $= require('jquery');
-
-import ExploreCard from 'ExploreCard';
-import 'Sass';
+const React = require('react');
+const GetPlaces = require('../api/GetPlaces');
+const { connect } = require('react-redux');
+const $ = require('jquery');
+const SideExplore = require('./SideExplore');
+import ExploreCard from './ExploreCard';
 
 export var Explore = React.createClass({
 

@@ -1,40 +1,38 @@
-var React = require('react');
-var {browserHistory} = require('react-router');
-var CheckUser = require('CheckUser');
-var {connect} = require('react-redux');
-var actions = require('Actions');
+import React from 'react';
+import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
+import * as actions from '../actions/actions';
+import CheckUser from '../api/CheckUser';
 
-
-export var Logout = React.createClass({
-
-    getInitialState: function (){
-    return {
+class Logout extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
       user: {},
       buttonOff:true
-     }
-  },
-  componentDidMount: function() {
+    };
     this.logout();
-  },
-    logout: function (){
-    var that = this;
-    var {dispatch} = that.props;
-     var username = that.props.state.login.user;
-    CheckUser.logoutUser(username).then(function(res){
-     dispatch(actions.logout());
-     browserHistory.push({pathname: '/'});
-
-    }, function(errorMessage){
-         return alert(errorMessage);
-    })
-  },
-  render: function () {
-      return (
-        <div></div>
-    );
-
   }
-});
+
+  logout() {
+    const _this = this;
+    const { dispatch } = _this.props;
+    const username = this.props.state.login.user;
+    CheckUser.logoutUser(username).then(function() {
+      console.log(actions.logout);
+      dispatch(actions.logout());
+      console.log(username);
+      browserHistory.push({pathname: '/'});
+    },
+    function(errorMessage) {
+      return alert(errorMessage);
+    });
+  }
+
+  render() {
+    return null;
+  }
+}
 
 
 const mapStateToProps = (state) => ({

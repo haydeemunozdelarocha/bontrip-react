@@ -1,0 +1,4 @@
+.l-full-page-wrapper {
+  height: calc(100vh - #{$global-header-height});
+  width: 100%;
+}

@@ -1,6 +1,4 @@
 var React = require('react');
-import 'Sass';
-
 
 var SideExplore = React.createClass({
   getInitialState:function(){

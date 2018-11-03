@@ -1,14 +1,12 @@
-var React = require('react');
-var GetPlaces = require('GetPlaces');
-var {connect} = require('react-redux');
-import { DragDropContext } from 'react-dnd'
-import HTML5Backend from 'react-dnd-html5-backend'
-var actions = require('Actions');
-var $= require('jquery');
-import DayCard from './DayCard';
-var moment = require('moment');
+import NewTripForm from './NewTripForm';
 
-import 'Sass';
+var React = require('react');
+var {connect} = require('react-redux');
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
+var actions = require('../actions/actions');
+import DraggableCard from './DraggableCard';
+var moment = require('moment');
 
 export var AddCities = React.createClass({
   getInitialState: function(){
@@ -49,15 +47,11 @@ export var AddCities = React.createClass({
   render: function () {
       return (
       <div id="add-cities-container">
-
-        <div ref="dateSelector">
-        <p>Select dates:</p>
-        <input type="date" ref="date1" min={this.state.date} onChange={this.getStart}/>
-        <input type="date" min={this.state.date} ref="date2" onChange={this.getEnd}/></div>
+        <NewTripForm/>
         <div className="city-cards">
-        <p>Cities:</p>
+        <p data-tooltip tabIndex="1" title="Fancy word for a beetle." data-position="bottom" data-alignment="center">{}</p>
           {    this.props.state.trip.selectedTrip.cities.map((card, i) => (
-         <DayCard
+         <DraggableCard
             index={i}
             id={card.name}
             text={(card.country === "United States") ? card.name+", "+card.state : card.name+", "+card.country}

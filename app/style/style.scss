@@ -11,22 +11,26 @@ $break-medium: 800px;
 $break-large: 1200px;
 
 
-//general
-body{
+//Base Styles
+body {
   height:100%;
   width:100%;
   font-family: $secondaryfont;
 }
-h3{
+
+h3 {
   font-family: $tertiaryfont;
 }
-h4{
+
+h4 {
   font-family: $secondaryfont;
 }
-p{
+
+p {
   font-family: $secondaryfont;
 }
-#menu{
+
+#menu {
   background-color:rgba(0,0,0,0);
   color:#18214f;
   display:flex;
@@ -35,7 +39,8 @@ p{
       padding-right: 20px;
   }
 }
-#app{
+
+#app {
   height:100%;
   width:100%;
   position:fixed;
@@ -52,20 +57,29 @@ p{
     -webkit-text-fill-color:none;
   }
 }
-.red-button{
-  margin-top:10px;
-  border-radius:5px;
-  font-family:$titlefont;
-  font-weight:700;
-  font-size:16px;
-  float:right;
-  background-color:$red;
-  color:#fff;
-    &:hover {
+
+.cover-page-layout {
+  height: 100vh;
+  overflow: hidden;
+  width: 100%;
+}
+
+.red-button {
+  background-color: $red;
+  border-radius: 5px;
+  color :#fff;
+  font-family: $titlefont;
+  font-weight: 700;
+  font-size: 16px;
+  float: right;
+  margin-top: 10px;
+
+  &:hover {
       opacity:.8;
-      background-color:$red;
+      background-color: $red;
     }
 }
+
 .white-button{
   margin-top:10px;
   border-radius:5px;
@@ -101,8 +115,42 @@ p{
 .top-bar-right{
   width:30%;
 }
+
 // login & signup
-.login-container{
+.login-background-container {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  z-index: -9;
+  position: absolute;
+  overflow: hidden;
+  top: 0;
+
+  img {
+    left: 50%;
+  }
+}
+
+.city-search-form {
+  align-items: center;
+  display: flex;
+  height: 87vh;
+  justify-content: center;
+  margin: auto;
+  width: 80%;
+}
+
+.city-autocomplete-container {
+  width: 30%;
+
+  input {
+    font-size: 22px;
+  }
+}
+
+
+
+.login-container {
   background-color:$lightblue;
   height:100vh;
   width:100%;
@@ -141,15 +189,17 @@ p{
     }
   }
 }
-#pac-input{
+
+#pac-input {
   background-color: rgba(0,0,0,0);
-  color:white!important;
   border:none;
   border-bottom: 3px solid white;
+  box-shadow: none;
+  color:white!important;
+
   &:focus{
   outline-color: transparent;
   outline-style: none;
-  box-shadow: none;
   }
 }
 .pac-icon{
@@ -187,6 +237,7 @@ p{
       }
   }
 }
+
 //trips
 #new-trip-button-container{
   height:10vh;

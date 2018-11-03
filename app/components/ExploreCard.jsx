@@ -1,9 +1,7 @@
 var React = require('react');
-var GetPlaces = require('GetPlaces');
-var actions = require('Actions');
-var {connect} = require('react-redux');
-import 'Sass';
-
+var GetPlaces = require('../api/GetPlaces');
+var actions = require('../actions/actions');
+var { connect } = require('react-redux');
 
 export var ExploreCard = React.createClass({
   getInitialState: function () {
