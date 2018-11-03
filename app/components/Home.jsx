@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
-import * as actions from '../actions/actions';
+import * as actions from '../redux/actions';
 import Header from './Header';
 import CityAutocomplete from './CityAutocomplete';
 import Slideshow from './Slideshow';

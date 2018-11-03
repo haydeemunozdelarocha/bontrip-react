@@ -9,11 +9,6 @@ const key = process.env.GOOGLE_KEY;
 class Map extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      loaded:false,
-      showingInfoWindow: false,
-      activeMarker: {},
-    };
   }
 
   componentDidUpdate(prevProps) {
@@ -21,6 +16,10 @@ class Map extends React.Component {
 
     if (isScriptLoaded && isScriptLoadSucceed && !prevProps.isScriptLoaded && !prevProps.isScriptLoadSucceed) {
       this.loadMap();
+    }
+
+    if (JSON.stringify(prevProps.markers) !== JSON.stringify(this.props.markers)) {
+      this.getDirections(this.props.markers);
     }
   }
 
@@ -41,26 +40,32 @@ class Map extends React.Component {
       center: setMapCenter
     });
 
-    _this.directionsService = new google.maps.DirectionsService;
+    _this.directionsService = new google.maps.DirectionsService();
+    _this.directionsDisplay = new google.maps.DirectionsRenderer();
 
     _this.map.addListener('click', (event) => { _this.getCity(event.latLng); });
+    _this.directionsDisplay.setMap(_this.map);
 
     if (hasMarkers) { _this.initMarkers(markers); }
   }
 
   getCity(coordinates) {
     const _this = this;
-    const { markers } = _this.props;
 
     reverseGeoCode(coordinates).then((data) => {
       let city = parseCityObject(data);
-      let marker = _this.createMarker(city);
-      let last_marker = markers[markers.length - 1];
-      let start = last_marker.coordinates;
-      let destination = city.coordinates;
+      let markers = [..._this.props.markers, city];
 
-      _this.calcRoute(start, destination).then ((data) => {
-        city.directions = data;
+      _this.getDirections(markers).then ((data) => {
+        let trip_directions = data;
+        let last_leg = trip_directions[trip_directions.length - 1];
+
+        city.directions = {
+          distance: last_leg.distance.text,
+          duration: last_leg.duration.text
+        };
+
+        let marker = _this.createMarker(city, null);
 
         //TODO: write function to clean up event listeners
         google.maps.event.addListener(_this.infowindow,'closeclick', function() {
@@ -72,34 +77,37 @@ class Map extends React.Component {
   }
 
   removeMarker(marker) {
-    // TODO: fix directions display to only remove city that was deleted
-    const _this = this;
     marker.setMap(null);
-    _this.directionsDisplay.setMap(null);
   }
 
-  calcRoute(city1, city2) {
+  getDirections(markers) {
     const _this = this;
+    let waypoints = null;
+
+    if (markers.length > 2) {
+      waypoints = markers.map((marker) => {
+        return {
+          'location': marker.coordinates,
+          'stopover': false
+        };
+      });
+    }
+
     let request = {
-      origin: city1,
-      destination: city2,
+      origin: markers[0].coordinates,
+      waypoints: waypoints,
+      destination: markers[markers.length - 1].coordinates,
       travelMode: google.maps.TravelMode.DRIVING
     };
     return new Promise((resolve, reject) => {
       _this.directionsService.route(request, function(response, status) {
-        if (status == google.maps.DirectionsStatus.OK) {
-          _this.directionsDisplay = new google.maps.DirectionsRenderer();
-          _this.directionsDisplay.setMap(_this.map);
 
+        if (status == google.maps.DirectionsStatus.OK) {
           _this.directionsDisplay.setDirections(response);
-          _this.directionsDisplay.setOptions( { suppressMarkers: true } );
-          let directions = {
-            distance: response.routes[0].legs[0].distance.text,
-            duration: response.routes[0].legs[0].duration.text
-          };
-          resolve(directions);
+          _this.directionsDisplay.setOptions({ suppressMarkers: true });
+          resolve(response.routes[0].legs);
         } else {
-          alert('Directions Request from ' + start.toUrlValue(6) + ' to ' + end.toUrlValue(6) + ' failed: ' + status);
+          console.error(status);
           reject();
         }
       });
@@ -110,13 +118,10 @@ class Map extends React.Component {
     const _this = this;
 
     markers.map((marker, i) => {
-      let point = marker.coordinates;
       _this.createMarker(marker, i);
 
-      if (markers.length > 1 && i !== markers.length - 1) {
-        let start = point;
-        let destination = markers[i + 1].coordinates;
-        _this.calcRoute(start, destination);
+      if (markers.length > 1) {
+        _this.getDirections(markers);
       }
     });
   }
@@ -134,7 +139,6 @@ class Map extends React.Component {
 
     _this.initInfoWindow();
     mapMarker.addListener('click', () => _this.showInfoWindow(mapMarker, marker));
-
     return mapMarker;
   }
 
@@ -183,11 +187,17 @@ class Map extends React.Component {
     infoWindowButton.addEventListener('click', function() {
       let infoWindowButtonAction = this.dataset.infoWindowButtonAction;
       if (infoWindowButtonAction === 'save-city') {
-        saveCity(markerInfo, _this.infowindow.close.bind(_this.infowindow));
+        saveCity(markerInfo,  _this.saveCityCallback.bind(_this, markerInfo));
       } else if (infoWindowButtonAction === 'remove-city') {
         removeCity(markerInfo, _this.removeMarker.bind(_this, mapMarker));
       }
     });
+  }
+
+  saveCityCallback(markerInfo) {
+    const _this = this;
+    _this.infowindow.close();
+    _this.createMarker.bind(markerInfo, 9);
   }
 
   render() {

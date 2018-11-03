@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
-import * as actions from '../actions/actions';
+import * as actions from '../redux/actions';
 import CheckUser from '../api/CheckUser';
 
 class Logout extends React.Component {

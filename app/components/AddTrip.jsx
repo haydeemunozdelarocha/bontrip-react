@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import actions from '../actions/actions';
 import { browserHistory } from 'react-router';
 import Header from './Header';
 import CitiesMap from './CitiesMap';

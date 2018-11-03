@@ -2,7 +2,7 @@ import React from 'react';
 import { browserHistory } from 'react-router';
 import CheckUser from '../api/CheckUser';
 import { connect } from 'react-redux';
-import * as actions from '../actions/actions';
+import * as actions from '../redux/actions';
 import Header from './Header';
 
 export const Login = React.createClass({

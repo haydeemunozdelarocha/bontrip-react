@@ -1,5 +1,5 @@
 import { combineReducers, createStore, compose } from 'redux';
-import { loginReducer, tripReducer } from '../reducers/reducers';
+import { loginReducer, tripReducer } from '../redux/reducers';
 
 const reducer = combineReducers({
   login: loginReducer,
@@ -28,7 +28,8 @@ export const loadState = ()=>{
   }
 };
 
-export const saveState = (state) =>{
+export const saveState = (state) => {
+  console.log('state', state);
   let serializedState = JSON.stringify(state);
 
   try {
