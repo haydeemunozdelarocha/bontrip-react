@@ -2,7 +2,7 @@ var React = require('react');
 var TripCard = require('./TripCard');
 var GetTrips = require('../api/GetTrips');
 var {connect} = require('react-redux');
-var actions = require('../actions/actions');
+var actions = require('../redux/actions');
 var {browserHistory} = require('react-router');
 import Header from './Header';
 

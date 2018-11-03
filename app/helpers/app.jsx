@@ -1,4 +1,4 @@
-import * as actions from '../actions/actions';
+import * as actions from '../redux/actions';
 import { browserHistory } from 'react-router';
 import { store } from '../app';
 import Promise from 'promise';
@@ -17,20 +17,23 @@ export function parseCityObject(cityObject) {
 }
 
 export function saveCity(cityInfo, callback) {
-  console.log('saving city', callback);
   let is_formatted = 'address_components' in cityInfo;
   let city = is_formatted ? parseCityObject(cityInfo) : cityInfo;
-  console.log(city);
+  console.log('saving:', city);
   store.dispatch(actions.addCity(null, city));
-  callback();
+
+  if (callback) {
+    callback();
+  }
 }
 
 export function removeCity(cityInfo, callback) {
-  console.log('removing city');
-  // TODO: fix is not removing city
   let city = cityInfo.name;
+  console.log('removing city', city);
   store.dispatch(actions.removeCity(null, city));
-  callback();
+  if (callback) {
+    callback();
+  }
 }
 
 export function reverseGeoCode(googleLocation) {

@@ -23,7 +23,7 @@ export const tripReducer = (state = { selectedTrip: { cities: [], id: null }, li
     return {
       ...state,
       selectedTrip: {
-        id: action.id,
+        trip_id: action.trip_id,
         cities: state.selectedTrip.cities ? [...state.selectedTrip.cities,action.city] : [action.city]
       }
     };
@@ -32,8 +32,8 @@ export const tripReducer = (state = { selectedTrip: { cities: [], id: null }, li
     return {
       ...state,
       selectedTrip: {
-        id: action.id,
-        cities: state.selectedTrip.cities.filter(city => city.name !== action.city.name)
+        trip_id: action.trip_id,
+        cities: state.selectedTrip.cities.filter(city => city.name !== action.city)
       }
     };
 

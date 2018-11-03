@@ -1,6 +1,6 @@
 var React = require('react');
 var GetPlaces = require('../api/GetPlaces');
-var actions = require('../actions/actions');
+var actions = require('../redux/actions');
 var { connect } = require('react-redux');
 
 export var ExploreCard = React.createClass({
