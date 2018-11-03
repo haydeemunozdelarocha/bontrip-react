@@ -1,0 +1,20 @@
+.map {
+  height: 100%;
+  width: 100%;
+}
+
+.map-header {
+  background-color: transparent;
+  height: 10%;
+  padding: 1rem 4rem;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: base-index(modal);
+}
+
+.map-wrapper { position: relative; }
+
+.map-buttons-right {
+  float: right;
+}

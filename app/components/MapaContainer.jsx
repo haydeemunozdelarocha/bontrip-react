@@ -1,9 +1,6 @@
 var React= require('react');
 var ReactDOM= require('react-dom');
-var GetPlaces= require('GetPlaces');
 import scriptLoader from 'react-async-script-loader';
-import 'Sass';
-
 
 var key=process.env.GOOGLE_KEY;
 

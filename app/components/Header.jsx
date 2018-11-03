@@ -1,66 +1,37 @@
-var React = require('react');
-var Navigation = require('Navigation');
-var {Link, IndexLink} = require('react-router');
-var {RaisedButton} = require('material-ui');
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-var {browserHistory} = require('react-router');
-var {connect} = require('react-redux');
-import $ from 'jquery';
-import 'Sass';
+import React from 'react';
+import Navigation from './Navigation';
+import { browserHistory } from 'react-router';
+import { connect } from 'react-redux';
 
-import 'foundation-sites';
-
-
-export var Header = React.createClass({
-    componentDidMount:function(){
-      $(document).foundation();
-    },
-    loginButton:function(){
-
-      if(this.props.state.login.user.length>0){
-        return <Navigation type="menu"/>
-      }
-      else if(this.props.loggedIn){
-        return;
-      }
-      else if(!this.props.loggedIn){
-      return <button className="white-button button" type="button" onClick={()=>{ browserHistory.push({pathname: '/login'});}}>Login</button>;
-
-      }
-    },
-  render: function () {
-
-    if(this.props.home){
-      var image = '/images/bontrip-logo-white.png';
-      var color = 'rgba(0,0,0,0)'
-    } else {
-      var image = '/images/bontrip-logo-blue.png';
-      var color = '#fff';
+export const Header = React.createClass({
+  showNavigation: function() {
+    if (this.props.navigation) {
+      return <Navigation user={this.props.state.login.user}/>
     }
-
-    const headerStyle={
-      backgroundColor:color,
-      zIndex:'130'
+    if (!this.props.loggedIn) {
+      return <button className="white-button button" type="button" onClick={()=>{ browserHistory.push({pathname: '/login'});}}>Login</button>;
+    }
+  },
+  render: function() {
+    let image;
+    let color;
+    if (this.props.isHomePage) {
+      image = '/images/bontrip-logo-white.png';
+      color = 'rgba(0,0,0,0)'
+    } else {
+      image = '/images/bontrip-logo-blue.png';
+      color = '#fff';
     }
 
     return (
-      <div>
-
-
-<div id="header" className="top-bar" style={headerStyle}>
- <div className="top-bar-left">
-    <a id="logo" href="/"><img src={image}/></a>
-  </div>
-  <div className="top-bar-right">
-  {()=>{
-    if(this.props.navigation){
-    <Navigation user={this.props.state.login.user}/>
-  }
-  }}
-  </div>
-</div>
-</div>
+      <div className={`theme-header top-bar ${this.props.isHomePage ? 'is-transparent' : ''}`}>
+        <div>
+          <a className="logo" href="/"><img src={image}/></a>
+        </div>
+        <div>
+          {this.showNavigation()}
+        </div>
+      </div>
     );
   }
 });

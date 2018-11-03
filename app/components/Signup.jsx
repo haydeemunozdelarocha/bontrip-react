@@ -1,14 +1,10 @@
 var React = require('react');
 var {browserHistory} = require('react-router');
-var Navigation = require('Navigation');
-var CheckUser = require('CheckUser');
-import Header from 'Header';
-var {connect} = require('react-redux');
-var actions = require('Actions');
+var CheckUser = require('../api/CheckUser');
+import Header from './Header';
+var { connect } = require('react-redux');
+var actions = require('../actions/actions');
 
-const inputStyle ={
-  borderRadius:'25px'
-};
 
 export var Signup = React.createClass({
 

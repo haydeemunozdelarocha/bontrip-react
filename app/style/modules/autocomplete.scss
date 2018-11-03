@@ -1,0 +1,31 @@
+.autocomplete {
+  width: 25%;
+
+  @include breakpoint(medium down) { width: 60%; }
+}
+
+.pac-container {
+  background-color: rgba(204, 225, 232,.8);
+  border: $global-border-width solid $white;
+  box-shadow: none;
+  margin-top: -$global-border-width;
+  width: calc(25%) !important;
+
+  @include breakpoint(medium down) { width: calc(60% - 1px) !important; }
+}
+
+.pac-item {
+  border-top: 0;
+  color: $dark-blue;
+  font-family: $body-font-family;
+  padding: .3rem .5rem;
+
+  span {
+    color: $dark-blue;
+
+    :not(.pac-item-query) { color: $primary-color; }
+  }
+}
+
+.pac-icon { display: none; }
+

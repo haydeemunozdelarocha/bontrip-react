@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { findDOMNode } from 'react-dom'
 import { DragSource, DropTarget } from 'react-dnd'
 import ItemTypes from './ItemTypes'
-import 'Sass';
 
 const cardSource = {
   beginDrag(props) {
@@ -12,7 +11,7 @@ const cardSource = {
       index: props.index,
     }
   },
-}
+};
 
 const cardTarget = {
   hover(props, monitor, component) {
@@ -59,7 +58,7 @@ const cardTarget = {
     // to avoid expensive index searches.
     monitor.getItem().index = hoverIndex
   },
-}
+};
 
 @DropTarget(ItemTypes.CARD, cardTarget, connect => ({
   connectDropTarget: connect.dropTarget(),
@@ -69,7 +68,7 @@ const cardTarget = {
   isDragging: monitor.isDragging(),
 }))
 
-export default class DayCard extends Component {
+export default class DraggableCard extends Component {
   static propTypes = {
     connectDragSource: PropTypes.func.isRequired,
     connectDropTarget: PropTypes.func.isRequired,
@@ -90,7 +89,10 @@ export default class DayCard extends Component {
     const opacity = isDragging ? 0 : 1
 
     return connectDragSource(
-      connectDropTarget(<div className={this.props.class} style={{opacity}}>{text}</div>),
+      connectDropTarget(<div className={`draggable-card ${this.props.class}`} style={{opacity}}>
+        <span className="draggable-card-content">{text}</span>
+        <span className="draggable-card-handle"></span>
+        </div>),
     )
   }
 }

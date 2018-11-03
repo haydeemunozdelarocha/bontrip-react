@@ -1,54 +1,71 @@
-var React= require('react');
-var ReactDOM= require('react-dom');
-var {browserHistory} = require('react-router');
-var $ = require('jquery');
+import React from 'react';
+import { connect } from 'react-redux';
 import scriptLoader from 'react-async-script-loader';
-import 'Sass';
+import { saveCity, navigateTo } from '../helpers/app';
 
-var key=process.env.GOOGLE_KEY;
+const key = process.env.GOOGLE_KEY;
 
-export var CityAutocomplete = React.createClass({
-    getInitialState: function (){
-    return {
+class CityAutocomplete extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
       loading: true
-     }
-  },
-componentWillReceiveProps ({ isScriptLoaded, isScriptLoadSucceed }) {
-    if (isScriptLoaded && !this.props.isScriptLoaded) {
-      this.isLoaded();
-    }},
-  isLoaded: function(){
-      this.setState({
-        loading:false
-      })
+    };
   }
-  ,shouldComponentUpdate:function(nextProps, nextState){
-    if(!nextState.loading){
+
+  componentWillReceiveProps({ isScriptLoaded }) {
+    if (isScriptLoaded && !this.props.isScriptLoaded) {
+      this.setState({
+        loading: false
+      });
+    }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if (!nextState.loading) {
       this.loadAutocomplete();
       return true;
-    } else {
-      return false;
     }
-  },
-  loadAutocomplete:function(){
-    var that = this;
-    var input = that.refs.input;
-    var autocomplete = new google.maps.places.Autocomplete(input);
+    return false;
+  }
+
+  loadAutocomplete() {
+    const input = document.getElementById('pac-input');
+    const options = {
+      types: ['(cities)']
+    };
+    const autocomplete = new google.maps.places.Autocomplete(input, options);
 
     autocomplete.addListener('place_changed', function() {
-        var place = autocomplete.getPlace();
-        that.props.addPlace(place);
+      let place = autocomplete.getPlace();
+      console.log('place', place);
+      let callback = () => navigateTo('/newtrip');
+      saveCity(place, callback);
     });
-
-  },
-render:function() {
-    return (
-      <div id="city-autocomplete-container" >
-        <input type="text" ref="input" id="pac-input" placeholder="Where to?"/>
-      </div>
-    )
   }
-})
 
-export default scriptLoader(["https://maps.googleapis.com/maps/api/js?key="+key+"&libraries=places"]
-)(CityAutocomplete);
+  // handleNewRequest(text) {
+  //   let cities = [];
+  //   cities.push(text.text);
+  //   this.setState({cities: cities});
+  //   this.saveCity(this.state.cities);
+  // }
+
+  render() {
+    return (
+      <div className="autocomplete l-centered-block" >
+        <input className="input-light" type="text" id="pac-input" placeholder="Where to?"/>
+      </div>
+    );
+  }
+}
+
+const mapStateToProps = (state) => ({
+  state: state
+});
+
+export default connect(mapStateToProps)(scriptLoader([`https://maps.googleapis.com/maps/api/js?key=${key}&libraries=places`]
+)(CityAutocomplete));
+
+

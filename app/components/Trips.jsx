@@ -1,11 +1,10 @@
 var React = require('react');
-var TripCard = require('TripCard');
-var GetTrips = require('GetTrips');
+var TripCard = require('./TripCard');
+var GetTrips = require('../api/GetTrips');
 var {connect} = require('react-redux');
-var actions = require('Actions');
+var actions = require('../actions/actions');
 var {browserHistory} = require('react-router');
-import 'Sass';
-import Header from 'Header';
+import Header from './Header';
 
 export var Trips = React.createClass({
 

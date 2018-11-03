@@ -1,24 +1,23 @@
-var React = require('react');
-var $= require('jquery');
-var GetPlaces = require('GetPlaces');
-var {connect} = require('react-redux');
-var actions = require('Actions');
-var moment = require('moment');
+import React from 'react';
+import { connect } from 'react-redux';
+import * as actions from '../actions/actions';
+import GetPlaces from '../api/GetPlaces';
+import moment from 'moment';
 import update from 'immutability-helper';
-import Header from 'Header';
-import Explore from 'Explore';
-import MapaContainer from 'MapaContainer';
-import SidePlanner from 'SidePlanner';
-import LeftPanel from 'LeftPanel';
-import RightPanel from 'RightPanel';
+import Header from './Header';
+import Explore from './Explore';
+import MapaContainer from './MapaContainer';
+import SidePlanner from './SidePlanner';
+import Sidepanel from './Sidepanel';
+import RightPanel from './RightPanel';
 
-
-export var Planner = React.createClass({
-  getInitialState: function (){
-    var cities =this.props.state.trip.selectedTrip.cities || this.props.location.state.cities;
-    var likedPlaces = this.props.state.trip.likedPlaces || [];
-    var dates = this.props.state.trip.selectedTrip.end ? true : false;
-    return {
+class Planner extends React.Component {
+  constructor(props) {
+    super(props);
+    const cities =this.props.state.trip.selectedTrip.cities || this.props.location.state.cities;
+    const likedPlaces = this.props.state.trip.likedPlaces || [];
+    const dates = this.props.state.trip.selectedTrip.end ? true : false;
+    this.state = {
         loaded:false,
         user:this.props.state.login.user,
         trip:this.props.state.trip.selectedTrip.id,
@@ -34,11 +33,9 @@ export var Planner = React.createClass({
         loadingExplore:'visible',
         selectedDates:dates
     }
-  },
-  componentWillMount:function(){
-    console.log(this.state)
-  },
-  shouldComponentUpdate:function(nextProps,nextState){
+  }
+
+  shouldComponentUpdate(nextProps) {
     if(JSON.stringify(this.props.state.trip.likedPlaces) !== JSON.stringify(nextProps.state.trip.likedPlaces)){
       this.setState({
         location:{lat:nextProps.state.trip.likedPlaces[0].coordinates.lat,
@@ -48,20 +45,22 @@ export var Planner = React.createClass({
       });
     }
     return true;
-  },
-  componentDidMount:function(){
-    console.log('component did mount')
+  }
+
+  componentDidMount() {
     this.fetchPlaces();
     this.retrievePlaces();
     this.scheduledPlaces();
-  },
-  select:function(event){
+  }
+
+  select(event) {
     var date = event.target.value;
     this.setState({date: date}, function () {
         this.scheduledPlaces();
       });
-  },
-  scheduledPlaces: function(){
+  }
+
+  scheduledPlaces() {
     var that = this;
     var user = that.state.user;
     var date = that.state.date;
@@ -92,8 +91,9 @@ export var Planner = React.createClass({
       cards:places
     })
   }
-  },
-  schedulingPlace: function(marker){
+  }
+
+  schedulingPlace(marker) {
   var that =this;
     var id= marker._id || marker.venueId;
     var user = that.state.user;
@@ -111,9 +111,9 @@ export var Planner = React.createClass({
       dispatch(actions.schedulePlaces(id,date));
       window.location.reload()
     }
-  },
-  fetchPlaces: function(mapProps,map) {
-    console.log('fetching places')
+  }
+
+  fetchPlaces() {
     var that = this;
     var user = that.state.user;
     var trip = that.state.trip;
@@ -142,8 +142,9 @@ export var Planner = React.createClass({
 
 }
 }
-  },
-    retrievePlaces: function (category){
+  }
+
+    retrievePlaces(category) {
     var that = this;
     var cities = that.state.cities;
     var city = that.state.city;
@@ -167,8 +168,9 @@ export var Planner = React.createClass({
       })
       return   console.log(errorMessage);
     })
-  },
-  updateOrder:function(dragIndex, hoverIndex){
+  }
+
+  updateOrder(dragIndex, hoverIndex) {
     const { cards } = this.state;
     const dragCard = cards[dragIndex];
     var that = this;
@@ -184,8 +186,9 @@ export var Planner = React.createClass({
 
       return  console.log(errorMessage);
     })
-  },
-  changeCity:function(event){
+  }
+
+  changeCity(event){
 
     this.setState({
       city:event.target.value,
@@ -193,8 +196,9 @@ export var Planner = React.createClass({
       places:[]
     });
 
-  },
-  changeView:function(e){
+  }
+
+  changeView(e) {
     var view = e.target.value;
     this.setState({
       view:view
@@ -205,32 +209,34 @@ export var Planner = React.createClass({
     } else {
       this.scheduledPlaces();
     }
-  },
-  getStart:function(e){
+  }
+
+  getStart(e) {
     var {dispatch} = this.props;
       this.setState({
         date:e.target.value
       })
     dispatch(actions.trip('',this.state.cities,e.target.value,''));
 
-  },
-  getEnd:function(e){
+  }
+
+  getEnd(e) {
     if(this.props.state.trip.selectedTrip.start){
     var {dispatch} = this.props;
     dispatch(actions.trip('',this.state.cities,this.state.date,e.target.value));
     window.location.reload()
   }
-  },
+  }
 
-  render: function () {
+  render() {
       var count = 1;
       return (
       <div>
       <div className="row">
       <Header home={false}/>
-      <LeftPanel image={"/images/explore.png"}>
-      <Explore loading={this.state.loadingExplore} retrievePlaces={this.retrievePlaces} city={this.state.city} cities={this.state.cities} places={this.state.places} fetchPlaces={this.fetchPlaces} />
-      </LeftPanel>
+      <Sidepanel image={"/images/explore.png"} orientation="left">
+        <Explore loading={this.state.loadingExplore} retrievePlaces={this.retrievePlaces} city={this.state.city} cities={this.state.cities} places={this.state.places} fetchPlaces={this.fetchPlaces} />
+      </Sidepanel>
       <div id='city-container'>
         <select onChange={this.changeCity} style={{marginRight:'10px'}} id="city">
              <option>Select City</option>
@@ -256,9 +262,8 @@ export var Planner = React.createClass({
       </div>
       </div>
     );
-
   }
-});
+}
 
 const mapStateToProps = (state) => {
   return {

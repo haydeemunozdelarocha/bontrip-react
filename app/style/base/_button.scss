@@ -1,0 +1,19 @@
+button, input[type=submit] {
+  outline: none;
+}
+
+.button {
+  background-color: $red;
+  border: solid $global-button-border $red;
+  color: $white;
+  padding: .5rem 2rem;
+
+  &:hover {
+    background-color: rgba($red, .6);
+    border-color: rgba($red, .6);
+  }
+}
+
+.small-button {
+  padding: .5rem 1rem;
+}

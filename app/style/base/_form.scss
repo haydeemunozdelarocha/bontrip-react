@@ -1,0 +1,75 @@
+
+
+select {
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12.953 8.138"><defs><style>.cls-1 {fill: none;stroke: #253636;stroke-width: 2px;}</style></defs><path id="Path_1033" data-name="Path 1033" class="cls-1" d="M3200.282,3188.38l6,5.77-6,5.74" transform="translate(3200.611 -3199.589) rotate(90)"/></svg>') no-repeat $white;
+  background-position: calc(100% - .8rem) 50%;
+  background-repeat: no-repeat;
+  background-size: 1rem;
+  line-height: 1;
+  margin-top: 1rem;
+
+  &:focus {
+    background-color: $white;
+  }
+}
+
+input[type=checkbox] {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  background: $white;
+  border: 1px solid $dark-gray;
+  display: inline-flex;
+  height: rem-calc(21);
+  margin: 0;
+  position: relative;
+  vertical-align: middle;
+  width: rem-calc(21);
+
+  &::after {
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M9 21.035l-9-8.638 2.791-2.87 6.156 5.874 12.21-12.436 2.843 2.817z"/></svg>') no-repeat $white;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 90%;
+    bottom: 0;
+    content: '';
+    display: block;
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: opacity .2s ease;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:checked::after {
+    opacity: 1;
+    transition: opacity .2s ease;
+  }
+
+  + label {
+    color: $dark-gray;
+    line-height: 1;
+    text-transform: lowercase;
+  }
+}
+
+.input-light {
+  background-color: transparent;
+  border-color: $white;
+  color: $white;
+
+  &:focus {
+    background-color: transparent;
+    border-color: $white;
+    color: $white;
+  }
+
+  &::placeholder {
+    color: $white;
+  }
+}

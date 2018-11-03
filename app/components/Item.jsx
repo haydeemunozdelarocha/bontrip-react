@@ -1,5 +1,4 @@
-import React, { Component, PropTypes } from 'react';
-import 'Sass';
+import React, { PropTypes } from 'react';
 
 const propTypes = {
   isDragging: PropTypes.bool.isRequired,

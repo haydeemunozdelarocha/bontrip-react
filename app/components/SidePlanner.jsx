@@ -1,14 +1,11 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { DragDropContext } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
-import DayCard from './DayCard';
-import 'Sass';
-var actions = require('Actions');
+import DraggableCard from './DraggableCard';
 var $= require('jquery');
 var {connect} = require('react-redux');
 
 var moment = require('moment');
-var GetPlaces = require('GetPlaces');
 
 
 var SidePlanner = React.createClass({
@@ -72,7 +69,7 @@ var SidePlanner = React.createClass({
         {dateSelector()}
         {checkCards()}
          {       cards.map((card, i) => (
-          <DayCard
+          <DraggableCard
             index={i}
             id={card._id}
             text={card.name}

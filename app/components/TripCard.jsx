@@ -1,10 +1,8 @@
 var React = require('react');
-var GetTrips = require('GetTrips');
 
 
 var TripCard = React.createClass({
   handleSelect: function (e){
-    console.log('handling click');
     var id = this.props.tripId;
     this.props.selectTrip(id);
   },

@@ -1,0 +1,24 @@
+.infowindow-title {
+  font-size: rem-calc(16);
+  font-weight: 600;
+}
+
+.infowindow-text {
+  margin-bottom: 0;
+}
+
+.infowindow-content {
+  padding: 1rem 0;
+}
+
+.infowindow-footer {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  width: calc(100% + 17px);
+}
+
+// Google overrides
+.gm-style-iw {
+  padding: .5rem;
+}

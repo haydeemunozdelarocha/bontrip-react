@@ -1,0 +1,14 @@
+.theme-header {
+  display: flex;
+  justify-content: space-between;
+  height: $global-header-height;
+  padding: 1rem 3rem;
+  z-index: base-index(site-header);
+  width: 100%;
+
+  &.is-transparent {
+    color: $white;
+    background-color: transparent;
+    position: fixed;
+  }
+}

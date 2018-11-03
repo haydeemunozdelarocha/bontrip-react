@@ -1,88 +1,60 @@
-var webpack = require('webpack');
+const webpack = require('webpack');
 
 module.exports = {
   entry: [
-  'script!jquery/dist/jquery.min.js',
-  './app/app.jsx'
+    './app/app.jsx',
+    'babel-polyfill'
   ],
-  externals: {
-    jquery: 'jQuery'
-  },
   plugins: [
     new webpack.ProvidePlugin({
-      '$': 'jquery',
-      'jQuery':'jquery'
+      $: 'jquery',
+      jQuery: 'jquery'
     }),
-        new webpack.DefinePlugin({
+    new webpack.DefinePlugin({
       'process.env':{
         'ACCESSKEY': JSON.stringify(process.env.AWS_ACCESS_KEY_ID),
         'SECRETACCESSKEY': JSON.stringify(process.env.AWS_SECRET_ACCESS_KEY),
-        'GOOGLE_KEY':JSON.stringify(process.env.GOOGLE_KEY)
+        'GOOGLE_KEY':JSON.stringify(process.env.GOOGLE_KEY),
+        'NODE_ENV': JSON.stringify('production')
       }
-    })
+    }),
   ],
   output: {
     path: __dirname,
     filename: './public/bundle.js'
   },
   devServer: {
-        historyApiFallback:{index:'/'},
-        },
+    historyApiFallback:{index:'/'},
+  },
   resolve: {
-    root: __dirname,
-    alias: {
-      Home: 'app/components/Home.jsx',
-      Login: 'app/components/Login.jsx',
-      Navigation: 'app/components/Navigation.jsx',
-      TripCard: 'app/components/TripCard.jsx',
-      GetTrips: 'data/getTrips.jsx',
-      GetPlaces: 'data/GetPlaces.jsx',
-      CheckUser: 'data/CheckUser.jsx',
-      Trips:'app/components/Trips.jsx',
-      Explore:'app/components/Explore.jsx',
-      ExploreCard:'app/components/ExploreCard.jsx',
-      SideExplore:'app/components/SideExplore.jsx',
-      Planner:'app/components/Planner.jsx',
-      MapaContainer:'app/components/MapaContainer.jsx',
-      CitiesMap:'app/components/CitiesMap.jsx',
-      CityAutocomplete:'app/components/CityAutocomplete.jsx',
-      AddCities:'app/components/AddCities.jsx',
-      SidePlanner:'app/components/SidePlanner.jsx',
-      Item:'app/components/Item.jsx',
-      Header:'app/components/Header.jsx',
-      Signup:'app/components/Signup.jsx',
-      AddTrip:'app/components/AddTrip.jsx',
-      NewTrip:'app/components/NewTrip.jsx',
-      LeftPanel:'app/components/LeftPanel.jsx',
-      RightPanel:'app/components/RightPanel.jsx',
-      NewPlace:'app/components/NewPlace.jsx',
-      AddCities:'app/components/AddCities.jsx',
-      Logout:'app/components/Logout.jsx',
-      Actions: 'app/actions/actions.jsx',
-      Sass:'app/style.scss',
-      configureStore:'app/store/configureStore.jsx',
-      reducers: 'app/reducers/reducers.jsx',
-          },
-    extensions: ['','.js','.jsx']
+    modules: ['node_modules'],
+    extensions: ['*','.js','.jsx']
   },
   module:{
-    loaders: [
-    {
-      loader: 'babel-loader',
-      query:{
-        plugins: ['transform-decorators-legacy' ],
-        presets: ['react', 'es2015', 'stage-0']
-      },
-      test:/\.jsx?$/,
-      exclude: /(node_modules|bower_components)/
+    noParse: [
+      /aws\-sdk/,
+    ],
+    rules: [
+      {
+        exclude: '/node_modules/',
+        test: /\.(js|jsx)$/,
+        loader: 'babel-loader',
+        query: {
+          presets: ['react', 'es2015', 'stage-2'],
+          plugins: ['transform-decorators-legacy']
+        }
       },
       {
-       test: /\.scss$/,
-       loaders: ["style", "css", "sass"]
-      }
-    ],
-      noParse: [
-      /aws\-sdk/,
-    ]
+        test: /\.scss$/,
+        use: [
+          'style-loader', // creates style nodes from JS strings
+          'css-loader', // translates CSS into CommonJS
+          'sass-loader' // compiles Sass to CSS
+        ]
+      },
+      {
+        test: /\.exec\.js$/,
+        use: [ 'script-loader' ]
+      }]
   }
 };

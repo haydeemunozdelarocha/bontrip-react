@@ -1,17 +1,17 @@
-var React = require('react');
-var {Link, IndexLink} = require('react-router');
-import 'Sass';
+import React from 'react';
+import { Link, IndexLink } from 'react-router';
+import { connect } from "react-redux";
 
-
-var Navigation = React.createClass({
-
-  render: function () {
-    if(!this.props.user.length>0){
-      var link = "/login";
-      var caption = "Login";
+export const Navigation = React.createClass({
+  render: function() {
+    let link;
+    let caption;
+    if (!this.props.user.length > 0) {
+      link = "/login";
+      caption = "Login";
     } else {
-      var link = "/logout";
-      var caption = "Logout";
+      link = "/logout";
+      caption = "Logout";
     }
     return (
           <ul className={this.props.type} id="menu">
@@ -32,4 +32,4 @@ var Navigation = React.createClass({
   }
 });
 
-module.exports = Navigation;
+export default connect(null)(Navigation);

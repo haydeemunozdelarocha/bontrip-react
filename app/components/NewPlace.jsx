@@ -1,39 +1,12 @@
 var React = require('react');
-var {browserHistory} = require('react-router');
-var Navigation = require('Navigation');
-import Header from 'Header';
-var {AutoComplete,RaisedButton,DatePicker,Chip} = require('material-ui');
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-var GetPlaces = require('GetPlaces');
+import Header from './Header';
+var GetPlaces = require('../api/GetPlaces');
 var {connect} = require('react-redux');
 
 
 const inputStyle ={
   borderRadius:'25px'
 };
-
-const searchContainer ={
-  width:'100%',
-  height:'87vh',
-  display:'flex',
-  justifyContent:'center',
-  alignItems:'center'
-};
-const searchBar = {
-  width:'100%',
-  borderRadius:'30px',
-  border:'none',
-  opacity:'.9',
-  backgroundColor:'white',
-  overflow:'hidden',
-  paddingLeft:'1%',
-  paddingRight:'1%'
-};
-
-const chipStyle={
-    margin: 4
-  };
 
 export var NewPlace = React.createClass({
 

@@ -11,7 +11,6 @@
     "node": true
   },
   "globals": {
-    "YT": false,
     "expect": false,
     "test": false,
     "describe": false,
@@ -19,9 +18,9 @@
     "afterEach": false,
     "jest": false,
     "it": false,
-    "Shopify": false
+    "$": false
   },
-  "extends": "eslint:recommended",
+  "extends": ["eslint:recommended", "plugin:react/recommended"],
   "rules": {
     "curly": "error",
     "eqeqeq": ["error", "always"],
@@ -38,6 +37,7 @@
     "space-before-blocks": "error",
     "space-before-function-paren": ["error", "never"],
     "space-infix-ops": ["error", {"int32Hint": false}],
-    "wrap-iife": ["error", "inside"]
+    "wrap-iife": ["error", "inside"],
+    "jsx-quotes": ["error", "prefer-double"]
   }
 }
