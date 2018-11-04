@@ -1,13 +1,15 @@
 $z-indexes: (
+  "overlay",
   "modal",
   "site-header",
   "page-wrapper",
-  "site-footer"
+  "site-footer",
+  "above-bottom"
 );
 
 @function base-index($name) {
   @if index($z-indexes, $name) {
-    @return (length($z-indexes) - index($z-indexes, $name)) + 1;
+    @return (length($z-indexes) - index($z-indexes, $name)) * 10;
   } @else {
     @warn 'There is no item "#{$name}" in this list; choose one of: #{$z-indexes}';
     @return null;

@@ -30,6 +30,15 @@ export var removeCity = (trip_id, city) => {
   };
 };
 
+export var reorderCity = (trip_id, initial_index, new_index) => {
+  return {
+    type: 'REORDER_CITY',
+    trip_id: trip_id,
+    initial_index: initial_index,
+    new_index: new_index
+  };
+};
+
 export const addStart = (trip_id, start) => {
   return {
     type: 'ADD_START',

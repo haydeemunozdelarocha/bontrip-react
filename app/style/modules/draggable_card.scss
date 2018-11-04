@@ -4,6 +4,7 @@
   cursor: pointer;
   display: flex;
   justify-content: space-between;
+  margin-bottom: 1rem;
   padding: 1rem .5rem;
 }
 
@@ -12,4 +13,8 @@
   background-size: cover;
   height: 25px;
   width: 25px;
+}
+
+.draggable-card-hovered {
+  background-color: $black;
 }

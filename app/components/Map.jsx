@@ -19,7 +19,7 @@ class Map extends React.Component {
     }
 
     if (JSON.stringify(prevProps.markers) !== JSON.stringify(this.props.markers)) {
-      this.getDirections(this.props.markers);
+      // this.getDirections(this.props.markers);
     }
   }
 
@@ -121,7 +121,7 @@ class Map extends React.Component {
       _this.createMarker(marker, i);
 
       if (markers.length > 1) {
-        _this.getDirections(markers);
+        // _this.getDirections(markers);
       }
     });
   }
