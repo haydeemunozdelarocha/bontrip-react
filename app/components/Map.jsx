@@ -67,7 +67,6 @@ class Map extends React.Component {
 
         let marker = _this.createMarker(city, null);
 
-        //TODO: write function to clean up event listeners
         google.maps.event.addListener(_this.infowindow,'closeclick', function() {
           _this.removeMarker(marker);
         });

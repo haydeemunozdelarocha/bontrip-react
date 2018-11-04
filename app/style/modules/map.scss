@@ -10,11 +10,20 @@
   position: absolute;
   top: 0;
   width: 100%;
-  z-index: base-index(modal);
+  z-index: base-index(site-header);
+
+  @include breakpoint(small only) {
+    bottom: 0;
+    height: 15%;
+    padding: 1rem;
+    top: auto;
+  }
 }
 
 .map-wrapper { position: relative; }
 
 .map-buttons-right {
   float: right;
+
+  @include breakpoint(small only) { float: left; }
 }
