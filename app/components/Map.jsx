@@ -19,7 +19,7 @@ class Map extends React.Component {
     }
 
     if (JSON.stringify(prevProps.markers) !== JSON.stringify(this.props.markers)) {
-      // this.getDirections(this.props.markers);
+      this.getDirections(this.props.markers);
     }
   }
 
@@ -67,7 +67,6 @@ class Map extends React.Component {
 
         let marker = _this.createMarker(city, null);
 
-        //TODO: write function to clean up event listeners
         google.maps.event.addListener(_this.infowindow,'closeclick', function() {
           _this.removeMarker(marker);
         });
@@ -121,7 +120,7 @@ class Map extends React.Component {
       _this.createMarker(marker, i);
 
       if (markers.length > 1) {
-        // _this.getDirections(markers);
+        _this.getDirections(markers);
       }
     });
   }
