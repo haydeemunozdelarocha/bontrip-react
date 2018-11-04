@@ -43,13 +43,13 @@ class Map extends React.Component {
     _this.directionsService = new google.maps.DirectionsService();
     _this.directionsDisplay = new google.maps.DirectionsRenderer();
 
-    _this.map.addListener('click', (event) => { _this.getCity(event.latLng); });
+    _this.map.addListener('click', (event) => { _this.addCity(event.latLng); });
     _this.directionsDisplay.setMap(_this.map);
 
     if (hasMarkers) { _this.initMarkers(markers); }
   }
 
-  getCity(coordinates) {
+  addCity(coordinates) {
     const _this = this;
 
     reverseGeoCode(coordinates).then((data) => {
@@ -75,8 +75,10 @@ class Map extends React.Component {
     });
   }
 
-  removeMarker(marker) {
-    marker.setMap(null);
+  saveCityCallback(markerInfo) {
+    const _this = this;
+    _this.infowindow.close();
+    _this.createMarker.bind(markerInfo, 9);
   }
 
   getDirections(markers) {
@@ -98,6 +100,7 @@ class Map extends React.Component {
       destination: markers[markers.length - 1].coordinates,
       travelMode: google.maps.TravelMode.DRIVING
     };
+
     return new Promise((resolve, reject) => {
       _this.directionsService.route(request, function(response, status) {
 
@@ -113,6 +116,7 @@ class Map extends React.Component {
     });
   }
 
+  // MARKERS
   initMarkers(markers) {
     const _this = this;
 
@@ -141,6 +145,9 @@ class Map extends React.Component {
     return mapMarker;
   }
 
+  removeMarker(marker) { marker.setMap(null); }
+
+  // INFOWINDOW
   initInfoWindow() {
     const _this = this;
 
@@ -193,12 +200,6 @@ class Map extends React.Component {
     });
   }
 
-  saveCityCallback(markerInfo) {
-    const _this = this;
-    _this.infowindow.close();
-    _this.createMarker.bind(markerInfo, 9);
-  }
-
   render() {
     return (
       <div className="l-full-page-wrapper map-wrapper">
@@ -220,5 +221,4 @@ const mapStateToProps = (state) => {
   };};
 
 const WrappedMap = scriptLoader([`https://maps.googleapis.com/maps/api/js?key=${key}&libraries=places`])(Map);
-
 export default connect(mapStateToProps)(WrappedMap);

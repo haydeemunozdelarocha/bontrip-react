@@ -7,8 +7,10 @@ import {
   ConnectDropTarget,
   ConnectDragSource,
 } from 'react-dnd';
-import ItemTypes from './ItemTypes';
-import { XYCoord } from 'dnd-core';
+
+const ItemTypes = {
+  CARD: 'card',
+};
 
 const cardSource = {
   beginDrag(props) {
@@ -83,10 +85,11 @@ export default class DraggableCard extends Component {
       connectDragSource &&
       connectDropTarget &&
       connectDragSource(
-        connectDropTarget(<div className={`draggable-card ${this.props.class}`} style={{opacity}}>
-          <span className="draggable-card-content">{text}</span>
-          <span className="draggable-card-handle"></span>
-        </div>),
+        connectDropTarget(
+          <div className={`draggable-card ${this.props.class}`} style={{opacity}}>
+            <span className="draggable-card-content">{text}</span>
+            <span className="draggable-card-handle"></span>
+          </div>),
       )
     )
   }
