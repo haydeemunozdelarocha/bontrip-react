@@ -4,16 +4,18 @@
   "author": "Haydee Munoz",
   "license": "ISC",
   "scripts": {
-    "client": "cd client && yarn start",
-    "server": "node server.js",
-    "start": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
+    "start": "concurrently --kill-others-on-fail \"node server.js\" \"npm client\"",
+    "heroku-postbuild": "cd client/ && npm install && npm install --only=dev --no-shrinkwrap && npm run build",
+    "client": "cd client && npm start"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
-    "express": "^4.16.4",
-    "concurrently": "^4.0.1"
+    "express": "^4.16.4"
   },
   "engines": {
     "node": "10.3.0"
+  },
+  "devDependencies": {
+    "concurrently": "^4.1.0"
   }
 }
