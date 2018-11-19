@@ -6,8 +6,8 @@
   "scripts": {
     "client": "cd client && yarn start",
     "server": "node server.js",
-    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
-    "start": "node server.js && cd client && node server.js"
+    "start": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
