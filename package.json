@@ -5,6 +5,7 @@
   "license": "ISC",
   "scripts": {
     "start": "concurrently --kill-others-on-fail \"node server.js\" \"npm run client\"",
+    "heroku-postbuild": "npm install && cd client && npm install",
     "client": "cd client && npm start"
   },
   "dependencies": {
