@@ -4,8 +4,8 @@
   "author": "Haydee Munoz",
   "license": "ISC",
   "scripts": {
-    "start": "concurrently --kill-others-on-fail \"node server.js\" \"npm client\"",
-    "heroku-postbuild": "cd client/ && npm install && npm install --only=dev --no-shrinkwrap && npm run build",
+    "start": "concurrently --kill-others-on-fail \"node server.js\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client",
     "client": "cd client && npm start"
   },
   "dependencies": {
