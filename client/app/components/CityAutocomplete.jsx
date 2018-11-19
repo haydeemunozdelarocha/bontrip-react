@@ -45,13 +45,6 @@ class CityAutocomplete extends React.Component {
     });
   }
 
-  // handleNewRequest(text) {
-  //   let cities = [];
-  //   cities.push(text.text);
-  //   this.setState({cities: cities});
-  //   this.saveCity(this.state.cities);
-  // }
-
   render() {
     return (
       <div className="autocomplete l-centered-block" >

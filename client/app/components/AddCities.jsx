@@ -1,75 +1,78 @@
+import React from 'react';
+import { connect } from 'react-redux';
+import Header from './Header';
+import Map from './Map';
+import Sidepanel from './Sidepanel';
 import NewTripForm from './NewTripForm';
+import DraggableCardsList from './DraggableCardsList';
+import {store} from '../app';
+import * as actions from '../redux/actions';
+const update = require('immutability-helper');
 
-var React = require('react');
-var {connect} = require('react-redux');
-import { DragDropContext } from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
-var actions = require('../redux/actions');
-import DraggableCard from './DraggableCard';
-var moment = require('moment');
+class AddCities extends React.Component {
+  constructor(props) {
+    super(props);
+    let reduxState = props.state;
 
-export var AddCities = React.createClass({
-  getInitialState: function(){
-    this.moveCard = this.moveCard.bind(this);
-    var cities = this.props.state.trip.selectedTrip.cities;
-
-    return {
-      date: moment(new Date()).format('YYYY-MM-DD'),
-      start:null,
-      end:null
-    }
-  },
-    getStart:function(e){
-    var {dispatch} = this.props;
-    var date = moment(e.target.value).format('MM-DD-YYYY');
-      this.setState({
-        start:date
-      })
-    dispatch(actions.addStart(null,date));
-
-  },
-  getEnd:function(e){
-    var {dispatch} = this.props;
-    var date = moment(e.target.value).format('MM-DD-YYYY');
-    if(this.state.start < date){
-      this.setState({
-        end:date
-      })
-    dispatch(actions.addEnd(null,date));
-  }else {
-    this.refs.date2.value = '';
-    alert("Please select a start date before the end date.")
+    this.state = {
+      loaded: false,
+      user: reduxState.login.user,
+      trip: reduxState.trip.selectedTrip.id,
+      places: [],
+      likedPlaces: reduxState.trip.likedPlaces || [],
+      location: reduxState.trip.selectedTrip.cities[0].coordinates || null,
+      cities: reduxState.trip.selectedTrip.cities || [],
+      view: 'all',
+      category: '',
+      loadingExplore: 'visible',
+      selectedDates: false,
+    };
   }
-  },
-  moveCard:function(dragIndex, hoverIndex) {
-    this.props.changeOrder(dragIndex, hoverIndex);
-  },
-  render: function () {
-      return (
-      <div id="add-cities-container">
-        <NewTripForm/>
-        <div className="city-cards">
-        <p data-tooltip tabIndex="1" title="Fancy word for a beetle." data-position="bottom" data-alignment="center">{}</p>
-          {    this.props.state.trip.selectedTrip.cities.map((card, i) => (
-         <DraggableCard
-            index={i}
-            id={card.name}
-            text={(card.country === "United States") ? card.name+", "+card.state : card.name+", "+card.country}
-            moveCard={this.moveCard}
-            class={"city-card"}
-          />
-        ))}
-        </div>
+
+  // saveTrip() {
+  //   if (!this.props.end || !this.props.start) {
+  //     alert('Please select your travel dates on left panel.');
+  //   }
+  //   if (!this.props.user) {
+  //     if (confirm('You are not logged in. Your changes will disappear if you leave the page. Would you like to login?')) {
+  //       browserHistory.push({pathname: '/login'});
+  //     } else {
+  //       browserHistory.push({pathname: '/planner'});
+  //     }
+  //   } else {
+  //     browserHistory.push({pathname: '/planner'});
+  //   }
+  // }
+
+  moveCard(dragIndex, hoverIndex) {
+    const { cities } = this.state;
+    const dragCard = cities[dragIndex];
+
+    this.setState(
+      update(this.state, {
+        cities: {
+          $splice: [[dragIndex, 1], [hoverIndex, 0, dragCard]],
+        },
+      }),
+    );
+  }
+
+  render() {
+    return (
+      <div>
+        <Header navigation={false} home={false}/>
+        <Sidepanel image={'/images/cities-01.png'} orientation="left">
+          <NewTripForm />
+          <DraggableCardsList moveCard={this.moveCard.bind(this)} cards={this.state.cities} title={'Cities'}/>
+        </Sidepanel>
+        <Map loaded={this.state.loaded} location={this.state.location}  markers={this.state.cities}/>
       </div>
     );
-
   }
+}
+
+const mapStateToProps = (state) => ({
+  state: state
 });
 
-const mapStateToProps = (state) => {
-  return {
-  state: state
-}};
-
-AddCities = DragDropContext(HTML5Backend)(AddCities);
 export default connect(mapStateToProps)(AddCities);

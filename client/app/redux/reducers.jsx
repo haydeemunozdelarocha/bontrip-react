@@ -1,22 +1,3 @@
-export const loginReducer = (state = { user: {} }, action) => {
-  switch(action.type) {
-  case 'LOGIN':
-    return {
-      ...state,
-      user: action.user
-    };
-
-  case 'LOGOUT':
-    return {
-      ...state,
-      user: null
-    };
-
-  default:
-    return state;
-  }
-};
-
 export const tripReducer = (state = { selectedTrip: { cities: [], id: null }, likedPlaces: [] }, action) => {
   switch(action.type) {
   case 'ADD_CITY':
@@ -66,27 +47,6 @@ export const tripReducer = (state = { selectedTrip: { cities: [], id: null }, li
         ...state.selectedTrip,
         end: action.end
       }
-    };
-
-  case 'ADD_PLACES':
-    return {
-      ...state,
-      likedPlaces: [...state.likedPlaces, action.likedPlaces]
-    };
-
-  case 'SCHEDULE_PLACE':
-    let places = state.likedPlaces.map((place) => {
-      if (place.venueId === action.id) {
-        place.day = action.date;
-        place._id = place.venueId;
-        return place;
-      } else {
-        return place;
-      }
-    });
-    return {
-      ...state,
-      likedPlaces: places
     };
 
   case 'CLEAR_SESSION':

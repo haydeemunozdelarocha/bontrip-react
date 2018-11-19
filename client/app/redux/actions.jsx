@@ -1,18 +1,3 @@
-// LOGIN AND LOGOUT
-export const login = (user) => {
-  return {
-    type: 'LOGIN',
-    user: user
-  };
-};
-
-export const logout = (user) => {
-  return {
-    type: 'LOGOUT',
-    user: user
-  };
-};
-
 // TRIPS
 export const addCity = (trip_id, city) => {
   return {
@@ -61,21 +46,5 @@ export const clearSelectedTrip = () => {
     trip: {
       selectedTrip: {}
     }
-  };
-};
-
-// PLACES
-export var likedPlaces = (likedPlaces) => {
-  return {
-    type:'ADD_PLACES',
-    likedPlaces:likedPlaces
-  };
-};
-
-export var schedulePlaces = (id,date) => {
-  return {
-    type:'SCHEDULE_PLACE',
-    id:id,
-    date:date
   };
 };

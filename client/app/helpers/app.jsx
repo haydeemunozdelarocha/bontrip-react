@@ -66,13 +66,13 @@ export function navigateTo(location) {
 
 function getComponentType(address_component) {
   switch(address_component.types[0]) {
-    case 'locality':
-    case 'administrative_area_level_3':
-      return 'name';
-    case 'country':
-      return 'country';
-    case 'administrative_area_level_1':
-      return 'state';
+  case 'locality':
+  case 'administrative_area_level_3':
+    return 'name';
+  case 'country':
+    return 'country';
+  case 'administrative_area_level_1':
+    return 'state';
   }
 }
 
