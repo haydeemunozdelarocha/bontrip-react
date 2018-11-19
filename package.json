@@ -5,17 +5,15 @@
   "license": "ISC",
   "scripts": {
     "start": "concurrently --kill-others-on-fail \"node server.js\" \"npm run client\"",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client",
+    "heroku-postbuild": "cd client/ && npm install && npm install --only=dev --no-shrinkwrap && npm run build",
     "client": "cd client && npm start"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "concurrently": "^4.1.0"
   },
   "engines": {
     "node": "10.3.0"
-  },
-  "devDependencies": {
-    "concurrently": "^4.1.0"
   }
 }
