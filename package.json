@@ -4,9 +4,8 @@
   "author": "Haydee Munoz",
   "license": "ISC",
   "scripts": {
-    "start": "concurrently --kill-others-on-fail \"node server.js\" \"npm run client\"",
-    "heroku-postbuild": "npm install && cd client && npm install",
-    "client": "cd client && npm start"
+    "start": "node server.js",
+    "heroku-postbuild": "cd client && npm install && npm start"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
