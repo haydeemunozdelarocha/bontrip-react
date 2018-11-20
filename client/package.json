@@ -65,7 +65,7 @@
     "eslint": "^4.19.1",
     "eslint-plugin-react": "^7.9.1",
     "foundation-sites": "^6.2.0",
-    "jquery": "^2.2.1",
+    "jquery": "^3.0.0",
     "json-loader": "^0.5.7",
     "motion-ui": "^2.0.3",
     "node-sass": "^4.9.0",
