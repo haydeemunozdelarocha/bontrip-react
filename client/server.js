@@ -1,7 +1,6 @@
-var express = require('express');
-var path = require('path');
-// Create our app
-var app = express();
+const express = require('express');
+const path = require('path');
+const app = express();
 
 app.use(express.static(__dirname + '/public'));
 
@@ -12,5 +11,5 @@ app.get('*', (req, res) => {
 var port = process.env.PORT || 3000;
 
 app.listen(port, function () {
-  console.log('Express server is up on port ' + port);
+  console.log('React app is up on port ' + port);
 });
