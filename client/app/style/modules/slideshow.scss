@@ -1,11 +1,10 @@
 /* Slider */
-.slideshow{
-  margin-left: 0;
-  position: relative;
-  height: 100vh;
-  width: 100%;
-  display: block;
+.slideshow {
   box-sizing: border-box;
+  display: block;
+  height: 100vh;
+  margin-left: 0;
+  width: 100%;
 }
 
 .slideshow-item {

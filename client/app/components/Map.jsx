@@ -203,9 +203,6 @@ class Map extends React.Component {
   render() {
     return (
       <div className="l-full-page-wrapper map-wrapper">
-        <div className="map-header">
-          <button className="button small-button map-buttons-right" onClick={this.saveTrip}>Save Trip</button>
-        </div>
         <div className="map" id="map">
           <i className="centered-loading-icon fa fa-spinner fa-spin" ref="spinner" aria-hidden="true"></i>
         </div>

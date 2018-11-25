@@ -5,9 +5,9 @@ import Map from './Map';
 import Sidepanel from './Sidepanel';
 import NewTripForm from './NewTripForm';
 import DraggableCardsList from './DraggableCardsList';
-import {store} from '../app';
-import * as actions from '../redux/actions';
-const update = require('immutability-helper');
+import { store } from "../app";
+import * as actions from "../redux/actions";
+
 
 class AddCities extends React.Component {
   constructor(props) {
@@ -16,45 +16,13 @@ class AddCities extends React.Component {
 
     this.state = {
       loaded: false,
-      user: reduxState.login.user,
-      trip: reduxState.trip.selectedTrip.id,
-      places: [],
-      likedPlaces: reduxState.trip.likedPlaces || [],
       location: reduxState.trip.selectedTrip.cities[0].coordinates || null,
       cities: reduxState.trip.selectedTrip.cities || [],
-      view: 'all',
-      category: '',
-      loadingExplore: 'visible',
-      selectedDates: false,
     };
   }
 
-  // saveTrip() {
-  //   if (!this.props.end || !this.props.start) {
-  //     alert('Please select your travel dates on left panel.');
-  //   }
-  //   if (!this.props.user) {
-  //     if (confirm('You are not logged in. Your changes will disappear if you leave the page. Would you like to login?')) {
-  //       browserHistory.push({pathname: '/login'});
-  //     } else {
-  //       browserHistory.push({pathname: '/planner'});
-  //     }
-  //   } else {
-  //     browserHistory.push({pathname: '/planner'});
-  //   }
-  // }
-
   moveCard(dragIndex, hoverIndex) {
-    const { cities } = this.state;
-    const dragCard = cities[dragIndex];
-
-    this.setState(
-      update(this.state, {
-        cities: {
-          $splice: [[dragIndex, 1], [hoverIndex, 0, dragCard]],
-        },
-      }),
-    );
+    store.dispatch(actions.reorderCity(null, dragIndex, hoverIndex));
   }
 
   render() {

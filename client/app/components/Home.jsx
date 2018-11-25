@@ -20,7 +20,7 @@ class Home extends React.Component {
   render() {
     return (
       <div className="cover-page-layout">
-        <Header />
+        <Header isHomePage={true}/>
         <Slideshow fullscreen={true} images={images.home}/>
         <div className="l-page-overlay">
           <CityAutocomplete />

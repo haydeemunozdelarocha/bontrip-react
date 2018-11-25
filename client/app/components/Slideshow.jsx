@@ -41,12 +41,11 @@ class Slideshow extends React.Component {
 
   render() {
     let { images } = this.props;
-    console.log(images);
 
     return (
       <ul className="slideshow" data-slideshow>
-        { images.map((image) => {
-          return <li className="slideshow-item" style={{backgroundImage: `url(${image})`}}></li>;
+        { images.map((image, i) => {
+          return <li className="slideshow-item" key={i} style={{backgroundImage: `url(${image})`}}></li>;
         })}
       </ul>
     );

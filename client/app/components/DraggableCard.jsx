@@ -58,7 +58,7 @@ const cardTarget = {
   (connect, monitor) => ({
     connectDragSource: connect.dragSource(),
     isDragging: monitor.isDragging(),
-  }),
+  })
 )
 
 export default class DraggableCard extends Component {
@@ -72,13 +72,19 @@ export default class DraggableCard extends Component {
     moveCard: PropTypes.func.isRequired,
   };
 
+  exapandCard() {
+    $(this).addClass('draggable-card-expanded');
+  }
+
   render() {
     const {
       text,
+      expandableContent,
       isDragging,
       connectDragSource,
       connectDropTarget,
     } = this.props;
+
     const opacity = isDragging ? 0 : 1;
 
     return (
@@ -89,7 +95,7 @@ export default class DraggableCard extends Component {
           <div className={`draggable-card ${this.props.class}`} style={{opacity}}>
             <span className="draggable-card-content">{text}</span>
             <span className="draggable-card-handle"></span>
-          </div>),
+          </div>)
       )
     )
   }

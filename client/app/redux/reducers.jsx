@@ -21,7 +21,6 @@ export const tripReducer = (state = { selectedTrip: { cities: [], id: null }, li
   case 'REORDER_CITY':
     let cities = state.selectedTrip.cities;
     let reorder_city = cities[action.initial_index];
-    console.log(reorder_city);
     cities.splice(action.initial_index, 1);
     cities.splice(action.new_index, 0, reorder_city);
     return {
