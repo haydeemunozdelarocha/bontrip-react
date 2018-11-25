@@ -7,8 +7,9 @@ class Header extends React.Component {
   }
 
   render() {
+    console.log(this.props.isHomePage);
     return (
-      <div className={`theme-header top-bar ${this.props.isHomePage ? 'is-transparent' : ''}`}>
+      <div className={`theme-header ${this.props.isHomePage ? 'is-transparent' : ''}`}>
         <div><a className="logo" href="/"><img src={`${this.props.isHomePage ? '/images/bontrip-logo-white.png' : '/images/bontrip-logo-blue.png'}`}/></a></div>
       </div>
     )

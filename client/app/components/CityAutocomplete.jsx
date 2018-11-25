@@ -39,7 +39,6 @@ class CityAutocomplete extends React.Component {
 
     autocomplete.addListener('place_changed', function() {
       let place = autocomplete.getPlace();
-      console.log('place', place);
       let callback = () => navigateTo('/newtrip');
       saveCity(place, callback);
     });

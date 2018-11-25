@@ -1,9 +1,8 @@
 const webpack = require('webpack');
-
+console.log(__dirname);
 module.exports = {
   entry: [
     './app/app.jsx',
-    'babel-polyfill'
   ],
   plugins: [
     new webpack.ProvidePlugin({
@@ -15,7 +14,7 @@ module.exports = {
         'ACCESSKEY': JSON.stringify(process.env.AWS_ACCESS_KEY_ID),
         'SECRETACCESSKEY': JSON.stringify(process.env.AWS_SECRET_ACCESS_KEY),
         'GOOGLE_KEY':JSON.stringify(process.env.GOOGLE_KEY),
-        'NODE_ENV': JSON.stringify('production')
+        'NODE_ENV': JSON.stringify('development')
       }
     }),
   ],
@@ -36,13 +35,8 @@ module.exports = {
     ],
     rules: [
       {
-        exclude: '/node_modules/',
         test: /\.(js|jsx)$/,
-        loader: 'babel-loader',
-        query: {
-          presets: ['react', 'es2015', 'stage-2'],
-          plugins: ['transform-decorators-legacy']
-        }
+        loader: 'babel-loader'
       },
       {
         test: /\.scss$/,

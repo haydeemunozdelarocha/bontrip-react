@@ -19,17 +19,13 @@ export function parseCityObject(cityObject) {
 export function saveCity(cityInfo, callback) {
   let is_formatted = 'address_components' in cityInfo;
   let city = is_formatted ? parseCityObject(cityInfo) : cityInfo;
-  console.log('saving:', city);
   store.dispatch(actions.addCity(null, city));
 
-  if (callback) {
-    callback();
-  }
+  if (callback) { callback(); }
 }
 
 export function removeCity(cityInfo, callback) {
   let city = cityInfo.name;
-  console.log('removing city', city);
   store.dispatch(actions.removeCity(null, city));
   if (callback) {
     callback();
@@ -45,7 +41,6 @@ export function reverseGeoCode(googleLocation) {
       if (status === 'OK') {
         if (results[0]) {
           let cityNameresults = results.filter((result) => result.types.includes('locality') && result.types.includes('political'));
-          console.log(cityNameresults);
           resolve(cityNameresults[0]);
         } else {
           window.alert('No results found');
@@ -60,7 +55,6 @@ export function reverseGeoCode(googleLocation) {
 }
 
 export function navigateTo(location) {
-  console.log('navigating');
   browserHistory.push(location);
 }
 

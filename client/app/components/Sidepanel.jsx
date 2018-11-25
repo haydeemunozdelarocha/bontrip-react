@@ -11,7 +11,6 @@ class Sidepanel extends React.Component {
 
   togglePanel() {
     const _this = this;
-    console.log('toggling');
     _this.setState({open: !_this.state.open});
   }
 
