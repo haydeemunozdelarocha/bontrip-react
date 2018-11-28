@@ -7,7 +7,7 @@
   "scripts": {
     "start": "concurrently --kill-others-on-fail \"node server.js\" \"npm run client\"",
     "client": "cd client && npm start",
-    "heroku-postbuild": "npm install && cd client && npm install --only=dev --no-shrinkwrap && npm run build"
+    "heroku-postbuild": "npm install && cd client && npm install --no-shrinkwrap && npm run build"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
