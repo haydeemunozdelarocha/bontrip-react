@@ -54,7 +54,7 @@
     "react-s3-uploader": "^4.6.0",
     "slick-carousel": "^1.8.1",
     "uglifyjs-webpack-plugin": "^1.2.5",
-    "whatwg-fetch": "^2.0.3",
+    "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.5",
