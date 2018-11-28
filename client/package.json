@@ -1,5 +1,5 @@
 {
-  "name": "bontrip-react",
+  "name": "Bontrip React",
   "version": "1.0.0",
   "description": "Simple react app",
   "proxy": "http://localhost:5000/",
@@ -7,8 +7,7 @@
   "scripts": {
     "test": "karma start",
     "build": "webpack",
-    "start": "node index.js",
-    "heroku-postbuild": "npm install && cd client && npm install --only=dev --no-shrinkwrap && npm run build"
+    "start": "node index.js"
   },
   "author": "Haydee Munoz",
   "license": "ISC",

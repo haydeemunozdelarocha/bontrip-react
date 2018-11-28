@@ -1,12 +1,13 @@
 {
-  "name": "bontrip",
+  "name": "Bontrip Server",
   "version": "1.0.0",
   "author": "Haydee Munoz",
   "license": "ISC",
   "main": "server.js",
   "scripts": {
     "start": "concurrently --kill-others-on-fail \"node server.js\" \"npm run client\"",
-    "client": "cd client && npm start"
+    "client": "cd client && npm start",
+    "heroku-postbuild": "npm install && cd client && npm install --only=dev --no-shrinkwrap && npm run build"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
@@ -14,6 +15,6 @@
     "concurrently": "^4.1.0"
   },
   "engines": {
-    "node": "10.3.0"
+    "node": "6.9.0"
   }
 }
