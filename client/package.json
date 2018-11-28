@@ -1,5 +1,5 @@
 {
-  "name": "Bontrip React",
+  "name": "bontrip-react",
   "version": "1.0.0",
   "description": "Simple react app",
   "proxy": "http://localhost:5000/",
