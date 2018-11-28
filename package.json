@@ -5,7 +5,8 @@
   "license": "ISC",
   "main": "server.js",
   "scripts": {
-    "start": "concurrently --kill-others-on-fail \"node server.js\" \"npm run client\"",
+    "start": "node server.js",
+    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
     "client": "cd client && npm start",
     "heroku-postbuild": "npm install && cd client && npm install --dev --no-shrinkwrap && npm run build"
   },
