@@ -67,7 +67,7 @@
     "jquery": "^3.0.0",
     "json-loader": "^0.5.7",
     "motion-ui": "^2.0.3",
-    "node-sass": "^4.9.0",
+    "node-sass": "^4.11.0",
     "sass-loader": "^6.0.7",
     "script-loader": "^0.6.1",
     "style-loader": "^0.13.2",
