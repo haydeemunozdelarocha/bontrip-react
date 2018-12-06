@@ -37,19 +37,20 @@ class Map extends React.Component {
 
     _this.map = new google.maps.Map(mapContainer, {
       zoom: setZoomValue,
-      center: setMapCenter
+      center: setMapCenter,
+      clickableIcons: false
     });
 
     _this.directionsService = new google.maps.DirectionsService();
-    _this.directionsDisplay = new google.maps.DirectionsRenderer();
+    _this.directionsDisplay = new google.maps.DirectionsRenderer({preserveViewport: true});
 
-    _this.map.addListener('click', (event) => { _this.addCity(event.latLng); });
+    _this.map.addListener('click', (event) => { _this.selectCity(event.latLng); });
     _this.directionsDisplay.setMap(_this.map);
 
     if (hasMarkers) { _this.initMarkers(markers); }
   }
 
-  addCity(coordinates) {
+  selectCity(coordinates) {
     const _this = this;
 
     reverseGeoCode(coordinates).then((data) => {
@@ -68,6 +69,7 @@ class Map extends React.Component {
         let marker = _this.createMarker(city, null);
 
         google.maps.event.addListener(_this.infowindow,'closeclick', function() {
+          console.log('closing');
           _this.removeMarker(marker);
         });
         _this.showInfoWindow(marker, city);
@@ -82,6 +84,7 @@ class Map extends React.Component {
   }
 
   getDirections(markers) {
+    console.log('getting directions');
     const _this = this;
     let waypoints = null;
 
@@ -103,7 +106,7 @@ class Map extends React.Component {
 
     return new Promise((resolve, reject) => {
       _this.directionsService.route(request, function(response, status) {
-
+          console.log(response);
         if (status == google.maps.DirectionsStatus.OK) {
           _this.directionsDisplay.setDirections(response);
           _this.directionsDisplay.setOptions({ suppressMarkers: true });
@@ -145,7 +148,11 @@ class Map extends React.Component {
     return mapMarker;
   }
 
-  removeMarker(marker) { marker.setMap(null); }
+  removeMarker(marker) {
+    console.log('removing', this.props.markers);
+    marker.setMap(null);
+    this.getDirections(this.props.markers);
+  }
 
   // INFOWINDOW
   initInfoWindow() {
@@ -163,6 +170,7 @@ class Map extends React.Component {
     const distance = 'directions' in cityInfo ? 'Distance: ' + cityInfo.directions.distance : 'First Stop';
     const duration = 'directions' in cityInfo ? 'Duration: ' + cityInfo.directions.duration : '';
     const is_saved_city = markers.find(marker => marker.name === cityInfo.name);
+    console.log(is_saved_city, markers);
     let button_label = is_saved_city ? 'Remove' : 'Add to Trip';
     let button_handle = is_saved_city ? 'data-info-window-button-action="remove-city"' : 'data-info-window-button-action="save-city"';
 

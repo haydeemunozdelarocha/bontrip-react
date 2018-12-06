@@ -14,5 +14,21 @@
     color: $white;
     background-color: transparent;
     position: fixed;
+
+    .bontrip-logo {
+      fill: $white;
+    }
+  }
+
+  .bontrip-logo {
+    fill: $black;
+  }
+
+  .logo {
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+    display: block;
+    height: 40px;
+    width: 200px;
   }
 }

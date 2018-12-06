@@ -36,3 +36,7 @@ $global-flexbox: true !global;
 @import 'button';
 @import 'form';
 //@import 'table';
+
+body {
+  overflow: hidden;
+}

@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import scriptLoader from 'react-async-script-loader';
 import { saveCity, navigateTo } from '../helpers/app';
+import { typingAnimation } from '../helpers/animations';
 
 const key = process.env.GOOGLE_KEY;
 
@@ -44,10 +45,30 @@ class CityAutocomplete extends React.Component {
     });
   }
 
+  animatePlaceholder() {
+    let animationWords = this.props.animatedPlaceholderWords;
+    let $animatedElement = $(this.refs.animatedPlaceholder);
+
+    typingAnimation({$element: $animatedElement, wordsArray: animationWords, defaultPlaceholder: 'Where to?'});
+
+    $animatedElement.focusin(() => {
+      $animatedElement.data('typingAnimationPaused', 'true');
+    });
+
+    $animatedElement.focusout(() => {
+      $animatedElement.data('typingAnimationPaused', 'false');
+    });
+  }
+
   render() {
+    if (this.props.animatedPlaceholder) {
+      this.animatePlaceholder();
+    }
+
     return (
-      <div className="autocomplete l-centered-block" >
-        <input className="input-light" type="text" id="pac-input" placeholder="Where to?"/>
+      <div className="autocomplete l-centered-block input-with-top-label-wrapper" >
+        <input className="input-light input-with-top-label" type="text" id="pac-input" ref={`${this.props.animatedPlaceholder ? 'animatedPlaceholder' : ''}`}/>
+        <label>Tell us where you going next: </label>
       </div>
     );
   }

@@ -14,10 +14,12 @@
 }
 
 .sidepanel-left {
-  background-color: $light-blue;
+  background-color: $medium-blue;
   bottom: 0;
   transition: all .4s cubic-bezier(.77, 0, .175, 1);
   left: -400px;
+
+  p { color: $white; }
 
   @include breakpoint(small only) {
     left: -80%;
@@ -25,7 +27,7 @@
 
   .sidepanel-tab {
     right: -70px;
-    background-color: $light-blue;
+    background-color: $medium-blue;
   }
 
   &.is-open {

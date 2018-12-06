@@ -1,4 +1,9 @@
-
+[type='text'], [type='password'], [type='date'],
+[type='datetime'], [type='datetime-local'], [type='month'],
+[type='week'], [type='email'], [type='number'], [type='search'],
+[type='tel'], [type='time'], [type='url'], [type='color'] {
+  height: 4rem;
+}
 
 select {
   background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12.953 8.138"><defs><style>.cls-1 {fill: none;stroke: #253636;stroke-width: 2px;}</style></defs><path id="Path_1033" data-name="Path 1033" class="cls-1" d="M3200.282,3188.38l6,5.77-6,5.74" transform="translate(3200.611 -3199.589) rotate(90)"/></svg>') no-repeat $white;
@@ -60,16 +65,32 @@ input[type=checkbox] {
 
 .input-light {
   background-color: transparent;
-  border-color: $white;
+  border: $global-wide-border-width solid $white;
   color: $white;
 
   &:focus {
     background-color: transparent;
-    border-color: $white;
+    border: $global-wide-border-width solid $white;
     color: $white;
   }
 
   &::placeholder {
     color: $white;
+  }
+
+  + label {
+    color: $white;
+  }
+}
+
+.input-with-top-label-wrapper { position: relative; }
+
+.input-with-top-label {
+  position: relative;
+
+  + label {
+    font-size: rem-calc(14);
+    position: absolute;
+    top: -1.8rem;
   }
 }

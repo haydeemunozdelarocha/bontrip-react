@@ -20,6 +20,7 @@ class Slideshow extends React.Component {
       autoplaySpeed: 5000,
       dots: false,
       draggable: false,
+      swipe: true,
       fade: true,
       speed: 1000,
       arrows: false

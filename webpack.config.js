@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 console.log(__dirname);
 module.exports = {
+  mode: 'development',
   entry: [
     './app/app.jsx',
   ],
@@ -37,6 +38,20 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         loader: 'babel-loader'
+      },
+      {
+        test: /\.svg$/,
+        use: [
+          {
+            loader: "babel-loader"
+          },
+          {
+            loader: "react-svg-loader",
+            options: {
+              jsx: true // true outputs JSX tags
+            }
+          }
+        ]
       },
       {
         test: /\.scss$/,

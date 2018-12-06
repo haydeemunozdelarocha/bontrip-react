@@ -5,8 +5,8 @@
 }
 
 .pac-container {
-  background-color: rgba(204, 225, 232,.8);
-  border: $global-border-width solid $white;
+  background-color: $medium-blue;
+  border: $global-wide-border-width solid $white;
   box-shadow: none;
   margin-top: -$global-border-width;
   width: calc(25%) !important;
@@ -16,14 +16,18 @@
 
 .pac-item {
   border-top: 0;
-  color: $dark-blue;
+  color: $white;
   font-family: $body-font-family;
   padding: .3rem .5rem;
 
-  span {
-    color: $dark-blue;
+  &:hover {
+    background-color: get-color(warning);
+  }
 
-    :not(.pac-item-query) { color: $primary-color; }
+  span {
+    color: $white;
+
+    :not(.pac-item-query) { color: $white; }
   }
 }
 

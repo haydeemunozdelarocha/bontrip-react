@@ -23,7 +23,7 @@ class Home extends React.Component {
         <Header isHomePage={true}/>
         <Slideshow fullscreen={true} images={images.home}/>
         <div className="l-page-overlay">
-          <CityAutocomplete />
+          <CityAutocomplete animatedPlaceholder={true} animatedPlaceholderWords={["Tokyo", "Paris", "Munich", "Hong Kong", "Mexico City", "Sao Paolo", "Beijing", "Madrid"]}/>
         </div>
       </div>
     );
