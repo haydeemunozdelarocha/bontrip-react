@@ -7,7 +7,8 @@
   "scripts": {
     "test": "karma start",
     "build": "webpack",
-    "start": "node index.js"
+    "start": "node index.js",
+    "heroku-postbuild": "npm run build"
   },
   "author": "Haydee Munoz",
   "license": "ISC",
