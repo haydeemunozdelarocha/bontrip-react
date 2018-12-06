@@ -38,13 +38,11 @@ export function reverseGeoCode(googleLocation) {
 
   return new Promise((resolve, reject) => {
     geocoder.geocode({ 'location': latlng }, function(results, status) {
-      console.log('geocoding reverse', results.types);
       if (status === 'OK') {
         if (results[0]) {
           let cityTypeResults = results.filter((result) => result.types.includes('locality') && result.types.includes('political'));
           let pointOfInterestTypeResults = cityTypeResults.length === 0 ? results.filter((result) => result.types.includes('point_of_interest')) : '';
           let filteredResults = cityTypeResults[0] || pointOfInterestTypeResults[0];
-          console.log('filtered results', filteredResults);
           resolve(filteredResults);
         } else {
           window.alert('No results found');

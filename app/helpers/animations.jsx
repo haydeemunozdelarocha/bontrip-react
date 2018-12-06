@@ -5,7 +5,6 @@ export function typingAnimation({$element: $element, wordsArray: wordsArray, def
 
   if (isAnimationPaused) {
     if ($element.is('input[type=text]')) {
-      console.log('text input', defaultPlaceholder);
       $element.attr("placeholder", defaultPlaceholder);
     }
   } else {
