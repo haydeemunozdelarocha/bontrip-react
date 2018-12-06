@@ -1,4 +1,4 @@
 node_modules/
-client/public/bundle.js
+app/public/bundle.js
 .idea
 client/node_modules/
