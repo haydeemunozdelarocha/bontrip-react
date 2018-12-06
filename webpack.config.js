@@ -48,7 +48,7 @@ module.exports = {
           {
             loader: "react-svg-loader",
             options: {
-              jsx: true // true outputs JSX tags
+              jsx: true
             }
           }
         ]
@@ -56,9 +56,9 @@ module.exports = {
       {
         test: /\.scss$/,
         use: [
-          'style-loader', // creates style nodes from JS strings
-          'css-loader', // translates CSS into CommonJS
-          'sass-loader' // compiles Sass to CSS
+          'style-loader',
+          'css-loader',
+          'sass-loader'
         ]
       },
       {
