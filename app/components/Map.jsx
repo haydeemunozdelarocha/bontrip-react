@@ -41,7 +41,7 @@ class Map extends React.Component {
       clickableIcons: false
     });
 
-    _this.directionsService = new google.maps.DirectionsService();
+    _this.directionsService = new google.maps.DirectionsService({optimizeWaypoints: false, provideRouteAlternatives: false});
     _this.directionsDisplay = new google.maps.DirectionsRenderer({preserveViewport: true});
 
     _this.map.addListener('click', (event) => { _this.selectCity(event.latLng); });
@@ -51,13 +51,13 @@ class Map extends React.Component {
   }
 
   selectCity(coordinates) {
+    const {markers} = this.props;
     const _this = this;
 
     reverseGeoCode(coordinates).then((data) => {
       let city = parseCityObject(data);
-      let markers = [..._this.props.markers, city];
-
-      _this.getDirections(markers).then ((data) => {
+      let newMarkers = [...markers, city];
+      _this.getDirections(newMarkers).then ((data) => {
         let trip_directions = data;
         let last_leg = trip_directions[trip_directions.length - 1];
 
@@ -84,17 +84,18 @@ class Map extends React.Component {
 
   getDirections(markers) {
     const _this = this;
-    let waypoints = null;
+    let waypoints = [];
 
     if (markers.length > 2) {
-      waypoints = markers.map((marker) => {
-        return {
-          'location': marker.coordinates,
-          'stopover': false
-        };
-      });
+      for (let markerIndex in markers) {
+        if (markerIndex !== 0 || markerIndex !== markers.length - 1) {
+          waypoints.push({
+            'location': markers[markerIndex].coordinates,
+            'stopover': false
+          });
+        }
+      }
     }
-
     let request = {
       origin: markers[0].coordinates,
       waypoints: waypoints,

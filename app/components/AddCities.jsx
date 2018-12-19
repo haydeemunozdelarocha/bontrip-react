@@ -13,12 +13,16 @@ class AddCities extends React.Component {
   constructor(props) {
     super(props);
     let reduxState = props.state;
-
     this.state = {
       loaded: false,
       location: reduxState.trip.selectedTrip.cities[0].coordinates || null,
       cities: reduxState.trip.selectedTrip.cities || [],
     };
+  }
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      cities: nextProps.state.trip.selectedTrip.cities
+    });
   }
 
   moveCard(dragIndex, hoverIndex) {
