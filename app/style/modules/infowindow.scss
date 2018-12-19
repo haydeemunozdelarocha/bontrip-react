@@ -9,16 +9,25 @@
 
 .infowindow-content {
   padding: 1rem 0;
+  text-align: center;
+}
+
+.infowindow-header {
+  padding-top: 1rem;
+  text-align: center;
 }
 
 .infowindow-footer {
   align-items: center;
   display: flex;
   flex-direction: column;
-  width: calc(100% + 17px);
+  width: 100%;
 }
 
 // Google overrides
 .gm-style-iw {
+  display: flex;
+  justify-content: center;
   padding: .5rem;
+  width: 100%;
 }
