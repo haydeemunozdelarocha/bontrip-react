@@ -69,6 +69,7 @@ export default class DraggableCard extends Component {
     isDragging: PropTypes.bool.isRequired,
     id: PropTypes.any.isRequired,
     text: PropTypes.string.isRequired,
+    footerText: PropTypes.string.isRequired,
     moveCard: PropTypes.func.isRequired,
   };
 
@@ -79,6 +80,7 @@ export default class DraggableCard extends Component {
   render() {
     const {
       text,
+      footerText,
       expandableContent,
       isDragging,
       connectDragSource,
@@ -95,6 +97,7 @@ export default class DraggableCard extends Component {
           <div className={`draggable-card ${this.props.class}`} style={{opacity}}>
             <span className="draggable-card-content">{text}</span>
             <span className="draggable-card-handle"></span>
+            <span className="draggable-card-footer">{footerText}</span>
           </div>)
       )
     )

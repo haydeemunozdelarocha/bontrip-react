@@ -19,10 +19,13 @@ class AddCities extends React.Component {
       cities: reduxState.trip.selectedTrip.cities || [],
     };
   }
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      cities: nextProps.state.trip.selectedTrip.cities
-    });
+
+  componentWillReceiveProps(nextProps){
+    if (JSON.stringify(nextProps.state.trip.selectedTrip.cities) !== JSON.stringify(this.props.state.trip.selectedTrip.cities)) {
+      this.setState({
+        cities: nextProps.state.trip.selectedTrip.cities
+      });
+    }
   }
 
   moveCard(dragIndex, hoverIndex) {

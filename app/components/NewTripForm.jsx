@@ -3,43 +3,46 @@ import { connect } from 'react-redux';
 import * as actions from '../redux/actions';
 import moment from 'moment';
 import {store} from "../app";
+import { isInclusivelyAfterDay, DateRangePicker } from 'react-dates';
 
 class NewTripForm extends React.Component {
   constructor(props) {
     super(props);
-    let today = moment(new Date()).format('YYYY-MM-DD');
-
     this.state = {
-      today: today,
-      start: props.state.trip.selectedTrip.start || today,
-      end: props.state.trip.selectedTrip.end || null
+      today: moment(new Date()),
+      start: moment(props.state.trip.selectedTrip.start) || today,
+      end: moment(props.state.trip.selectedTrip.end) || null,
+      focused: false
     };
   }
 
-  setTripStart(e) {
-    let start_date = moment(e.target.value).format('YYYY-MM-DD');
-    store.dispatch(actions.addStart(null, start_date));
-  }
+  setTripDates(dates) {
+    let { startDate, endDate } = dates;
+    let start_date_string = startDate.format('YYYY-MM-DD');
+    let end_date_string = endDate.format('YYYY-MM-DD');
 
-  setTripEnd(e) {
-    const _this = this;
-    let end_date = moment(e.target.value).format('YYYY-MM-DD');
+    store.dispatch(actions.addStart(null, start_date_string));
+    store.dispatch(actions.addEnd(null, end_date_string));
 
-    if (_this.state.start < end_date) {
-      store.dispatch(actions.addEnd(null, end_date));
-
-    } else {
-      _this.refs.enddate.value = '';
-      alert('Please select a start date before the end date.');
-    }
+    this.setState({start: startDate, end: endDate});
   }
 
   render() {
     return (
       <div>
         <p>Select dates:</p>
-        <input type="date" ref="startdate" min={this.state.today} defaultValue={this.state.start} onChange={this.setTripStart}/>
-        <input type="date" ref="enddate" min={this.state.start} defaultValue={this.state.end} onChange={this.setTripEnd.bind(this)}/>
+        <DateRangePicker
+          startDateId="startDate"
+          endDateId="endDate"
+          startDate={this.state.start}
+          endDate={this.state.end}
+          onDatesChange={(dates) => this.setTripDates(dates)}
+          focusedInput={this.state.focusedInput}
+          onFocusChange={(focusedInput) => { this.setState({ focusedInput })}}
+          numberOfMonths={1}
+          isOutsideRange={(day) => !isInclusivelyAfterDay(day, moment()) }
+          initialVisibleMonth={() => this.state.start}
+        />
       </div>
     );
   }

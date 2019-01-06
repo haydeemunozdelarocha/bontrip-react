@@ -1,6 +1,8 @@
 .infowindow-title {
   font-size: rem-calc(16);
   font-weight: 600;
+  margin-bottom: 0;
+  max-width: 182px;
 }
 
 .infowindow-text {
@@ -8,7 +10,7 @@
 }
 
 .infowindow-content {
-  padding: 1rem 0;
+  padding:  0.5rem 0 1rem 0;
   text-align: center;
 }
 
@@ -24,10 +26,22 @@
   width: 100%;
 }
 
+.infowindow-image {
+  height: 150px;
+  object-fit: cover;
+  margin-bottom: .5rem;
+  max-width: 150px !important;
+}
+
 // Google overrides
 .gm-style-iw {
   display: flex;
   justify-content: center;
   padding: .5rem;
   width: 100%;
+
+  .image-wrapper {
+    height: 170px;
+  }
 }
+

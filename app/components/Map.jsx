@@ -18,9 +18,7 @@ class Map extends React.Component {
       this.loadMap();
     }
 
-    if (JSON.stringify(prevProps.markers) !== JSON.stringify(this.props.markers)) {
-      this.getDirections(this.props.markers);
-    }
+    this.getDirections(this.props.markers);
   }
 
   loadMap() {
@@ -57,21 +55,41 @@ class Map extends React.Component {
     reverseGeoCode(coordinates).then((data) => {
       let city = parseCityObject(data);
       let newMarkers = [...markers, city];
-      _this.getDirections(newMarkers).then ((data) => {
-        let trip_directions = data;
-        let last_leg = trip_directions[trip_directions.length - 1];
 
-        city.directions = {
-          distance: last_leg.distance.text,
-          duration: last_leg.duration.text
-        };
+      _this.getPlaceImage(data.place_id).then((image) => {
+        city.image = image;
+        _this.getDirections(newMarkers).then ((data) => {
+          let trip_directions = data;
+          let last_leg = trip_directions[trip_directions.length - 1];
 
-        let marker = _this.createMarker(city, null);
+          city.directions = {
+            distance: last_leg.distance.text,
+            duration: last_leg.duration.text
+          };
 
-        google.maps.event.addListener(_this.infowindow,'closeclick', function() {
-          _this.removeMarker(marker);
+          let marker = _this.createMarker(city, null);
+
+          google.maps.event.addListener(_this.infowindow,'closeclick', function() {
+            _this.removeMarker(marker);
+          });
+          _this.showInfoWindow(marker, city);
         });
-        _this.showInfoWindow(marker, city);
+      });
+    });
+  }
+
+  getPlaceImage(placeID) {
+    return new Promise((resolve, reject) => {
+      const _this = this;
+      let service = new google.maps.places.PlacesService(_this.map);
+      service.getDetails({placeId: placeID}, (data, status) => {
+        if (status === 'OK') {
+          if (data.photos) {
+            resolve(data.photos[0].getUrl());
+          }
+        } else {
+          reject();
+        }
       });
     });
   }
@@ -88,14 +106,16 @@ class Map extends React.Component {
 
     if (markers.length > 2) {
       for (let markerIndex in markers) {
-        if (markerIndex !== 0 || markerIndex !== markers.length - 1) {
+        if (markerIndex !== 0 && Number(markerIndex) !== markers.length - 1) {
+
           waypoints.push({
             'location': markers[markerIndex].coordinates,
-            'stopover': false
+            'stopover': true
           });
         }
       }
     }
+
     let request = {
       origin: markers[0].coordinates,
       waypoints: waypoints,
@@ -167,6 +187,7 @@ class Map extends React.Component {
     const distance = 'directions' in cityInfo ? 'Distance: ' + cityInfo.directions.distance : 'First Stop';
     const duration = 'directions' in cityInfo ? 'Duration: ' + cityInfo.directions.duration : '';
     const is_saved_city = markers.find(marker => marker.name === cityInfo.name);
+    let image = cityInfo.image;
     let button_label = is_saved_city ? 'Remove' : 'Add to Trip';
     let button_handle = is_saved_city ? 'data-info-window-button-action="remove-city"' : 'data-info-window-button-action="save-city"';
 
@@ -175,6 +196,7 @@ class Map extends React.Component {
           <p class="infowindow-title">${name}</p>
         </div>
         <div class="infowindow-content">
+          <img class="infowindow-image" src="${image}" />
           <p class="infowindow-text">${duration}</p>
           <p class="infowindow-text">${distance}</p>
         </div>

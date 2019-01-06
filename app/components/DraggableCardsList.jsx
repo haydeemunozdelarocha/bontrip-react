@@ -22,6 +22,7 @@ class DraggableCardsList extends React.Component {
               index={i}
               id={card.name}
               text={`${card.country === 'United States' ? `${card.name}, ${card.state}` : `${card.name}, ${card.country}`}`}
+              footerText={i > 0 ? `${card.directions.distance} / ${card.directions.duration}` : 'Start'}
               moveCard={this.props.moveCard}
               class={'draggable-card'}
             />

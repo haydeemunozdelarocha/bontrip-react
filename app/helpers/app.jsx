@@ -13,6 +13,7 @@ export function parseCityObject(cityObject) {
     }
   });
   city.coordinates = cityObject.geometry.location;
+  city.directions = cityObject.directions;
   return city;
 }
 

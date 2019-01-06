@@ -1,5 +1,6 @@
 @import 'settings';
 @import '../../../node_modules/foundation-sites/scss/foundation';
+@import '../../../node_modules/react-dates/lib/css/_datepicker';
 //// scss-lint:disable ImportPath
 //// There are other files with the same name so removing scss will throw and error so this rule had to be ignored
 //@import '../../../node_modules/slick-carousel/slick/slick.scss';
@@ -35,6 +36,8 @@ $global-flexbox: true !global;
 //@import 'typography';
 @import 'button';
 @import 'form';
+@import 'datepicker';
+
 //@import 'table';
 
 body {

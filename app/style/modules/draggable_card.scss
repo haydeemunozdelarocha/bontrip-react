@@ -3,15 +3,24 @@
   border: $global-border-width $black solid;
   cursor: pointer;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   margin-bottom: 1rem;
   padding: 1rem .5rem;
 }
+
+.draggable-card-content { width: calc(100% - 25px); }
 
 .draggable-card-handle {
   background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path style="fill=#cce1e8" d="M12 18c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3zm0-9c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3zm0-9c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3z"/></svg>');
   background-size: cover;
   height: 25px;
   width: 25px;
+}
+
+.draggable-card-footer {
+  color: $medium-gray;
+  font-size: rem-calc(12);
+  width: 100%;
 }
 
