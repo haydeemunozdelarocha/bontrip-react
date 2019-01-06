@@ -22,3 +22,7 @@ export function typingAnimation({$element: $element, wordsArray: wordsArray, def
     setTimeout(() => typingAnimation({$element: $element, wordsArray: wordsArray, defaultPlaceholder: defaultPlaceholder, iterator: i}), 1700);
   }
 }
+
+function slideInOnLoad({$element: $element}) {
+
+}

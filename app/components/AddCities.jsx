@@ -36,7 +36,7 @@ class AddCities extends React.Component {
     return (
       <div>
         <Header navigation={false} home={false}/>
-        <Sidepanel image={'/images/cities-01.png'} orientation="left">
+        <Sidepanel image={'/images/cities.png'} orientation="left">
           <NewTripForm />
           <DraggableCardsList moveCard={this.moveCard.bind(this)} cards={this.state.cities} title={'Cities'}/>
         </Sidepanel>
