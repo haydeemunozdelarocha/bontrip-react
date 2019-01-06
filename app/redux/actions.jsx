@@ -15,6 +15,15 @@ export var removeCity = (trip_id, city) => {
   };
 };
 
+export var updateCityDirections = (trip_id, cityIndex, directions) => {
+  return {
+    type: 'UPDATE_CITY_DIRECTIONS',
+    trip_id: trip_id,
+    cityIndex: cityIndex,
+    directions: directions
+  };
+};
+
 export var reorderCity = (trip_id, initial_index, new_index) => {
   return {
     type: 'REORDER_CITY',

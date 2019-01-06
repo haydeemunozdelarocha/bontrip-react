@@ -1,7 +1,7 @@
 import React from 'react';
 import scriptLoader from 'react-async-script-loader';
 import { connect } from 'react-redux';
-import { reverseGeoCode, saveCity, removeCity, parseCityObject } from '../helpers/app';
+import { reverseGeoCode, saveCity, removeCity, parseCityObject, updateDirections } from '../helpers/app';
 import Promise from 'promise';
 
 const key = process.env.GOOGLE_KEY;
@@ -12,13 +12,28 @@ class Map extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { isScriptLoaded, isScriptLoadSucceed } = this.props;
+    const { isScriptLoaded, isScriptLoadSucceed, markers } = this.props;
 
     if (isScriptLoaded && isScriptLoadSucceed && !prevProps.isScriptLoaded && !prevProps.isScriptLoadSucceed) {
       this.loadMap();
+    } else {
+      this.getDirections(markers).then((data) => {
+        let directions= null;
+        if (markers.length > 2) {
+          markers.map((marker, i) => {
+            if (i !== 0) {
+              directions = {
+                distance: data[i].distance.text,
+                duration: data[i].duration.text
+              };
+            }
+            if (JSON.stringify(marker.directions) !== JSON.stringify(directions)) {
+              updateDirections(i, directions);
+            }
+          });
+        }
+      });
     }
-
-    this.getDirections(this.props.markers);
   }
 
   loadMap() {

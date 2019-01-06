@@ -18,6 +18,16 @@ export const tripReducer = (state = { selectedTrip: { cities: [], id: null }, li
       }
     };
 
+  case 'UPDATE_CITY_DIRECTIONS':
+    state.selectedTrip.cities[action.cityIndex].directions = action.directions;
+    return {
+      ...state,
+      selectedTrip: {
+        trip_id: action.trip_id,
+        cities: state.selectedTrip.cities
+      }
+    };
+
   case 'REORDER_CITY':
     let cities = state.selectedTrip.cities;
     let reorder_city = cities[action.initial_index];

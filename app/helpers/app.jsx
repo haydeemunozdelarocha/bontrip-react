@@ -20,6 +20,7 @@ export function parseCityObject(cityObject) {
 export function saveCity(cityInfo, callback) {
   let is_formatted = 'address_components' in cityInfo;
   let city = is_formatted ? parseCityObject(cityInfo) : cityInfo;
+  console.log('saving city', city);
   store.dispatch(actions.addCity(null, city));
 
   if (callback) { callback(); }
@@ -28,6 +29,13 @@ export function saveCity(cityInfo, callback) {
 export function removeCity(cityInfo, callback) {
   let city = cityInfo.name;
   store.dispatch(actions.removeCity(null, city));
+  if (callback) {
+    callback();
+  }
+}
+
+export function updateDirections(cityIndex, directions, callback) {
+  store.dispatch(actions.updateCityDirections(null, cityIndex, directions));
   if (callback) {
     callback();
   }
