@@ -1,6 +1,6 @@
 {
   "name": "bontrip-react",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Simple react app",
   "proxy": "http://localhost:5000/",
   "main": "index.js",
