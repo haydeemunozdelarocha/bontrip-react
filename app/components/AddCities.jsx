@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Header from './Header';
-import Map from './Map';
+import MapWrapper from './Map';
 import Sidepanel from './Sidepanel';
 import NewTripForm from './NewTripForm';
 import DraggableCardsList from './DraggableCardsList';
@@ -33,14 +33,14 @@ class AddCities extends React.Component {
   }
 
   render() {
+    console.log('cities', this.state.cities);
     return (
       <div>
         <Header navigation={false} home={false}/>
         <Sidepanel image={'/images/cities.png'} orientation="left">
-          <NewTripForm />
-          <DraggableCardsList moveCard={this.moveCard.bind(this)} cards={this.state.cities} title={'Cities'}/>
+          <NewTripForm cities={this.state.cities}/>
         </Sidepanel>
-        <Map loaded={this.state.loaded} location={this.state.location}  markers={this.state.cities}/>
+        <MapWrapper loaded={this.state.loaded} location={this.state.location}  markers={this.state.cities}/>
       </div>
     );
   }

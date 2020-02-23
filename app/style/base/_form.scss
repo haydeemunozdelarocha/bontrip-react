@@ -63,26 +63,6 @@ input[type=checkbox] {
   }
 }
 
-.input-light {
-  background-color: transparent;
-  border: $global-wide-border-width solid $white;
-  color: $white;
-
-  &:focus {
-    background-color: transparent;
-    border: $global-wide-border-width solid $white;
-    color: $white;
-  }
-
-  &::placeholder {
-    color: $white;
-  }
-
-  + label {
-    color: $white;
-  }
-}
-
 .input-with-top-label-wrapper { position: relative; }
 
 .input-with-top-label {

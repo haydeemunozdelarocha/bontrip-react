@@ -4,6 +4,7 @@ import DraggableCard from './DraggableCard';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import flow from 'lodash/flow';
+import moment from 'moment';
 
 class DraggableCardsList extends React.Component {
   constructor(props) {
@@ -11,6 +12,7 @@ class DraggableCardsList extends React.Component {
   }
 
   render() {
+    console.log('new props in cards!', this.props);
     let { cards } = this.props;
 
     return (
@@ -19,9 +21,11 @@ class DraggableCardsList extends React.Component {
         {  cards.map((card, i) => (
             <DraggableCard
               key={card.name}
+              indicatorColor={card.color}
               index={i}
               id={card.name}
-              text={`${card.country === 'United States' ? `${card.name}, ${card.state}` : `${card.name}, ${card.country}`}`}
+              text={card.name}
+              subtitle={card.startDate && card.endDate ? `${moment(card.endDate).diff(moment(card.startDate), 'days') + 1} day(s)` : ''}
               footerText={i > 0 && card.directions ? `${card.directions.distance} / ${card.directions.duration}` : 'Start'}
               moveCard={this.props.moveCard}
               class={'draggable-card'}
@@ -34,6 +38,6 @@ class DraggableCardsList extends React.Component {
 }
 
 export default flow(
-  connect(null),
+
   DragDropContext(HTML5Backend)
 )(DraggableCardsList);

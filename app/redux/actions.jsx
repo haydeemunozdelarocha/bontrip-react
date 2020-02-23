@@ -33,19 +33,12 @@ export var reorderCity = (trip_id, initial_index, new_index) => {
   };
 };
 
-export const addStart = (trip_id, start) => {
+export const addDates = (city_id, startDate, endDate) => {
   return {
-    type: 'ADD_START',
-    trip_id: trip_id,
-    start: start
-  };
-};
-
-export var addEnd = (trip_id, end) => {
-  return {
-    type: 'ADD_END',
-    trip_id: trip_id,
-    end: end
+    type: 'ADD_DATES',
+    city_id: city_id,
+    startDate: startDate,
+    endDate: endDate
   };
 };
 

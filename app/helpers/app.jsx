@@ -2,7 +2,10 @@ import * as actions from '../redux/actions';
 import { browserHistory } from 'react-router';
 import { store } from '../app';
 import Promise from 'promise';
-
+const axios = require('axios');
+import 'react-date-range/dist/styles.css'; // main style file
+import 'react-date-range/dist/theme/default.css';
+const uuidv4 = require("uuid/v4")
 export function parseCityObject(cityObject) {
   let city = {};
   let address_components = cityObject.address_components;
@@ -18,10 +21,8 @@ export function parseCityObject(cityObject) {
 }
 
 export function saveCity(cityInfo, callback) {
-  let is_formatted = 'address_components' in cityInfo;
-  let city = is_formatted ? parseCityObject(cityInfo) : cityInfo;
-  console.log('saving city', city);
-  store.dispatch(actions.addCity(null, city));
+  cityInfo.id = uuidv4();
+  store.dispatch(actions.addCity(null, cityInfo));
 
   if (callback) { callback(); }
 }
@@ -83,4 +84,46 @@ function getComponentType(address_component) {
 
 function isAddressComponentValid(address_component) {
   return address_component.long_name.length > 0;
+}
+
+export function getCitySuggestionsByName(searchText) {
+  return new Promise((resolve, reject) => {
+    axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${searchText}.json?types=place&access_token=pk.eyJ1IjoiaGF5ZGVlbXVub3oiLCJhIjoiY2pjbDhlaHFmMDR2ejMycXE0cng1dTR3bCJ9.0TAB6eibuUih8GaLPvaIpA`)
+      .then(function (response) {
+        const cities = [];
+
+        response.data.features.map((city) => {
+          cities.push({
+            name: city.matching_place_name || city.place_name,
+            coordinates: city.geometry.coordinates
+          });
+        });
+
+        resolve(cities);
+      })
+      .catch(function (error) {
+        reject(error);
+      })
+  });
+}
+
+export function getCitySuggestionsByCoordinates(longitude, latitude) {
+  return new Promise((resolve, reject) => {
+    axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?types=place&access_token=pk.eyJ1IjoiaGF5ZGVlbXVub3oiLCJhIjoiY2pjbDhlaHFmMDR2ejMycXE0cng1dTR3bCJ9.0TAB6eibuUih8GaLPvaIpA`)
+      .then(function (response) {
+        const cities = [];
+        console.log(response);
+        response.data.features.map((city) => {
+          cities.push({
+            name: city.matching_place_name || city.place_name,
+            coordinates: city.geometry.coordinates
+          });
+        });
+
+        resolve(cities[0]);
+      })
+      .catch(function (error) {
+        reject(error);
+      })
+  });
 }

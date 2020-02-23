@@ -6,7 +6,6 @@ import * as configureStore from './redux/configureStore';
 import Home from './components/Home';
 import AddCities from './components/AddCities';
 import './style/app.scss';
-import 'react-dates/initialize';
 
 const store = configureStore.loadState();
 

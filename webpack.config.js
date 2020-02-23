@@ -15,7 +15,8 @@ module.exports = {
         'ACCESSKEY': JSON.stringify(process.env.AWS_ACCESS_KEY_ID),
         'SECRETACCESSKEY': JSON.stringify(process.env.AWS_SECRET_ACCESS_KEY),
         'GOOGLE_KEY':JSON.stringify(process.env.GOOGLE_KEY),
-        'NODE_ENV': JSON.stringify('development')
+        'NODE_ENV': JSON.stringify('development'),
+        'BONTRIP_MAP_KEY': JSON.stringify(process.env.BONTRIP_MAP_KEY)
       }
     }),
   ],
@@ -54,7 +55,7 @@ module.exports = {
         ]
       },
       {
-        test: /\.scss$/,
+        test: /\.scss|css$/,
         use: [
           'style-loader',
           'css-loader',

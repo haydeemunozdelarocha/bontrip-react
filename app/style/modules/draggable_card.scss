@@ -7,20 +7,35 @@
   justify-content: space-between;
   margin-bottom: 1rem;
   padding: 1rem .5rem;
-}
+  position: relative;
 
-.draggable-card-content { width: calc(100% - 25px); }
+  &-indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
 
-.draggable-card-handle {
-  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path style="fill=#cce1e8" d="M12 18c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3zm0-9c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3zm0-9c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3z"/></svg>');
-  background-size: cover;
-  height: 25px;
-  width: 25px;
-}
+  &-subtitle {
+    font-size: 12px;
+    color: $medium-blue;
+  }
 
-.draggable-card-footer {
-  color: $medium-gray;
-  font-size: rem-calc(12);
-  width: 100%;
+  &-content { width: calc(100% - 25px); }
+
+  &-handle {
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path style="fill=#cce1e8" d="M12 18c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3zm0-9c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3zm0-9c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3z"/></svg>');
+    background-size: cover;
+    height: 25px;
+    width: 25px;
+  }
+
+  &-footer {
+    color: $medium-gray;
+    font-size: rem-calc(12);
+    width: 100%;
+  }
 }
 

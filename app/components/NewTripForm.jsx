@@ -3,47 +3,98 @@ import { connect } from 'react-redux';
 import * as actions from '../redux/actions';
 import moment from 'moment';
 import {store} from "../app";
-import { isInclusivelyAfterDay, DateRangePicker } from 'react-dates';
+import { DateRangePicker } from 'react-date-range';
+import DraggableCardsList from "./DraggableCardsList";
+const today = new Date();
+
+let colors = [];
 
 class NewTripForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      today: moment(new Date()),
-      start: moment(props.state.trip.selectedTrip.start) || today,
-      end: moment(props.state.trip.selectedTrip.end) || null,
-      focused: false
-    };
+
+    this.state = {}
+  }
+  componentWillMount() {
+    this.createCityDateRanges();
   }
 
-  setTripDates(dates) {
-    let { startDate, endDate } = dates;
-    let start_date_string = startDate.format('YYYY-MM-DD');
-    let end_date_string = endDate.format('YYYY-MM-DD');
+  componentWillUpdate(prevProps) {
+    if (JSON.stringify(prevProps) !== JSON.stringify(this.props)) {
+      this.createCityDateRanges();
+    }
+  }
 
-    store.dispatch(actions.addStart(null, start_date_string));
-    store.dispatch(actions.addEnd(null, end_date_string));
+  createCityDateRanges() {
+    const ranges = {};
+    colors = [];
+    this.props.cities.forEach((city) => {
+      colors.push(city.color);
+      ranges[city.id] = {
+        startDate: city.startDate ? new Date(city.startDate) : new Date(),
+        endDate:  city.endDate ? new Date(city.endDate) : new Date(),
+        key: city.id
+      };
 
-    this.setState({start: startDate, end: endDate});
+      console.log('pushin', {
+        startDate: city.startDate ? new Date(city.startDate) : new Date(),
+        endDate:  city.endDate ? new Date(city.endDate) : new Date(),
+        key: city.id
+      });
+
+    });
+
+    this.setState(ranges);
+  }
+
+  setTripDates(startDate, endDate, id) {
+    let start_date_string = moment(startDate).format('YYYY-MM-DD');
+    let end_date_string = moment(endDate).format('YYYY-MM-DD');
+    console.log('start_date_string', start_date_string);
+
+    store.dispatch(actions.addDates(id, start_date_string, end_date_string));
+  }
+
+
+  handleRangeChange(item) {
+    console.log('handling change', item);
+    const id = item && Object.keys(item).length > 0 && Object.keys(item)[0];
+    this.setTripDates(item[id].startDate, item[id].endDate, id);
+    return this.setState({ ...this.state, ...item })
+  }
+
+  getRangesArray() {
+    const selectionKeys = Object.keys(this.state.selectionRange);
+    const rangesArray = [];
+    selectionKeys.forEach((key) => {
+      rangesArray.push(this.state.selectionRange[key]);
+    });
+    console.log(rangesArray);
+    return rangesArray;
   }
 
   render() {
+    const ranges = Object.keys(this.state).length > 0 && Object.keys(this.state).map((key) => this.state[key]) || [];
+    console.log('ranges!', ranges)
+
     return (
-      <div>
-        <p>Select dates:</p>
-        <DateRangePicker
-          startDateId="startDate"
-          endDateId="endDate"
-          startDate={this.state.start}
-          endDate={this.state.end}
-          onDatesChange={(dates) => this.setTripDates(dates)}
-          focusedInput={this.state.focusedInput}
-          onFocusChange={(focusedInput) => { this.setState({ focusedInput })}}
-          numberOfMonths={1}
-          isOutsideRange={(day) => !isInclusivelyAfterDay(day, moment()) }
-          initialVisibleMonth={() => this.state.start}
-        />
-      </div>
+      <React.Fragment>
+        <div>
+          <p>Select dates:</p>
+          <DateRangePicker
+            minDate={today}
+            ranges={ranges}
+            date={today}
+            onChange={(item) => this.handleRangeChange(item)}
+            scroll={{enabled: true}}
+            direction="vertical"
+            months={1}
+            moveRangeOnFirstSelection={false}
+            rangeColors={colors}
+          />
+          <DraggableCardsList cards={this.props.cities} title="Select city:" moveCard={this.saveCityOrder}/>
+        </div>
+      </React.Fragment>
     );
   }
 }

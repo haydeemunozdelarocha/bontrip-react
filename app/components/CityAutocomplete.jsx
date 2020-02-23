@@ -1,53 +1,30 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import scriptLoader from 'react-async-script-loader';
-import { saveCity, navigateTo } from '../helpers/app';
+import {saveCity, navigateTo, getCitySuggestionsByName} from '../helpers/app';
 import { typingAnimation } from '../helpers/animations';
-
-const key = process.env.GOOGLE_KEY;
+import $ from 'jquery';
+import Autosuggest from 'react-autosuggest';
 
 class CityAutocomplete extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      loading: true
+      value: '',
+      suggestions: [],
+      placeholder: 'Where to?'
     };
   }
 
-  componentWillReceiveProps({ isScriptLoaded }) {
-    if (isScriptLoaded && !this.props.isScriptLoaded) {
-      this.setState({
-        loading: false
-      });
-    }
-  }
+  componentDidMount() {
+    this.animatePlaceholder();
 
-  shouldComponentUpdate(nextProps, nextState) {
-    if (!nextState.loading) {
-      this.loadAutocomplete();
-      return true;
-    }
-    return false;
-  }
-
-  loadAutocomplete() {
-    const input = document.getElementById('pac-input');
-    const options = {
-      types: ['(cities)']
-    };
-    const autocomplete = new google.maps.places.Autocomplete(input, options);
-
-    autocomplete.addListener('place_changed', function() {
-      let place = autocomplete.getPlace();
-      let callback = () => navigateTo('/newtrip');
-      saveCity(place, callback);
-    });
+    // $('.autocomplete-results-item').click(this.selectCity());
   }
 
   animatePlaceholder() {
     let animationWords = this.props.animatedPlaceholderWords;
-    let $animatedElement = $(this.refs.animatedPlaceholder);
+    let $animatedElement = $('.react-autosuggest__input');
 
     typingAnimation({$element: $animatedElement, wordsArray: animationWords, defaultPlaceholder: 'Where to?'});
 
@@ -60,16 +37,66 @@ class CityAutocomplete extends React.Component {
     });
   }
 
+  onChange = (event, { newValue }) => {
+    console.log('new value', newValue);
+    const city = this.getCityFromSuggestions(newValue);
+    console.log('CITY', city);
+    this.setState({
+      value: newValue
+    }, () => {
+      if (city) {
+        const callback = () => navigateTo('/newtrip');
+        saveCity(city, callback);
+      }
+    });
+  };
+
+  getCityFromSuggestions(name) {
+    const city = this.state.suggestions.filter(suggestion => suggestion.name === name);
+    return city.length > 0 ? city[0] : null;
+  }
+
+  onSuggestionsFetchRequested = ({ value }) => {
+    getCitySuggestionsByName(value).then((response) => {
+      this.setState({
+        suggestions: response
+      });
+    });
+  };
+
+  onSuggestionsClearRequested = () => {
+    this.setState({
+      suggestions: []
+    });
+  };
+
+  getSuggestionValue = suggestion => suggestion.name;
+
+  renderSuggestion = suggestion => (
+    <ul className="autocomplete-results">
+      <li className="autocomplete-results-item">{suggestion.name}</li>
+    </ul>
+  );
+
   render() {
-    if (this.props.animatedPlaceholder) {
-      this.animatePlaceholder();
-    }
+    const { value, suggestions, placeholder } = this.state;
+
+    const inputProps = {
+      placeholder: placeholder,
+      value,
+      onChange: this.onChange
+    };
 
     return (
-      <div className="autocomplete l-centered-block input-with-top-label-wrapper" >
-        <input className="input-light input-with-top-label" type="text" id="pac-input" ref={`${this.props.animatedPlaceholder ? 'animatedPlaceholder' : ''}`}/>
-        <label>Tell us where you going next: </label>
-      </div>
+      <Autosuggest
+        ref='animatedPlaceholder'
+        suggestions={suggestions}
+        onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+        onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+        getSuggestionValue={this.getSuggestionValue}
+        renderSuggestion={this.renderSuggestion}
+        inputProps={inputProps}
+      />
     );
   }
 }
@@ -78,7 +105,6 @@ const mapStateToProps = (state) => ({
   state: state
 });
 
-export default connect(mapStateToProps)(scriptLoader([`https://maps.googleapis.com/maps/api/js?key=${key}&libraries=places`]
-)(CityAutocomplete));
+export default connect(mapStateToProps)(CityAutocomplete);
 
 

@@ -1,11 +1,33 @@
+import moment from 'moment';
+
+const randomColor = require('randomcolor');
+
 export const tripReducer = (state = { selectedTrip: { cities: [], id: null }, likedPlaces: [] }, action) => {
   switch(action.type) {
   case 'ADD_CITY':
+    const index = state.selectedTrip.cities ? state.selectedTrip.cities.length : 0;
+
+    if (index % 2) {
+      action.city.color = randomColor({
+          luminosity: 'bright',
+          hue: 'red'
+        });
+    } else if (index % 3) {
+      action.city.color = randomColor({
+        luminosity: 'bright',
+        hue: 'yellow'
+      });
+    } else {
+      action.city.color = randomColor({
+        luminosity: 'bright',
+        hue: 'blue'
+      });
+    }
     return {
       ...state,
       selectedTrip: {
         trip_id: action.trip_id,
-        cities: state.selectedTrip.cities ? [...state.selectedTrip.cities,action.city] : [action.city]
+        cities: state.selectedTrip.cities ? [...state.selectedTrip.cities, action.city] : [action.city]
       }
     };
 
@@ -40,21 +62,30 @@ export const tripReducer = (state = { selectedTrip: { cities: [], id: null }, li
       }
     };
 
-  case 'ADD_START':
-    return {
-      ...state,
-      selectedTrip: {
-        ...state.selectedTrip,
-        start: action.start
+  case 'ADD_DATES':
+    const updatedCities = state.selectedTrip.cities.map((city) => {
+      if (action.city_id == city.id) {
+        city.startDate = action.startDate;
+        city.endDate = action.endDate;
       }
-    };
 
-  case 'ADD_END':
+      return city;
+    });
+    const sortedCities = updatedCities.sort(function(a, b){
+      if (moment(a.startDate).isBefore(moment(b.startDate))) {
+        return -1;
+      }
+      if (moment(a.startDate).isAfter(moment(b.startDate))) {
+        return 1;
+      }
+      return 0;
+    });
+    console.log('sortedCities', sortedCities);
+
     return {
       ...state,
       selectedTrip: {
-        ...state.selectedTrip,
-        end: action.end
+        cities: sortedCities
       }
     };
 

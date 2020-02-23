@@ -4,32 +4,39 @@
   @include breakpoint(medium down) { width: 60%; }
 }
 
-.pac-container {
+.react-autosuggest__suggestions-container {
   background-color: $medium-blue;
-  border: $global-wide-border-width solid $white;
-  box-shadow: none;
-  margin-top: -$global-border-width;
-  width: calc(25%) !important;
+  color: white;
+  position: absolute;
+  top: calc(4rem - 3px);
+  font-size: 1.2rem;
+  max-height: 12rem;
+  overflow-y: auto;
+  padding: 0;
+  margin: 0;
 
-  @include breakpoint(medium down) { width: calc(60% - 1px) !important; }
-}
+  ul {
+    margin: 0;
 
-.pac-item {
-  border-top: 0;
-  color: $white;
-  font-family: $body-font-family;
-  padding: .3rem .5rem;
+    > li {
+      cursor: pointer;
+      margin: 0;
+      list-style: none;
+      padding: 3px 4px;
 
-  &:hover {
-    background-color: get-color(warning);
+      &:hover {
+        color: black;
+        background-color: #edba61;
+        transition: background-color .1s ease;
+      }
+    }
   }
 
-  span {
-    color: $white;
-
-    :not(.pac-item-query) { color: $white; }
+  &--open {
+    border: 3px solid #000000;
   }
 }
 
-.pac-icon { display: none; }
-
+.react-autosuggest__container {
+  position: relative;
+}

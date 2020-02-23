@@ -80,6 +80,8 @@ export default class DraggableCard extends Component {
   render() {
     const {
       text,
+      subtitle,
+      indicatorColor,
       footerText,
       expandableContent,
       isDragging,
@@ -95,7 +97,9 @@ export default class DraggableCard extends Component {
       connectDragSource(
         connectDropTarget(
           <div className={`draggable-card ${this.props.class}`} style={{opacity}}>
+            <span className="draggable-card-indicator" style={{backgroundColor: indicatorColor}}></span>
             <span className="draggable-card-content">{text}</span>
+            <span className="draggable-card-subtitle">{subtitle}</span>
             <span className="draggable-card-handle"></span>
             <span className="draggable-card-footer">{footerText}</span>
           </div>)
