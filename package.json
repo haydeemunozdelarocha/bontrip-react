@@ -4,6 +4,9 @@
   "description": "Simple react app",
   "proxy": "http://localhost:5000/",
   "main": "index.js",
+  "engines": {
+    "node": "8.11.4"
+  },
   "scripts": {
     "test": "jest ./app",
     "api-test": "jest ./api",
