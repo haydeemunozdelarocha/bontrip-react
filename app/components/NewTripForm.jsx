@@ -4,7 +4,7 @@ import * as actions from '../redux/actions';
 import moment from 'moment';
 import {store} from "../app";
 import { DateRangePicker } from 'react-date-range';
-import DraggableCardsList from "./DraggableCardsList";
+import CityDraggableCardsList from "./CityDraggableCardsList";
 const today = new Date();
 
 let colors = [];
@@ -92,7 +92,7 @@ class NewTripForm extends React.Component {
             moveRangeOnFirstSelection={false}
             rangeColors={colors}
           />
-          <DraggableCardsList cards={this.props.cities} title="Select city:" moveCard={this.saveCityOrder}/>
+          <CityDraggableCardsList cards={this.props.cities} title="Select city:" moveCard={this.saveCityOrder}/>
         </div>
       </React.Fragment>
     );

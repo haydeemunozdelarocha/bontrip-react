@@ -1,12 +1,11 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import DraggableCard from './DraggableCard';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import flow from 'lodash/flow';
 import moment from 'moment';
 
-class DraggableCardsList extends React.Component {
+class CityDraggableCardsList extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -40,4 +39,4 @@ class DraggableCardsList extends React.Component {
 export default flow(
 
   DragDropContext(HTML5Backend)
-)(DraggableCardsList);
+)(CityDraggableCardsList);

@@ -4,7 +4,7 @@ import Header from './Header';
 import MapWrapper from './Map';
 import Sidepanel from './Sidepanel';
 import NewTripForm from './NewTripForm';
-import DraggableCardsList from './DraggableCardsList';
+import PlacesDraggableCardsList from './PlacesDraggableCardsList';
 import { store } from "../app";
 import * as actions from "../redux/actions";
 
@@ -33,12 +33,20 @@ class AddCities extends React.Component {
   }
 
   render() {
-    console.log('cities', this.state.cities);
     return (
       <div>
         <Header navigation={false} home={false}/>
-        <Sidepanel image={'/images/cities.png'} orientation="left">
+        <Sidepanel index={1} image={'/images/map.png'} orientation="left">
           <NewTripForm cities={this.state.cities}/>
+        </Sidepanel>
+        <Sidepanel color={'#e5500b'} index={2} image={'/images/cities.png'} orientation="left">
+          <select>
+            <option>Select a city</option>
+            {
+              this.state.cities.map((city) => <option>{city.name}</option>)
+            }
+          </select>
+          <PlacesDraggableCardsList cards={[]} title="Saved Places" />
         </Sidepanel>
         <MapWrapper loaded={this.state.loaded} location={this.state.location}  markers={this.state.cities}/>
       </div>

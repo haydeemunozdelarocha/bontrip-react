@@ -15,7 +15,7 @@ export const tripReducer = (state = { selectedTrip: { cities: [], id: null }, li
     } else if (index % 3) {
       action.city.color = randomColor({
         luminosity: 'bright',
-        hue: 'yellow'
+        hue: 'orange'
       });
     } else {
       action.city.color = randomColor({

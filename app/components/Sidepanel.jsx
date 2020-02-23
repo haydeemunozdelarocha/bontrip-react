@@ -16,11 +16,11 @@ class Sidepanel extends React.Component {
 
   render() {
     return (
-      <div className={`sidepanel sidepanel-${this.props.orientation} ${this.state.open ? 'is-open' : 'is-closed'}`} >
+      <div className={`sidepanel sidepanel-${this.props.orientation} ${this.state.open ? 'is-open' : 'is-closed'}`} style={{backgroundColor: this.props.color || '#2144b7'}}>
         <div className="sidepanel-content">
           {this.props.children}
         </div>
-        <div className="sidepanel-tab" onClick={this.togglePanel.bind(this)}>
+        <div className="sidepanel-tab" onClick={this.togglePanel.bind(this)} style={{top: `${this.props.index * 70}px`, backgroundColor: this.props.color || '#2144b7'}}>
           <img className="sidepanel-tab-image" src={this.props.image} />
         </div>
       </div>
