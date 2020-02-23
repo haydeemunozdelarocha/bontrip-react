@@ -8,7 +8,7 @@ import ReactMapboxGl, { MapContext, ZoomControl, Feature, Layer,Marker } from "r
 import SVG from 'react-inlinesvg';
 
 const Map = ReactMapboxGl({
-  accessToken: 'pk.eyJ1IjoiaGF5ZGVlbXVub3oiLCJhIjoiY2pjbDhlaHFmMDR2ejMycXE0cng1dTR3bCJ9.0TAB6eibuUih8GaLPvaIpA',
+  accessToken: process.env.BONTRIP_MAP_KEY,
 });
 
 class MapWrapper extends React.Component {
