@@ -11,7 +11,7 @@
     "watch": "webpack -w",
     "start": "node index.js",
     "start-api": "cd api && node server.js",
-    "heroku-postbuild": "npm run build"
+    "heroku-postbuild": "npm ci && npm run build"
   },
   "author": "Haydee Munoz",
   "license": "ISC",
