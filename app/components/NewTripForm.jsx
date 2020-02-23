@@ -33,17 +33,12 @@ class NewTripForm extends React.Component {
       ranges[city.id] = {
         startDate: city.startDate ? new Date(city.startDate) : new Date(),
         endDate:  city.endDate ? new Date(city.endDate) : new Date(),
-        key: city.id
+        key: city.id,
+        color: city.color
       };
-
-      console.log('pushin', {
-        startDate: city.startDate ? new Date(city.startDate) : new Date(),
-        endDate:  city.endDate ? new Date(city.endDate) : new Date(),
-        key: city.id
-      });
-
+      console.log('city', city);
     });
-
+    console.log('colors', colors);
     this.setState(ranges);
   }
 
@@ -75,7 +70,7 @@ class NewTripForm extends React.Component {
 
   render() {
     const ranges = Object.keys(this.state).length > 0 && Object.keys(this.state).map((key) => this.state[key]) || [];
-    console.log('ranges!', ranges)
+    console.log('colors!', colors)
 
     return (
       <React.Fragment>
@@ -90,7 +85,6 @@ class NewTripForm extends React.Component {
             direction="vertical"
             months={1}
             moveRangeOnFirstSelection={false}
-            rangeColors={colors}
           />
           <CityDraggableCardsList cards={this.props.cities} title="Select city:" moveCard={this.saveCityOrder}/>
         </div>

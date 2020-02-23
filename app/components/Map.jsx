@@ -4,7 +4,7 @@ import {
   saveCity,
   getCitySuggestionsByCoordinates
 } from '../helpers/app';
-import ReactMapboxGl, { MapContext, ZoomControl, Feature, Layer,Marker } from "react-mapbox-gl";
+import ReactMapboxGl, { ZoomControl, Marker } from "react-mapbox-gl";
 import SVG from 'react-inlinesvg';
 
 const Map = ReactMapboxGl({
@@ -14,9 +14,6 @@ const Map = ReactMapboxGl({
 class MapWrapper extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      currentZoom: 11
-    }
   }
 
   setMarker(map, event) {
@@ -25,8 +22,6 @@ class MapWrapper extends React.Component {
   }
 
   renderMarker(markerInfo, key) {
-    const dimensions = this.state.currentZoom ? (1 - (this.state.currentZoom / 100)) * 10 < 50 ? (1 - (this.state.currentZoom / 100)) * 40 : 50 : 30;
-    console.log('width', dimensions , this.state.currentZoom)
     return (
       <Marker
         coordinates={markerInfo.coordinates}
@@ -46,10 +41,6 @@ class MapWrapper extends React.Component {
         containerStyle={{
           height: "100vh",
           width: "100vw"
-        }}
-        onZoomEnd={el => {
-          this.setState({currentZoom: el.getZoom()});
-          console.log('zoom', this.state.currentZoom);
         }}
         onClick={this.setMarker}
         center={this.props.location}>
