@@ -26,7 +26,8 @@ class MapWrapper extends React.Component {
       <Marker
         coordinates={markerInfo.coordinates}
         key={key}
-        anchor="center">
+        anchor={'center'}
+        offset={[25, -50]}>
         <SVG id="map-marker" src="/images/marker.svg" preProcessor={code => code.replace(/fill=".*?"/g, `fill="${markerInfo.color}"`)}/>
       </Marker>
     );
