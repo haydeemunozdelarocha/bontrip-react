@@ -25,17 +25,15 @@ class MapWrapper extends React.Component {
   }
 
   renderMarker(markerInfo, key) {
-    const dimensions = this.state.currentZoom ? this.state.currentZoom * 5.5 < 50 ? this.state.currentZoom * 5.5 : 50 : 30;
+    const dimensions = this.state.currentZoom ? (1 - (this.state.currentZoom / 100)) * 10 < 50 ? (1 - (this.state.currentZoom / 100)) * 40 : 50 : 30;
     console.log('width', dimensions , this.state.currentZoom)
     return (
       <Marker
         coordinates={markerInfo.coordinates}
         key={key}
-        anchor={'center'}
-        offset={[(dimensions / 2), -(dimensions * 1.1)]}>
-        <div style={{height: `${dimensions}px`, width: `${dimensions}px`}}>
-          <SVG id="map-marker" src="/images/marker.svg" preProcessor={code => code.replace(/fill=".*?"/g, `fill="${markerInfo.color}"`)}/>
-        </div>
+        anchor={'bottom'}
+        offset={[0, 0]}>
+        <SVG id="map-marker" src="/images/marker.svg" preProcessor={code => code.replace(/fill=".*?"/g, `fill="${markerInfo.color}"`)}/>
       </Marker>
     );
   }
