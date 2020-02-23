@@ -25,7 +25,6 @@ class CityDraggableCardsList extends React.Component {
               id={card.name}
               text={card.name}
               subtitle={card.startDate && card.endDate ? `${moment(card.endDate).diff(moment(card.startDate), 'days') + 1} day(s)` : ''}
-              footerText={i > 0 && card.directions ? `${card.directions.distance} / ${card.directions.duration}` : 'Start'}
               moveCard={this.props.moveCard}
               class={'draggable-card'}
             />
