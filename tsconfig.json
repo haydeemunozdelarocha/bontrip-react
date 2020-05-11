@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "lib": [
+      "es6",
+      "dom"
+    ],
+    "isolatedModules": false,
+    "experimentalDecorators": true,
+    "target": "es6",
+    "module": "commonjs",
+    "noImplicitAny": false,
+    "esModuleInterop": true,
+    "baseUrl": "./app",
+    "jsx": "react",
+    "moduleResolution": "node",
+    "typeRoots": [
+      "./node_modules/@types"
+    ],
+  },
+  "exclude": [
+    "node_modules",
+  ]
+}

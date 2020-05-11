@@ -1,23 +1,18 @@
-// Architecture based on Smacss: https://smacss.com
-
-// 1. Utils
-@import 'utils/.mixins';
-//@import 'utils/helpers/.helpers';
-
-// 2. Base Styles: https://smacss.com/book/type-base
-// - Foundation is used as the style base.
-// - Set variables in base/settings. These include foundation settings but any extra can be added here too to use throughout the project.
-// - If there are base styles that aren't covered by foundation then add more here.
 @import 'base/.base';
-
-// 3. Layout Styles: https://smacss.com/book/type-layout
 @import 'layout/.layout';
+@import 'utils/.mixins';
 
-// 4. Module Styles: https://smacss.com/book/type-module
-@import 'modules/.modules';
+@import '../components/Slideshow/Slideshow.scss';
+@import '../components/CityAutocomplete/CityAutocomplete.scss';
+@import '../components/DraggableCard/DraggableCard.scss';
+@import '../components/Header/Header.scss';
+@import '../components/Sidepanel/Sidepanel.scss';
+@import '../components/Map/Map.scss';
+@import '../components/CityDatesForm/CityDatesForm.scss';
+@import '../containers/Home/Home.scss';
 
-// 5. State Styles: https://smacss.com/book/type-state
-//@import 'state/.state';
+@import '../../node_modules/react-date-range/dist/styles.css';
+@import '../../node_modules/react-date-range/dist/theme/default.css';
 
-// 6. Animation Styles
+
 @import 'animations/.animations';

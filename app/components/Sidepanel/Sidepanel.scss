@@ -1,0 +1,53 @@
+.sidepanel {
+  height: calc(100vh - #{$global-header-height});
+  opacity: 1;
+  padding:  2rem 2rem 0;
+  position: absolute;
+  top: $global-header-height;
+  width: 400px;
+  z-index: base-index(modal);
+
+  @include breakpoint(small only) {
+    padding: 1rem;
+    width: 80%;
+  }
+
+  &-left {
+    background-color: $medium-blue;
+    bottom: 0;
+    transition: all .4s cubic-bezier(.77, 0, .175, 1);
+    left: -400px;
+
+    p { color: $white; }
+
+    @include breakpoint(small only) {
+      left: -80%;
+    }
+
+    .sidepanel-tab {
+      right: -70px;
+      background-color: $medium-blue;
+    }
+
+    &.sidepanel-open {
+      left: 0;
+      z-index: 50;
+    }
+  }
+
+  &-tab {
+    cursor: pointer;
+    height: 70px;
+    padding: .7rem;
+    position: absolute;
+    tap-highlight-color: transparent;
+    -webkit-tap-highlight-color: transparent;
+    top: 70px;
+    width: 70px;
+  }
+
+  &-content {
+    height: 100%;
+    overflow-y: scroll;
+  }
+}

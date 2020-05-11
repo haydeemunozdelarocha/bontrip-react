@@ -3,18 +3,11 @@ console.log(__dirname);
 module.exports = {
   mode: 'development',
   entry: [
-    './app/app.jsx',
+    './app/app.tsx',
   ],
   plugins: [
-    new webpack.ProvidePlugin({
-      $: 'jquery',
-      jQuery: 'jquery'
-    }),
     new webpack.DefinePlugin({
       'process.env':{
-        'ACCESSKEY': JSON.stringify(process.env.AWS_ACCESS_KEY_ID),
-        'SECRETACCESSKEY': JSON.stringify(process.env.AWS_SECRET_ACCESS_KEY),
-        'GOOGLE_KEY':JSON.stringify(process.env.GOOGLE_KEY),
         'NODE_ENV': JSON.stringify('development'),
         'BONTRIP_MAP_KEY': JSON.stringify(process.env.BONTRIP_MAP_KEY)
       }
@@ -29,7 +22,7 @@ module.exports = {
   },
   resolve: {
     modules: ['node_modules'],
-    extensions: ['*','.js','.jsx']
+    extensions: ['*','.ts','.tsx', '.js', '.jsx']
   },
   module:{
     noParse: [
@@ -37,8 +30,13 @@ module.exports = {
     ],
     rules: [
       {
-        test: /\.(js|jsx)$/,
-        loader: 'babel-loader'
+        test: /\.(js|jsx|tsx)$/,
+        loader: 'babel-loader',
+        query: {compact: false}
+      },
+      {
+        test: /\.(ts|tsx)$/,
+        loader: "ts-loader"
       },
       {
         test: /\.svg$/,
@@ -49,7 +47,7 @@ module.exports = {
           {
             loader: "react-svg-loader",
             options: {
-              jsx: true
+              tsx: true
             }
           }
         ]

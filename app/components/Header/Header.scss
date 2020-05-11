@@ -1,0 +1,40 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  height: $global-header-height;
+  padding: .5rem 3rem 1rem;
+  z-index: base-index(modal);
+  width: 100%;
+
+  @include breakpoint(small only) { padding: 1rem; }
+
+  &.is-transparent {
+    color: $white;
+    background-color: transparent;
+    position: fixed;
+
+    .bontrip-logo {
+      fill: $white;
+      animation: colorFade 18s infinite;
+    }
+  }
+
+  @keyframes colorFade {
+    0%   { fill: #18b586; }
+    20% { fill: white; }
+    40%   { fill: #e3c322; }
+    60%   { fill: #fc6e08; }
+    80% {fill: #b25dd9; }
+    95% { fill:  $medium-blue; }
+  }
+
+  .bontrip-logo { fill: $black; }
+
+  .logo {
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+    display: block;
+    height: 40px;
+    width: 200px;
+  }
+}
