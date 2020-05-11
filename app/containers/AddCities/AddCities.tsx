@@ -4,7 +4,6 @@ import Header from '../../components/Header/Header';
 import MapWrapper from '../../components/Map/Map';
 import Sidepanel from '../../components/Sidepanel/Sidepanel';
 import CityDatesForm from '../../components/CityDatesForm/CityDatesForm';
-import * as actions from "../../redux/actions";
 import {Dispatch} from "redux";
 import {City} from "../../models/City";
 import {createGetActiveCity, createGetCities, createGetCityColors} from "../../redux/cities/cities.selectors";
@@ -17,10 +16,6 @@ interface IAddCitiesProps {
 }
 
 class AddCities extends React.Component<IAddCitiesProps> {
-  public moveCard(dragIndex, hoverIndex) {
-    this.props.dispatch(actions.reorderCity(null, dragIndex, hoverIndex));
-  }
-
   public render(): React.ReactNode {
     const {selectedCities, activeCity, cityColors} = this.props;
     return (

@@ -1,4 +1,3 @@
-import * as actions from '../redux/actions';
 import { browserHistory } from 'react-router';
 import {GlobalStore} from "../redux/GlobalStore";
 import {citiesActions} from "../redux/cities/cities.actions";
@@ -13,21 +12,6 @@ export function saveCity(cityInfo, index = 0, callback?) {
   GlobalStore.dispatch(citiesActions.add({city: formattedCity}));
   GlobalStore.dispatch(userActions.setActiveCity({cityId: formattedCity.id}));
   if (callback) { callback(); }
-}
-
-export function removeCity(cityInfo, callback) {
-  let city = cityInfo.name;
-  GlobalStore.dispatch(actions.removeCity(null, city));
-  if (callback) {
-    callback();
-  }
-}
-
-export function updateDirections(cityIndex, directions, callback) {
-  GlobalStore.dispatch(actions.updateCityDirections(null, cityIndex, directions));
-  if (callback) {
-    callback();
-  }
 }
 
 export function navigateTo(location) {
